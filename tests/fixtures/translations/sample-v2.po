@@ -1,0 +1,30 @@
+# Version 2: "Checkout" was removed upstream.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add to cart"
+msgstr ""
+
+msgctxt "verb"
+msgid "Order"
+msgstr ""
+
+msgctxt "noun"
+msgid "Order"
+msgstr ""
+
+msgid "%s product"
+msgid_plural "%s products"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Price: %s"
+msgstr ""
+
+msgid ""
+"Multi "
+"line\n"
+"text"
+msgstr ""

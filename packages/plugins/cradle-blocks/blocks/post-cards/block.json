@@ -1,0 +1,34 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle/post-cards",
+	"version": "1.0.0",
+	"title": "Post cards",
+	"category": "cradle",
+	"icon": "grid-view",
+	"description": "A live list of published entries (posts, pages or custom types) shown as cards.",
+	"keywords": [ "posts", "list", "cards", "query" ],
+	"textdomain": "cradle-blocks",
+	"attributes": {
+		"postType": { "type": "string", "default": "post" },
+		"taxonomy": { "type": "string", "default": "" },
+		"term": { "type": "string", "default": "" },
+		"count": { "type": "integer", "default": 3 },
+		"orderBy": { "type": "string", "enum": [ "date", "title", "menu_order", "modified" ], "default": "date" },
+		"order": { "type": "string", "enum": [ "desc", "asc" ], "default": "desc" },
+		"columns": { "type": "integer", "default": 3 },
+		"variant": { "type": "string", "enum": [ "plain", "outlined", "elevated" ], "default": "plain" },
+		"showImage": { "type": "boolean", "default": true },
+		"showExcerpt": { "type": "boolean", "default": true },
+		"headingLevel": { "type": "integer", "default": 3 },
+		"emptyMessage": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": [ "top", "bottom" ], "padding": true }
+	},
+	"editorScript": "file:./editor.js",
+	"style": "file:./style.css"
+}

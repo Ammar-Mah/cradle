@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-09-24",
+  "selected": {
+    "wordpress": "7.1.2",
+    "php": "8.3",
+    "mysql": "8.4",
+    "webServer": "Apache 2.4 (sandbox); Nginx guidance only",
+    "woocommerce": null
+  },
+  "supported": {
+    "wordpress": ">=7.1 <7.2",
+    "php": ">=8.3",
+    "mysql": ">=8.0",
+    "mariadb": ">=10.6",
+    "installations": [
+      "single-site",
+      "subdirectory",
+      "custom-table-prefix"
+    ],
+    "multisite": "unsupported (network activation is refused)",
+    "direction": [
+      "ltr",
+      "rtl"
+    ]
+  },
+  "requiredExtensions": [
+    "json",
+    "mbstring",
+    "mysqli",
+    "hash"
+  ],
+  "featureExtensions": {
+    "zip": "cradle-migration archives; scripts/build.php",
+    "tokenizer": "cradle-translations string extraction; skills/cradle-security/scripts/check-surface.php"
+  },
+  "notes": [
+    "WordPress 7.1.2 was the current release on 2026-09-24 (api.wordpress.org version-check). Recheck before each release.",
+    "PHP 8.3 is the proposed floor; the sandbox runs PHP 8.4.15. Re-verify against the target host.",
+    "WooCommerce compatibility (including HPOS) is not declared until tested."
+  ],
+  "tested": [
+    {
+      "date": "2026-09-24",
+      "wordpress": "7.1.2",
+      "php": "8.4.15",
+      "database": "MySQL 8.4.7",
+      "server": "Apache 2.4.65 (Windows, WAMP)",
+      "installation": "single site, subdirectory /cradle/wp, custom table prefix cw_; migration target /cradle/wp-target, prefix ct_",
+      "packages": "all 0.1.0",
+      "result": "204 passed, 0 failed, 3 skipped (full run) + lifecycle 4 passed",
+      "notTested": [
+        "WooCommerce/HPOS",
+        "PHP 8.3 floor itself",
+        "MariaDB",
+        "Nginx",
+        "HTTPS",
+        "multisite",
+        "WP-CLI"
+      ],
+      "record": "docs/verification-2026-09-24.md"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+/* Cradle Content — definition screens. Logical properties for RTL; scoped to .cradle-content. */
+.cradle-content .cradle-content-section { margin-block-start: 2em; padding-block-end: 4px; border-block-end: 1px solid #dcdcde; }
+.cradle-content .cradle-content-form__body { border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+.cradle-content .cradle-content-form__body[disabled] { opacity: 0.85; }
+.cradle-content .cradle-content-choice { display: inline-block; margin-inline-end: 1.25em; margin-block-end: 4px; }
+.cradle-content .cradle-content-icon-preview { vertical-align: middle; margin-inline-start: 6px; }
+.cradle-content .cradle-content-actions form { display: inline; }
+.cradle-content .cradle-content-danger { color: #b32d2e; }
+.cradle-content .cradle-content-rows { list-style: none; margin: 0 0 8px; padding: 0; }
+.cradle-content .cradle-content-row { margin-block-end: 8px; padding: 8px 12px; background: #fff; border: 1px solid #dcdcde; border-radius: 2px; }
+.cradle-content .cradle-content-row label { margin-inline-end: 4px; }
+.cradle-content .cradle-content-row-tools { display: inline-flex; flex-wrap: wrap; gap: 12px; margin-inline-start: 8px; }
+.cradle-content .cradle-content-field > fieldset > legend { font-weight: 600; padding-inline: 4px; }
+.cradle-content .cradle-content-field__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 16px; align-items: start; }
+.cradle-content .cradle-content-field__grid > div[data-types] { display: contents; }
+.cradle-content .cradle-content-field__grid > [data-types][hidden], .cradle-content .cradle-content-field__grid [hidden] { display: none; }
+.cradle-content .cradle-content-prop { margin: 4px 0; }
+.cradle-content .cradle-content-prop label, .cradle-content .cradle-content-prop legend { display: block; font-weight: 500; margin-block-end: 2px; }
+.cradle-content .cradle-content-prop input[type="text"], .cradle-content .cradle-content-prop select, .cradle-content .cradle-content-prop textarea { inline-size: 100%; max-inline-size: 100%; }
+.cradle-content .cradle-content-prop--options, .cradle-content fieldset.cradle-content-prop { grid-column: 1 / -1; }
+.cradle-content fieldset.cradle-content-prop { border: 1px solid #f0f0f1; padding: 6px 10px; }
+.cradle-content .cradle-content-prop .description { display: block; }
+.cradle-content .cradle-content-prop label.cradle-content-choice { display: inline-block; font-weight: 400; }
+.cradle-content .cradle-content-prop--required label, .cradle-content .cradle-content-prop--integer label, .cradle-content .cradle-content-prop--multiple label { font-weight: 400; }
+.cradle-content .cradle-content-export-list { margin-block: 8px; }
+.cradle-content [aria-invalid="true"] { border-color: #d63638; }
+.cradle-content button:focus-visible, .cradle-content a:focus-visible, .cradle-content input:focus-visible, .cradle-content select:focus-visible, .cradle-content textarea:focus-visible { outline: 2px solid #2271b1; outline-offset: 1px; }
+@media (max-width: 782px) {
+	.cradle-content .cradle-content-field__grid { grid-template-columns: 1fr; }
+	.cradle-content .cradle-content-row-tools { margin-inline-start: 0; margin-block-start: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.cradle-content * { transition: none !important; }
+}

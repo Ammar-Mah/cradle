@@ -1,0 +1,127 @@
+{
+  "format": "cradle-translations-examples",
+  "locale": "de_DE",
+  "note": "Translations of the Harbor & Pine site strings: child theme (text domain cradle-site) and the labels of its Cradle Content definitions (cradle-content, registered labels). Applied by bin/provision.php.",
+  "entries": [
+    {
+      "domain": "cradle-site",
+      "msgid": "12 Quay Street<br>Harborton",
+      "forms": [
+        "Quay Street 12<br>Harborton"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Studio",
+      "forms": [
+        "Studio"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Follow",
+      "forms": [
+        "Folgen"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "© %s Harbor & Pine Studio",
+      "forms": [
+        "© %s Harbor & Pine Studio"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Client",
+      "forms": [
+        "Auftraggeber"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Location",
+      "forms": [
+        "Standort"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Completed",
+      "forms": [
+        "Fertiggestellt"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "More projects",
+      "forms": [
+        "Weitere Projekte"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Project",
+      "context": "post type label",
+      "forms": [
+        "Projekt"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Projects",
+      "context": "post type label",
+      "forms": [
+        "Projekte"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Project type",
+      "context": "taxonomy label",
+      "forms": [
+        "Projektart"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Project types",
+      "context": "taxonomy label",
+      "forms": [
+        "Projektarten"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Project facts",
+      "context": "field group title",
+      "forms": [
+        "Projektdaten"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Client",
+      "context": "field label",
+      "forms": [
+        "Auftraggeber"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Location",
+      "context": "field label",
+      "forms": [
+        "Standort"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Completion year",
+      "context": "field label",
+      "forms": [
+        "Fertigstellungsjahr"
+      ]
+    }
+  ]
+}

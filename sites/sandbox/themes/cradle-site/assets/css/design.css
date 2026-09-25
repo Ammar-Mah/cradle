@@ -1,0 +1,145 @@
+/*
+ * Harbor & Pine source-design styles that theme.json tokens cannot express.
+ * Scoped to site class names (hp-*) or the site's own blocks; logical properties for RTL.
+ * Source: design-reference/harbor-pine/styles.css (see docs/asset-map.md).
+ */
+
+/* Header */
+.hp-site-header {
+	z-index: 20;
+	background-color: color-mix(in srgb, var(--wp--preset--color--base) 96%, transparent);
+}
+
+.hp-primary-nav .wp-block-navigation-item.hp-nav-cta > .wp-block-navigation-item__content {
+	border: 1px solid currentColor;
+	border-radius: 999px;
+	padding: 0.45rem 1.1rem;
+}
+
+.hp-primary-nav .wp-block-navigation-item__content:hover,
+.hp-primary-nav .wp-block-navigation-item__content:focus-visible {
+	color: var(--wp--preset--color--pine);
+}
+
+/* Eyebrows and section heads */
+.hp-eyebrow,
+.hp-eyebrow a {
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: var(--wp--preset--color--pine);
+	text-decoration: none;
+}
+
+.hp-section-head {
+	margin-block-end: 2rem;
+}
+
+.hp-section-head .hp-more a {
+	font-weight: 600;
+	text-decoration: none;
+}
+
+/* Service cards: white surface on paper, as in the reference */
+.hp-services .wp-block-cradle-feature-card.is-variant-outlined {
+	--cradle-card-padding: 2rem;
+	--cradle-card-radius: 14px;
+	background-color: var(--wp--preset--color--white);
+	gap: 0.75rem;
+}
+
+.hp-services .wp-block-cradle-feature-card__body {
+	color: var(--wp--preset--color--muted);
+}
+
+.wp-block-cradle-feature-card__title {
+	font-family: var(--wp--preset--font-family--serif);
+	font-weight: 400;
+	font-size: var(--wp--preset--font-size--large);
+}
+
+/* Project and journal lists */
+.hp-projects .wp-block-cradle-feature-card__media img {
+	border-radius: 14px;
+}
+
+.hp-projects .wp-block-cradle-feature-card__body,
+.hp-journal .wp-block-cradle-feature-card__body {
+	color: var(--wp--preset--color--muted);
+}
+
+.hp-journal .wp-block-cradle-feature-card {
+	border-block-start: 1px solid color-mix(in srgb, var(--wp--preset--color--contrast) 20%, transparent);
+	padding-block-start: 1.25rem;
+}
+
+/* Quote band */
+.hp-quote-band .wp-block-quote {
+	padding-inline-start: 0;
+	text-align: center;
+}
+
+.hp-quote-band .wp-block-quote cite {
+	font-family: var(--wp--preset--font-family--system);
+	font-size: var(--wp--preset--font-size--medium);
+	font-style: normal;
+	color: var(--wp--preset--color--muted);
+}
+
+/* Hero lede measure and centered call-to-action band */
+.hp-hero .has-lede-font-size {
+	max-inline-size: 34ch;
+}
+
+.hp-cta-band {
+	text-align: center;
+}
+
+.hp-cta-band p {
+	color: color-mix(in srgb, var(--wp--preset--color--white) 85%, transparent);
+}
+
+/* Buttons */
+.wp-block-button.is-style-outline > .wp-block-button__link {
+	border: 1px solid var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--contrast);
+	background: transparent;
+	padding-block: calc(0.85rem - 1px);
+}
+
+/* Footer */
+.hp-site-footer {
+	color: color-mix(in srgb, var(--wp--preset--color--white) 80%, transparent);
+}
+
+.hp-site-footer .hp-footer-brand a {
+	color: var(--wp--preset--color--white);
+}
+
+.hp-site-footer .hp-footer-heading {
+	font-family: var(--wp--preset--font-family--system);
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: color-mix(in srgb, var(--wp--preset--color--white) 60%, transparent);
+}
+
+.hp-site-footer a {
+	text-decoration: none;
+}
+
+.hp-footer-social.wp-block-social-links .wp-social-link {
+	color: var(--wp--preset--color--white);
+}
+
+/* Project facts */
+.hp-project-facts .hp-fact-label {
+	margin-block-end: 0.25rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.hp-project-facts p:empty::after {
+	content: "—";
+}

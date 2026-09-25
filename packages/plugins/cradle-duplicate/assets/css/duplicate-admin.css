@@ -1,0 +1,21 @@
+/* Cradle Duplicate admin styles (logical properties for RTL). */
+.row-actions a[data-cradle-duplicate][aria-disabled="true"] {
+	cursor: progress;
+	opacity: 0.7;
+}
+
+.cradle-duplicate-error {
+	color: #b32d2e;
+	font-weight: 600;
+}
+
+.cradle-duplicate-misc a[data-cradle-duplicate]:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.row-actions a[data-cradle-duplicate] {
+		transition: none;
+	}
+}

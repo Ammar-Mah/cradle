@@ -1,0 +1,45 @@
+# Cradle Translations test fixture (domain cradle-tr-po-test).
+msgid ""
+msgstr ""
+"Project-Id-Version: Fixture\n"
+"Language: de_CH\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: wp-admin/fixture.php:10
+msgid "Add to cart"
+msgstr "In den Warenkorb"
+
+#: wp-admin/fixture.php:11
+msgctxt "verb"
+msgid "Order"
+msgstr "Bestellen"
+
+#: wp-admin/fixture.php:12
+msgctxt "noun"
+msgid "Order"
+msgstr "Bestellung"
+
+#. translators: %s: product count
+#: wp-includes/js/fixture.js:5
+msgid "%s product"
+msgid_plural "%s products"
+msgstr[0] "%s Produkt"
+msgstr[1] "%s Produkte"
+
+#, fuzzy
+msgid "Checkout"
+msgstr "Kasse"
+
+msgid "Price: %s"
+msgstr "Preis: %d"
+
+msgid ""
+"Multi "
+"line\n"
+"text"
+msgstr "Mehrzeiliger\nText"
+
+#~ msgid "Old string"
+#~ msgstr "Alter Text"

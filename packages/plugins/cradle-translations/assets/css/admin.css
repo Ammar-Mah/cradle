@@ -1,0 +1,204 @@
+/* Cradle Translations editor. Logical properties only (RTL-safe). */
+
+.ct-wrap .ct-scope {
+	max-inline-size: 60rem;
+}
+
+.ct-locale-bar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem 2rem;
+	align-items: flex-start;
+	margin-block: 1rem;
+}
+
+.ct-inline {
+	display: inline-block;
+	margin-inline-end: 0.5rem;
+}
+
+.ct-locale-bar .description {
+	margin-block-start: 0.25rem;
+}
+
+.ct-panel {
+	padding-block: 1rem;
+}
+
+.ct-stats {
+	max-inline-size: 70rem;
+}
+
+.ct-publish-bar {
+	padding: 0.75rem 1rem;
+	margin-block: 1rem;
+	border-inline-start: 4px solid #2271b1;
+	background: #f0f6fc;
+}
+
+.ct-filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+	margin-block: 1rem;
+}
+
+.ct-table td,
+.ct-table th {
+	vertical-align: top;
+}
+
+.ct-table .ct-source-cell {
+	min-inline-size: 14rem;
+}
+
+.ct-source,
+.ct-form,
+.ct-draft {
+	unicode-bidi: plaintext;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+.ct-form,
+.ct-draft {
+	display: block;
+}
+
+.ct-form-n {
+	display: inline-block;
+	min-inline-size: 1.25rem;
+	color: #50575e;
+	font-size: 0.85em;
+}
+
+.ct-plural,
+.ct-context {
+	color: #50575e;
+	font-style: italic;
+}
+
+.ct-refs code {
+	font-size: 0.8em;
+	overflow-wrap: anywhere;
+}
+
+.ct-badge {
+	display: inline-block;
+	padding: 0.1rem 0.5rem;
+	border: 1px solid currentColor;
+	border-radius: 999px;
+	font-size: 0.8em;
+	line-height: 1.6;
+	white-space: nowrap;
+}
+
+.ct-badge--translated {
+	color: #00692a;
+	background: #edfaef;
+}
+
+.ct-badge--missing {
+	color: #8a2424;
+	background: #fcf0f1;
+}
+
+.ct-badge--fuzzy {
+	color: #6e4a00;
+	background: #fcf9e8;
+}
+
+.ct-badge--obsolete {
+	color: #50575e;
+	background: #f6f7f7;
+}
+
+.ct-badge--draft {
+	color: #0a4b78;
+	background: #f0f6fc;
+}
+
+.ct-meta {
+	display: grid;
+	grid-template-columns: minmax(8rem, max-content) 1fr;
+	gap: 0.5rem 1.5rem;
+	max-inline-size: 70rem;
+}
+
+.ct-meta dt {
+	font-weight: 600;
+}
+
+.ct-meta dd {
+	margin: 0;
+}
+
+.ct-source-text {
+	white-space: pre-wrap;
+	unicode-bidi: plaintext;
+}
+
+.ct-ref-list {
+	margin: 0;
+}
+
+.ct-editor {
+	max-inline-size: 60rem;
+}
+
+.ct-check {
+	display: block;
+	min-block-size: 1.4em;
+	font-size: 0.9em;
+}
+
+.ct-check--ok {
+	color: #00692a;
+}
+
+.ct-check--bad {
+	color: #8a2424;
+	font-weight: 600;
+}
+
+.ct-add {
+	margin-block-start: 2rem;
+	max-inline-size: 60rem;
+}
+
+.ct-add summary {
+	cursor: pointer;
+	font-weight: 600;
+}
+
+.ct-delete {
+	margin-block-start: 1rem;
+}
+
+.ct-domains form {
+	display: inline;
+}
+
+.ct-wrap a:focus-visible,
+.ct-wrap button:focus-visible,
+.ct-wrap summary:focus-visible,
+.ct-wrap select:focus-visible,
+.ct-wrap input:focus-visible,
+.ct-wrap textarea:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}
+
+@media (max-width: 782px) {
+	.ct-meta {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ct-wrap * {
+		transition: none !important;
+		animation: none !important;
+	}
+}

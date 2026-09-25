@@ -1,0 +1,3 @@
+# Store text files with LF line endings on every platform (WordPress convention).
+# Binary files (images, fonts, zips) are detected automatically.
+* text=auto eol=lf

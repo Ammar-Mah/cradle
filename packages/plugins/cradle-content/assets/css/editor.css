@@ -1,0 +1,11 @@
+/* Cradle Content — block editor panels. */
+.cradle-content-panel .cradle-content-field { margin-block-end: 16px; }
+.cradle-content-panel .cradle-content-label { font-weight: 500; margin-block: 0 6px; }
+.cradle-content-panel .cradle-content-description, .cradle-content-panel .cradle-content-empty { color: #757575; margin-block: 0 8px; }
+.cradle-content-panel .cradle-content-ref__list { margin: 0 0 8px; padding: 0; list-style: none; }
+.cradle-content-panel .cradle-content-ref__list li { display: flex; justify-content: space-between; gap: 8px; align-items: center; padding-block: 2px; }
+.cradle-content-panel .cradle-content-media__img { display: block; max-inline-size: 100%; block-size: auto; margin-block-end: 8px; }
+.cradle-content-panel .cradle-content-group__row { border: 1px solid #e0e0e0; padding: 8px; margin: 0 0 8px; }
+.cradle-content-panel .cradle-content-group__row legend { font-weight: 600; padding-inline: 4px; }
+.cradle-content-panel .cradle-content-row-tools { display: flex; flex-wrap: wrap; gap: 4px; }
+.cradle-content-panel .cradle-content-multi { border: 0; margin: 0 0 8px; padding: 0; }

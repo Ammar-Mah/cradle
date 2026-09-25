@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "cradle/share-links",
+	"version": "1.0.0",
+	"owner": "cradle-social",
+	"title": "Share links",
+	"description": "Links that share the current entry or page through allowlisted provider templates, plus optional copy-link and Web Share actions. The view script cradle-social-view is enqueued by the render service only when a copy-link or Web Share action is rendered.",
+	"category": "social",
+	"properties": {
+		"services": { "type": "array", "items": { "type": "string", "format": "slug", "maxLength": 31 }, "maxItems": 20, "default": [] },
+		"target": { "type": "string", "enum": [ "entry", "page" ], "default": "entry" },
+		"postId": { "type": "integer", "format": "post", "minimum": 0, "default": 0 },
+		"display": { "type": "string", "enum": [ "", "icon_text", "icon", "text" ], "default": "" },
+		"labelStyle": { "type": "string", "enum": [ "", "service", "action" ], "default": "" },
+		"size": { "type": "string", "enum": [ "", "small", "medium", "large" ], "default": "" },
+		"spacing": { "type": "string", "enum": [ "", "compact", "normal", "relaxed" ], "default": "" },
+		"shape": { "type": "string", "enum": [ "", "none", "square", "rounded", "circle" ], "default": "" },
+		"justify": { "type": "string", "enum": [ "start", "center", "end", "space-between" ], "default": "start" },
+		"label": { "type": "string", "default": "", "maxLength": 120 },
+		"showLabel": { "type": "string", "enum": [ "", "show", "hide" ], "default": "" },
+		"newTab": { "type": "string", "enum": [ "", "on", "off" ], "default": "" }
+	},
+	"slots": [],
+	"adapters": {
+		"gutenberg": { "blockName": "cradle/share-links" },
+		"shortcode": true
+	},
+	"assets": {
+		"styleHandles": [ "cradle-social" ],
+		"viewScriptHandles": []
+	},
+	"renderContract": "share-links-v1",
+	"themeOverride": "cradle/components/share-links/render.php",
+	"fallbackPolicy": "none",
+	"cache": "public"
+}

@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle/share-links",
+	"version": "1.0.0",
+	"title": "Share links",
+	"category": "cradle",
+	"icon": "share",
+	"description": "Let visitors share this entry or page with plain links, a copy-link button and the device share sheet. No remote scripts or share counts.",
+	"keywords": [ "share", "social", "copy link" ],
+	"textdomain": "cradle-social",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"services": { "type": "array", "items": { "type": "string" }, "default": [] },
+		"target": { "type": "string", "enum": [ "entry", "page" ], "default": "entry" },
+		"display": { "type": "string", "enum": [ "", "icon_text", "icon", "text" ], "default": "" },
+		"labelStyle": { "type": "string", "enum": [ "", "service", "action" ], "default": "" },
+		"size": { "type": "string", "enum": [ "", "small", "medium", "large" ], "default": "" },
+		"spacing": { "type": "string", "enum": [ "", "compact", "normal", "relaxed" ], "default": "" },
+		"shape": { "type": "string", "enum": [ "", "none", "square", "rounded", "circle" ], "default": "" },
+		"justify": { "type": "string", "enum": [ "start", "center", "end", "space-between" ], "default": "start" },
+		"label": { "type": "string", "default": "" },
+		"showLabel": { "type": "string", "enum": [ "", "show", "hide" ], "default": "" },
+		"newTab": { "type": "string", "enum": [ "", "on", "off" ], "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"spacing": { "margin": [ "top", "bottom" ] }
+	},
+	"editorScript": "file:./editor.js",
+	"style": "cradle-social"
+}

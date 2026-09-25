@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "mode": "website",
+  "siteId": "{{SITE_ID}}",
+  "parentTheme": "../cradle",
+  "childTheme": ".",
+  "corePlugin": "../../plugins/cradle",
+  "pluginRoot": "../../plugins",
+  "northstar": "northstar.md",
+  "state": "docs/project-state.md",
+  "skillIndex": "../cradle/skills/INDEX.md",
+  "editorAdapter": "gutenberg",
+  "environment": "development"{{SOURCE_LAYOUT}}
+}

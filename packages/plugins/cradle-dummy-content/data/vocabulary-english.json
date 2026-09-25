@@ -1,0 +1,63 @@
+{
+	"format": "cradle-dummy-vocabulary",
+	"formatVersion": 1,
+	"name": "English (plain sample vocabulary)",
+	"license": "Original word lists written for Cradle; GPL-2.0-or-later.",
+	"adjectives": [
+		"quiet", "bright", "gentle", "modern", "simple", "careful", "curious", "steady", "open", "local",
+		"seasonal", "practical", "honest", "patient", "clever", "early", "late", "warm", "cool", "fresh",
+		"green", "golden", "silver", "wooden", "shared", "hidden", "useful", "friendly", "small", "large",
+		"rapid", "slow", "familiar", "unusual", "tidy", "calm", "bold", "light", "heavy", "clear",
+		"rural", "urban", "coastal", "northern", "southern", "weekly", "daily", "annual", "hand-made", "reliable",
+		"flexible", "thoughtful", "playful", "focused", "balanced", "sturdy", "compact", "spacious", "vivid", "subtle"
+	],
+	"nouns": [
+		"garden", "workshop", "library", "kitchen", "harbor", "market", "studio", "journal", "bridge", "river",
+		"meadow", "orchard", "window", "lantern", "notebook", "bicycle", "recipe", "project", "method", "habit",
+		"routine", "teacher", "neighbor", "traveler", "gardener", "baker", "designer", "builder", "reader", "writer",
+		"festival", "season", "weekend", "morning", "evening", "journey", "map", "compass", "shelf", "table",
+		"chair", "lamp", "path", "street", "village", "city", "coast", "valley", "forest", "island",
+		"planner", "checklist", "toolkit", "framework", "pattern", "palette", "texture", "rhythm", "story", "chapter"
+	],
+	"verbs": [
+		"build", "plan", "share", "improve", "explore", "gather", "organize", "measure", "repair", "discover",
+		"arrange", "prepare", "collect", "design", "review", "sketch", "polish", "follow", "support", "welcome",
+		"shape", "balance", "compare", "test", "refine", "choose", "connect", "describe", "notice", "celebrate"
+	],
+	"adverbs": [
+		"quietly", "carefully", "slowly", "quickly", "gently", "openly", "patiently", "steadily", "happily", "simply",
+		"clearly", "boldly", "calmly", "neatly", "warmly"
+	],
+	"titles": {
+		"headline": [
+			"{Adj} {noun} notes",
+			"The {adj} {noun}",
+			"A {adj} guide to the {noun}",
+			"{Adj} ideas for every {noun}",
+			"Inside the {adj} {noun}",
+			"Why the {noun} feels {adj}",
+			"{Adj} {nouns} and {adj} {nouns}",
+			"Field notes from a {adj} {noun}"
+		],
+		"question": [
+			"How do you {verb} a {adj} {noun}?",
+			"What makes a {noun} {adj}?",
+			"Can a {noun} be too {adj}?",
+			"Why {verb} the {noun} at all?",
+			"Who will {verb} the {adj} {noun}?",
+			"Is the {adj} {noun} worth it?"
+		]
+	},
+	"sentences": [
+		"The {adj} {noun} {verbs} a {adj} {noun}.",
+		"Every {noun} {verbs} {adverb} when the {noun} is {adj}.",
+		"{Adj} {nouns} {verb} {adverb} near the {noun}.",
+		"We {verb} the {noun} and {verb} the {adj} {noun} together.",
+		"A {adj} {noun} can {verb} any {noun}.",
+		"Most {nouns} {verb} better with a {adj} {noun}.",
+		"The {noun} was {adj}, so the {noun} {verbs} {adverb}.",
+		"Try to {verb} one {adj} {noun} each {noun}.",
+		"Nobody expected the {noun} to {verb} so {adverb}.",
+		"Here the {noun} {verbs} while the {noun} stays {adj}."
+	]
+}

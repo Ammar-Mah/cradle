@@ -1,0 +1,365 @@
+/**
+ * Cradle Admin skin.
+ *
+ * Loaded only on approved admin screens and only when a Cradle body class is
+ * present. Rules mirror the selectors of the WordPress admin color scheme with a
+ * zero-specificity :where(body.cradle-admin-*) prefix, so WordPress' own
+ * precedence (folded menu, responsive menu, current items) is preserved and this
+ * file (loaded after the "colors" stylesheet) only swaps values.
+ * Values come from CSS custom properties printed from validated settings.
+ * Logical properties keep right-to-left layouts correct. No DOM is rewritten.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Base colors                                                          */
+/* ------------------------------------------------------------------ */
+
+/* Specificity (0,1,1) beats the scheme's plain `body` rule. */
+body.cradle-admin-skin {
+	background-color: var(--cradle-admin-bg, #f0f0f0);
+	color: var(--cradle-admin-text, #1e1e1e);
+}
+
+/* Element-level specificity only: any classed WordPress rule (row actions, delete links, tabs) keeps its color. */
+:where(body.cradle-admin-skin:not(.block-editor-page) #wpbody-content) :is(h1, h2, h3, h4, h5, h6) {
+	color: var(--cradle-admin-text, #1e1e1e);
+}
+
+:where(body.cradle-admin-skin:not(.block-editor-page) #wpbody-content, body.cradle-admin-skin #wpfooter) a {
+	color: var(--cradle-admin-accent, #3858e9);
+}
+
+:where(body.cradle-admin-skin:not(.block-editor-page) #wpbody-content, body.cradle-admin-skin #wpfooter) a:is(:hover, :active) {
+	color: var(--cradle-admin-accent-hover, #183ad6);
+}
+
+/* Panels keep white surfaces; only their borders follow the border color. */
+:where(body.cradle-admin-skin) :is(.postbox, .postbox .postbox-header, .card, .stuffbox, .widefat, #screen-meta, .welcome-panel) {
+	border-color: var(--cradle-admin-border, #dcdcde);
+}
+
+/* Tabs blend into the page background exactly like the native scheme. */
+:where(body.cradle-admin-skin) .about-wrap .nav-tab-active,
+:where(body.cradle-admin-skin) .nav-tab-active,
+:where(body.cradle-admin-skin) .nav-tab-active:hover {
+	background-color: var(--cradle-admin-bg, #f0f0f0);
+	border-bottom-color: var(--cradle-admin-bg, #f0f0f0);
+}
+
+/* Visible keyboard focus (additive; never removes native focus styles). */
+body.cradle-admin-skin.wp-core-ui:not(.block-editor-page) :is(a, button, input, select, textarea, summary, [tabindex], .button):focus-visible {
+	outline: 2px solid var(--cradle-admin-focus, #3858e9);
+	outline-offset: 1px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Admin menu                                                           */
+/* ------------------------------------------------------------------ */
+
+:where(body.cradle-admin-skin) #adminmenuback,
+:where(body.cradle-admin-skin) #adminmenuwrap,
+:where(body.cradle-admin-skin) #adminmenu {
+	background: var(--cradle-admin-menu-bg, #1e1e1e);
+}
+
+:where(body.cradle-admin-skin) #adminmenu a {
+	color: var(--cradle-admin-menu-text, #fff);
+}
+
+:where(body.cradle-admin-skin) #adminmenu div.wp-menu-image::before {
+	color: var(--cradle-admin-menu-text, #fff);
+}
+
+:where(body.cradle-admin-skin) #adminmenu a:hover,
+:where(body.cradle-admin-skin) #adminmenu li.menu-top:hover,
+:where(body.cradle-admin-skin) #adminmenu li.opensub > a.menu-top,
+:where(body.cradle-admin-skin) #adminmenu li > a.menu-top:focus {
+	color: var(--cradle-admin-on-accent, #fff);
+	background-color: var(--cradle-admin-accent, #3858e9);
+}
+
+:where(body.cradle-admin-skin) #adminmenu li.menu-top:hover div.wp-menu-image::before,
+:where(body.cradle-admin-skin) #adminmenu li.opensub > a.menu-top div.wp-menu-image::before {
+	color: var(--cradle-admin-on-accent, #fff);
+}
+
+:where(body.cradle-admin-skin) #adminmenu .wp-submenu,
+:where(body.cradle-admin-skin) #adminmenu .wp-has-current-submenu .wp-submenu,
+:where(body.cradle-admin-skin) #adminmenu .wp-has-current-submenu.opensub .wp-submenu,
+:where(body.cradle-admin-skin) #adminmenu a.wp-has-current-submenu:focus + .wp-submenu {
+	background: var(--cradle-admin-submenu-bg, #0c0c0c);
+}
+
+:where(body.cradle-admin-skin) #adminmenu li.wp-has-submenu.wp-not-current-submenu.opensub:hover::after,
+:where(body.cradle-admin-skin) #adminmenu li.wp-has-submenu.wp-not-current-submenu:focus-within::after {
+	border-inline-end-color: var(--cradle-admin-submenu-bg, #0c0c0c);
+}
+
+:where(body.cradle-admin-skin) #adminmenu .wp-submenu .wp-submenu-head,
+:where(body.cradle-admin-skin) #adminmenu .wp-submenu a,
+:where(body.cradle-admin-skin) #adminmenu .wp-has-current-submenu .wp-submenu a,
+:where(body.cradle-admin-skin) #adminmenu a.wp-has-current-submenu:focus + .wp-submenu a,
+:where(body.cradle-admin-skin) #adminmenu .wp-has-current-submenu.opensub .wp-submenu a {
+	color: var(--cradle-admin-menu-text, #fff);
+}
+
+/* Submenu hover/focus: underline as a non-color cue, same readable text color. */
+:where(body.cradle-admin-skin) #adminmenu .wp-submenu a:focus,
+:where(body.cradle-admin-skin) #adminmenu .wp-submenu a:hover,
+:where(body.cradle-admin-skin) #adminmenu .wp-has-current-submenu .wp-submenu a:focus,
+:where(body.cradle-admin-skin) #adminmenu .wp-has-current-submenu .wp-submenu a:hover,
+:where(body.cradle-admin-skin) #adminmenu a.wp-has-current-submenu:focus + .wp-submenu a:focus,
+:where(body.cradle-admin-skin) #adminmenu a.wp-has-current-submenu:focus + .wp-submenu a:hover,
+:where(body.cradle-admin-skin) #adminmenu .wp-has-current-submenu.opensub .wp-submenu a:focus,
+:where(body.cradle-admin-skin) #adminmenu .wp-has-current-submenu.opensub .wp-submenu a:hover {
+	color: var(--cradle-admin-menu-text, #fff);
+	text-decoration: underline;
+}
+
+:where(body.cradle-admin-skin) #adminmenu .wp-submenu li.current a,
+:where(body.cradle-admin-skin) #adminmenu a.wp-has-current-submenu:focus + .wp-submenu li.current a,
+:where(body.cradle-admin-skin) #adminmenu .wp-has-current-submenu.opensub .wp-submenu li.current a {
+	color: var(--cradle-admin-menu-text, #fff);
+}
+
+:where(body.cradle-admin-skin) ul#adminmenu a.wp-has-current-submenu::after,
+:where(body.cradle-admin-skin) ul#adminmenu > li.current > a.current::after {
+	border-inline-end-color: var(--cradle-admin-bg, #f0f0f0);
+}
+
+:where(body.cradle-admin-skin) #adminmenu li.current a.menu-top,
+:where(body.cradle-admin-skin) #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+:where(body.cradle-admin-skin) #adminmenu li.wp-has-current-submenu .wp-submenu .wp-submenu-head,
+:where(body.cradle-admin-skin).folded #adminmenu li.current.menu-top {
+	color: var(--cradle-admin-on-accent, #fff);
+	background: var(--cradle-admin-accent, #3858e9);
+}
+
+:where(body.cradle-admin-skin) #adminmenu li.wp-has-current-submenu div.wp-menu-image::before,
+:where(body.cradle-admin-skin) #adminmenu a.current:hover div.wp-menu-image::before,
+:where(body.cradle-admin-skin) #adminmenu li.current div.wp-menu-image::before,
+:where(body.cradle-admin-skin) #adminmenu li.wp-has-current-submenu a:focus div.wp-menu-image::before,
+:where(body.cradle-admin-skin) #adminmenu li.wp-has-current-submenu.opensub div.wp-menu-image::before {
+	color: var(--cradle-admin-on-accent, #fff);
+}
+
+/* Count bubbles stay visible: accent bubble, inverted on the highlighted item. */
+:where(body.cradle-admin-skin) #adminmenu .menu-counter,
+:where(body.cradle-admin-skin) #adminmenu .awaiting-mod,
+:where(body.cradle-admin-skin) #adminmenu .update-plugins {
+	color: var(--cradle-admin-on-accent, #fff);
+	background: var(--cradle-admin-accent, #3858e9);
+}
+
+:where(body.cradle-admin-skin) #adminmenu li.current a .awaiting-mod,
+:where(body.cradle-admin-skin) #adminmenu li a.wp-has-current-submenu .update-plugins,
+:where(body.cradle-admin-skin) #adminmenu li:hover a .awaiting-mod,
+:where(body.cradle-admin-skin) #adminmenu li.menu-top:hover > a .update-plugins {
+	color: var(--cradle-admin-menu-text, #fff);
+	background: var(--cradle-admin-submenu-bg, #0c0c0c);
+}
+
+:where(body.cradle-admin-skin) #collapse-button {
+	color: var(--cradle-admin-menu-text, #fff);
+}
+
+:where(body.cradle-admin-skin) #collapse-button:hover,
+:where(body.cradle-admin-skin) #collapse-button:focus {
+	color: var(--cradle-admin-on-accent, #fff);
+	background: var(--cradle-admin-accent, #3858e9);
+}
+
+/* ------------------------------------------------------------------ */
+/* Admin bar (admin screens only; the front-end toolbar is unchanged)  */
+/* ------------------------------------------------------------------ */
+
+:where(body.cradle-admin-skin) #wpadminbar {
+	color: var(--cradle-admin-menu-text, #fff);
+	background: var(--cradle-admin-menu-bg, #1e1e1e);
+}
+
+:where(body.cradle-admin-skin) #wpadminbar .ab-item,
+:where(body.cradle-admin-skin) #wpadminbar a.ab-item,
+:where(body.cradle-admin-skin) #wpadminbar > #wp-toolbar span.ab-label,
+:where(body.cradle-admin-skin) #wpadminbar > #wp-toolbar span.noticon,
+:where(body.cradle-admin-skin) #wpadminbar .ab-icon,
+:where(body.cradle-admin-skin) #wpadminbar .ab-icon::before,
+:where(body.cradle-admin-skin) #wpadminbar .ab-item::before,
+:where(body.cradle-admin-skin) #wpadminbar .ab-item::after,
+:where(body.cradle-admin-skin) #wpadminbar #adminbarsearch::before {
+	color: var(--cradle-admin-menu-text, #fff);
+}
+
+:where(body.cradle-admin-skin) #wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item,
+:where(body.cradle-admin-skin) #wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus,
+:where(body.cradle-admin-skin) #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
+:where(body.cradle-admin-skin) #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item,
+:where(body.cradle-admin-skin) #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item {
+	color: var(--cradle-admin-menu-text, #fff);
+	background: var(--cradle-admin-submenu-bg, #0c0c0c);
+}
+
+:where(body.cradle-admin-skin) #wpadminbar:not(.mobile) > #wp-toolbar li:hover span.ab-label,
+:where(body.cradle-admin-skin) #wpadminbar:not(.mobile) > #wp-toolbar li.hover span.ab-label,
+:where(body.cradle-admin-skin) #wpadminbar:not(.mobile) > #wp-toolbar a:focus span.ab-label,
+:where(body.cradle-admin-skin) #wpadminbar:not(.mobile) li:hover .ab-icon::before,
+:where(body.cradle-admin-skin) #wpadminbar:not(.mobile) li:hover .ab-item::before,
+:where(body.cradle-admin-skin) #wpadminbar:not(.mobile) li:hover .ab-item::after,
+:where(body.cradle-admin-skin) #wpadminbar:not(.mobile) li:hover #adminbarsearch::before {
+	color: var(--cradle-admin-menu-text, #fff);
+}
+
+:where(body.cradle-admin-skin) #wpadminbar .menupop .ab-sub-wrapper,
+:where(body.cradle-admin-skin) #wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
+:where(body.cradle-admin-skin) #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
+	background: var(--cradle-admin-submenu-bg, #0c0c0c);
+}
+
+:where(body.cradle-admin-skin) #wpadminbar .ab-submenu .ab-item,
+:where(body.cradle-admin-skin) #wpadminbar .quicklinks .menupop ul li a,
+:where(body.cradle-admin-skin) #wpadminbar .quicklinks .menupop.hover ul li a,
+:where(body.cradle-admin-skin) #wpadminbar.nojs .quicklinks .menupop:hover ul li a,
+:where(body.cradle-admin-skin) #wpadminbar #wp-admin-bar-user-info .display-name,
+:where(body.cradle-admin-skin) #wpadminbar #wp-admin-bar-user-info .username {
+	color: var(--cradle-admin-menu-text, #fff);
+}
+
+:where(body.cradle-admin-skin) #wpadminbar .quicklinks .menupop ul li a:hover,
+:where(body.cradle-admin-skin) #wpadminbar .quicklinks .menupop ul li a:focus,
+:where(body.cradle-admin-skin) #wpadminbar .quicklinks .menupop.hover ul li a:hover,
+:where(body.cradle-admin-skin) #wpadminbar .quicklinks .menupop.hover ul li a:focus,
+:where(body.cradle-admin-skin) #wpadminbar #wp-admin-bar-user-info a:hover .display-name {
+	color: var(--cradle-admin-menu-text, #fff);
+	text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout controls (never on block editor screens)                     */
+/* ------------------------------------------------------------------ */
+
+@media screen and (min-width: 961px) {
+	:where(body.cradle-admin-layout) #adminmenuback,
+	:where(body.cradle-admin-layout) #adminmenuwrap,
+	:where(body.cradle-admin-layout) #adminmenu,
+	:where(body.cradle-admin-layout) #adminmenu .wp-submenu {
+		inline-size: var(--cradle-admin-sidebar-width, 160px);
+	}
+
+	/* Flyout position; the current (inline) submenu keeps WordPress' own offset. */
+	:where(body.cradle-admin-layout) #adminmenu .wp-submenu {
+		inset-inline-start: var(--cradle-admin-sidebar-width, 160px);
+	}
+
+	:where(body.cradle-admin-layout) #adminmenu .wp-not-current-submenu .wp-submenu {
+		min-inline-size: var(--cradle-admin-sidebar-width, 160px);
+	}
+
+	:where(body.cradle-admin-layout) #wpcontent,
+	:where(body.cradle-admin-layout) #wpfooter {
+		margin-inline-start: var(--cradle-admin-sidebar-width, 160px);
+	}
+}
+
+@media screen and (min-width: 783px) {
+	:where(body.cradle-admin-layout) #wpcontent {
+		padding-inline-start: var(--cradle-admin-spacing, 20px);
+	}
+
+	:where(body.cradle-admin-layout) .wrap {
+		margin-inline-end: var(--cradle-admin-spacing, 20px);
+	}
+}
+
+:where(body.cradle-admin-layout).wp-core-ui .button,
+:where(body.cradle-admin-layout) :is(input[type="text"], input[type="password"], input[type="date"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="week"], select, textarea),
+:where(body.cradle-admin-layout) :is(.postbox, .card, .stuffbox, .notice, .welcome-panel) {
+	border-radius: var(--cradle-admin-radius, 2px);
+}
+
+/* Density */
+:where(body.cradle-admin-density-compact) .widefat :is(td, th) {
+	padding-block: 4px;
+}
+
+:where(body.cradle-admin-density-compact) .form-table th {
+	padding-block: 10px;
+}
+
+:where(body.cradle-admin-density-compact) .form-table td {
+	padding-block: 6px;
+}
+
+:where(body.cradle-admin-density-compact) .postbox .inside {
+	margin-block: 6px;
+}
+
+:where(body.cradle-admin-density-comfortable) .widefat :is(td, th) {
+	padding-block: 12px;
+}
+
+:where(body.cradle-admin-density-comfortable) .form-table th {
+	padding-block: 28px;
+}
+
+:where(body.cradle-admin-density-comfortable) .form-table td {
+	padding-block: 22px;
+}
+
+:where(body.cradle-admin-density-comfortable) .postbox .inside {
+	margin-block: 18px;
+}
+
+/* Compact controls: WordPress' own 32px compact size (above the 24px minimum target). */
+:where(body.cradle-admin-controls-compact).wp-core-ui .button:where(:not(.button-small, .button-hero, .button-link, .button-large)) {
+	min-height: 32px;
+	line-height: 2.30769231;
+	padding-inline: 12px;
+}
+
+:where(body.cradle-admin-controls-compact) :is(input[type="text"], input[type="password"], input[type="date"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="week"]) {
+	min-height: 32px;
+}
+
+:where(body.cradle-admin-controls-compact) select {
+	min-height: 32px;
+	line-height: 2.14285714;
+}
+
+/* Typography (permitted local stacks only) */
+body.cradle-admin-font-family:not(.block-editor-page) {
+	font-family: var(--cradle-admin-font-family, inherit);
+}
+
+body.cradle-admin-font-size:not(.block-editor-page) {
+	font-size: var(--cradle-admin-font-size, 13px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Menu logo (decorative; the brand name is also in the title/admin bar) */
+/* ------------------------------------------------------------------ */
+
+:where(body.cradle-admin-logo) #adminmenuwrap::before {
+	content: "";
+	display: block;
+	box-sizing: border-box;
+	inline-size: min(var(--cradle-admin-logo-width, 120px), calc(100% - 24px));
+	block-size: var(--cradle-admin-logo-height, 40px);
+	margin: 16px auto 4px;
+	background: var(--cradle-admin-logo, none) center / contain no-repeat;
+}
+
+:where(body.cradle-admin-logo.folded) #adminmenuwrap::before {
+	display: none;
+}
+
+@media screen and (max-width: 960px) {
+	:where(body.cradle-admin-logo.auto-fold) #adminmenuwrap::before {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	:where(body.cradle-admin-logo) #adminmenuwrap::before {
+		display: none;
+	}
+}

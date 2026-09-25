@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "cradle/feature-card",
+	"version": "1.0.0",
+	"owner": "cradle-blocks",
+	"title": "Feature card",
+	"description": "A card with optional image, heading, limited rich text and a link.",
+	"category": "content",
+	"properties": {
+		"title": { "type": "string", "default": "", "maxLength": 200 },
+		"body": { "type": "string", "format": "limited-rich-text", "default": "", "maxLength": 4000 },
+		"imageId": { "type": "integer", "format": "attachment", "minimum": 0, "default": 0 },
+		"imageAlt": { "type": "string", "default": "", "maxLength": 300 },
+		"link": { "type": "string", "format": "url", "default": "", "maxLength": 2000 },
+		"linkText": { "type": "string", "default": "", "maxLength": 120 },
+		"titleLink": { "type": "boolean", "default": false },
+		"headingLevel": { "type": "integer", "minimum": 2, "maximum": 6, "default": 3 },
+		"variant": { "type": "string", "enum": [ "plain", "outlined", "elevated" ], "default": "plain" },
+		"mediaPosition": { "type": "string", "enum": [ "top", "start" ], "default": "top" }
+	},
+	"slots": [],
+	"adapters": {
+		"gutenberg": { "blockName": "cradle/feature-card" },
+		"shortcode": true
+	},
+	"assets": {
+		"styleHandles": [ "cradle-feature-card-style" ],
+		"viewScriptHandles": []
+	},
+	"renderContract": "feature-card-v1",
+	"themeOverride": "cradle/components/feature-card/render.php",
+	"fallbackPolicy": "saved-semantic-html",
+	"cache": "public"
+}

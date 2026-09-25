@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "cradle/post-cards",
+	"version": "1.0.0",
+	"owner": "cradle-blocks",
+	"title": "Post cards",
+	"description": "A bounded, live list of published entries of any public post type, rendered as feature cards.",
+	"category": "content",
+	"properties": {
+		"postType": { "type": "string", "format": "slug", "default": "post", "maxLength": 20 },
+		"taxonomy": { "type": "string", "format": "slug", "default": "", "maxLength": 32 },
+		"term": { "type": "string", "format": "slug", "default": "", "maxLength": 200 },
+		"count": { "type": "integer", "minimum": 1, "maximum": 24, "default": 3 },
+		"orderBy": { "type": "string", "enum": [ "date", "title", "menu_order", "modified" ], "default": "date" },
+		"order": { "type": "string", "enum": [ "desc", "asc" ], "default": "desc" },
+		"columns": { "type": "integer", "minimum": 1, "maximum": 4, "default": 3 },
+		"variant": { "type": "string", "enum": [ "plain", "outlined", "elevated" ], "default": "plain" },
+		"showImage": { "type": "boolean", "default": true },
+		"showExcerpt": { "type": "boolean", "default": true },
+		"headingLevel": { "type": "integer", "minimum": 2, "maximum": 6, "default": 3 },
+		"emptyMessage": { "type": "string", "default": "", "maxLength": 200 }
+	},
+	"slots": [],
+	"adapters": {
+		"gutenberg": { "blockName": "cradle/post-cards" },
+		"shortcode": true
+	},
+	"assets": {
+		"styleHandles": [ "cradle-post-cards-style", "cradle-feature-card-style" ],
+		"viewScriptHandles": []
+	},
+	"renderContract": "post-cards-v1",
+	"themeOverride": "cradle/components/post-cards/render.php",
+	"fallbackPolicy": "none",
+	"cache": "public"
+}

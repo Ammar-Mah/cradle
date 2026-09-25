@@ -1,0 +1,80 @@
+/* Cradle Dummy Content admin styles. Logical properties for RTL. */
+.cradle-dummy .card {
+	max-inline-size: none;
+	margin-block: 1em;
+}
+
+.cradle-dummy-job .cradle-progress {
+	inline-size: 100%;
+	max-inline-size: 40em;
+}
+
+.cradle-dummy-job-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+}
+
+/* With JavaScript, core's runner drives steps automatically. */
+.cradle-dummy-js .cradle-dummy-nojs {
+	display: none;
+}
+
+.cradle-dummy-cleanup {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+	gap: 1em;
+}
+
+.cradle-dummy-danger {
+	border-inline-start: 4px solid #d63638;
+}
+
+.cradle-dummy-tax {
+	margin-block-end: 1em;
+}
+
+.cradle-dummy-library {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+	gap: 0.5em;
+	max-block-size: 22em;
+	overflow: auto;
+	margin-block: 0.5em;
+	padding: 0.5em;
+	border: 1px solid #c3c4c7;
+}
+
+.cradle-dummy-thumb {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.25em;
+	font-size: 12px;
+	overflow-wrap: anywhere;
+}
+
+.cradle-dummy-thumb:focus-within {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}
+
+.cradle-dummy-production th,
+.cradle-dummy-production td {
+	background: #fcf0f1;
+}
+
+.cradle-dummy-config {
+	margin-block: 1em;
+}
+
+.cradle-dummy-note {
+	font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cradle-dummy * {
+		transition: none !important;
+		animation: none !important;
+	}
+}

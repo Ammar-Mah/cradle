@@ -1,0 +1,40 @@
+/* cradle/post-cards — responsive card grid; items render cradle/feature-card.
+ * The column count lives on the root as a custom property; breakpoints override the
+ * list's template directly so they win regardless of the configured column count. */
+.wp-block-cradle-post-cards {
+	--cradle-post-cards-columns: 3;
+}
+
+.wp-block-cradle-post-cards.has-1-columns { --cradle-post-cards-columns: 1; }
+.wp-block-cradle-post-cards.has-2-columns { --cradle-post-cards-columns: 2; }
+.wp-block-cradle-post-cards.has-3-columns { --cradle-post-cards-columns: 3; }
+.wp-block-cradle-post-cards.has-4-columns { --cradle-post-cards-columns: 4; }
+
+.wp-block-cradle-post-cards__list {
+	display: grid;
+	grid-template-columns: repeat(var(--cradle-post-cards-columns), minmax(0, 1fr));
+	gap: var(--wp--preset--spacing--40, 1.5rem);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+@media (max-width: 781px) {
+	.wp-block-cradle-post-cards__list {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+@media (min-width: 600px) and (max-width: 781px) {
+	.wp-block-cradle-post-cards:not(.has-1-columns) .wp-block-cradle-post-cards__list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.wp-block-cradle-post-cards__item {
+	margin: 0;
+}
+
+.wp-block-cradle-post-cards__empty {
+	margin: 0;
+}

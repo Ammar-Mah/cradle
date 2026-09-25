@@ -1,0 +1,127 @@
+{
+  "format": "cradle-translations-examples",
+  "locale": "ar",
+  "note": "Translations of the Harbor & Pine site strings: child theme (text domain cradle-site) and the labels of its Cradle Content definitions (cradle-content, registered labels). Applied by bin/provision.php.",
+  "entries": [
+    {
+      "domain": "cradle-site",
+      "msgid": "12 Quay Street<br>Harborton",
+      "forms": [
+        "12 شارع كواي<br>هاربورتون"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Studio",
+      "forms": [
+        "الاستوديو"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Follow",
+      "forms": [
+        "تابعونا"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "© %s Harbor & Pine Studio",
+      "forms": [
+        "© %s استوديو Harbor & Pine"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Client",
+      "forms": [
+        "العميل"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Location",
+      "forms": [
+        "الموقع"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "Completed",
+      "forms": [
+        "سنة الإنجاز"
+      ]
+    },
+    {
+      "domain": "cradle-site",
+      "msgid": "More projects",
+      "forms": [
+        "مشاريع أخرى"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Project",
+      "context": "post type label",
+      "forms": [
+        "مشروع"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Projects",
+      "context": "post type label",
+      "forms": [
+        "المشاريع"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Project type",
+      "context": "taxonomy label",
+      "forms": [
+        "نوع المشروع"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Project types",
+      "context": "taxonomy label",
+      "forms": [
+        "أنواع المشاريع"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Project facts",
+      "context": "field group title",
+      "forms": [
+        "بيانات المشروع"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Client",
+      "context": "field label",
+      "forms": [
+        "العميل"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Location",
+      "context": "field label",
+      "forms": [
+        "الموقع"
+      ]
+    },
+    {
+      "domain": "cradle-content",
+      "msgid": "Completion year",
+      "context": "field label",
+      "forms": [
+        "سنة الإنجاز"
+      ]
+    }
+  ]
+}

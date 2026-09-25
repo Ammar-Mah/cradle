@@ -1,0 +1,20 @@
+# Disposable sandbox WordPress installs. Never commit them: wp-config.php holds
+# database credentials and salts, and uploads/ holds generated content.
+/wp/
+/wp-target/
+
+# Generated release packages (php scripts/build.php). Publish them as GitHub
+# Release assets instead of committing them.
+/dist/
+
+# Machine-local Claude Code settings.
+.claude/settings.local.json
+
+# OS and editor files.
+Thumbs.db
+desktop.ini
+.DS_Store
+.idea/
+.vscode/
+*.log
+node_modules/

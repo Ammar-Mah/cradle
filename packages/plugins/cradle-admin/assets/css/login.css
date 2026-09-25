@@ -1,0 +1,62 @@
+/**
+ * Cradle Admin login page presentation. Loaded only when login branding is on.
+ * Values come from CSS custom properties printed from validated settings;
+ * --wp-admin-theme-color drives WordPress' own login buttons and focus rings.
+ */
+
+/*
+ * Only the page background changes. The text color applies to items that sit on
+ * that background; the white form keeps WordPress' own text colors.
+ */
+body.login.cradle-admin-login {
+	background: var(--cradle-login-bg, #f0f0f1);
+}
+
+body.cradle-admin-login #nav,
+body.cradle-admin-login #backtoblog,
+body.cradle-admin-login .privacy-policy-page-link,
+body.cradle-admin-login .language-switcher label {
+	color: var(--cradle-login-text, #3c434a);
+}
+
+body.cradle-admin-login #nav a,
+body.cradle-admin-login #backtoblog a,
+body.cradle-admin-login .privacy-policy-page-link a {
+	color: var(--cradle-login-text, #3c434a);
+	text-decoration: underline;
+}
+
+body.cradle-admin-login #nav a:is(:hover, :focus),
+body.cradle-admin-login #backtoblog a:is(:hover, :focus),
+body.cradle-admin-login .privacy-policy-page-link a:is(:hover, :focus) {
+	color: var(--cradle-login-text, #3c434a);
+	text-decoration-thickness: 2px;
+}
+
+/* Logo image (login logo, else admin logo). */
+body.cradle-admin-login--logo.login h1 a {
+	background-image: var(--cradle-login-logo, none);
+	background-size: contain;
+	background-position: center;
+	inline-size: min(var(--cradle-login-logo-width, 84px), 100%);
+	block-size: var(--cradle-login-logo-height, 84px);
+}
+
+/* No logo: the brand name is shown as real text instead of the WordPress logo. */
+body.cradle-admin-login--text.login h1 a {
+	background-image: none;
+	inline-size: auto;
+	block-size: auto;
+	text-indent: 0;
+	overflow: visible;
+	font-size: 1.75rem;
+	font-weight: 600;
+	color: var(--cradle-login-text, #3c434a);
+}
+
+/* WordPress removes the outline on the logo link; restore a visible focus ring. */
+body.cradle-admin-login.login h1 a:focus-visible {
+	outline: 2px solid var(--cradle-login-accent, #3858e9);
+	outline-offset: 4px;
+	border-radius: 2px;
+}

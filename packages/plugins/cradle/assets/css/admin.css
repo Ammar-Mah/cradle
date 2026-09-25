@@ -1,0 +1,16 @@
+/* Cradle admin screens. Scoped to .cradle-wrap and Cradle settings forms; uses logical properties for RTL. */
+.cradle-wrap .cradle-table { margin-block: 1em 1.5em; }
+.cradle-wrap .cradle-table td, .cradle-wrap .cradle-table th { vertical-align: top; }
+.cradle-badge { display: inline-block; padding-block: 2px; padding-inline: 8px; border-radius: 3px; font-size: 12px; line-height: 1.6; border: 1px solid transparent; }
+.cradle-badge--ok { background: #edfaef; color: #00450c; border-color: #68de7c; }
+.cradle-badge--warn { background: #fcf9e8; color: #614200; border-color: #f0c33c; }
+.cradle-badge--bad { background: #fcf0f1; color: #8a2424; border-color: #f86368; }
+.cradle-settings-tools { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-block-start: 8px; }
+.cradle-inline-form { display: inline-flex; gap: 6px; align-items: center; margin: 0; }
+.cradle-field--error input, .cradle-field--error select, .cradle-field--error textarea { border-color: #d63638; }
+.cradle-field-error { color: #b32d2e; margin-block: 4px 0; font-weight: 600; }
+.cradle-media-field { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.cradle-media-preview img { max-inline-size: 120px; block-size: auto; display: block; }
+.cradle-dimension { display: inline-flex; gap: 4px; align-items: center; border: 0; padding: 0; margin: 0; }
+.cradle-color-value { margin-inline-start: 6px; }
+.cradle-progress { inline-size: 100%; max-inline-size: 480px; }

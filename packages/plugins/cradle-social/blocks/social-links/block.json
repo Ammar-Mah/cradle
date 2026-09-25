@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle/social-links",
+	"version": "1.0.0",
+	"title": "Social profile links",
+	"category": "cradle",
+	"icon": "groups",
+	"description": "Links to the organization’s social media profiles, configured under Cradle → Social.",
+	"keywords": [ "social", "profiles", "follow", "links" ],
+	"textdomain": "cradle-social",
+	"attributes": {
+		"services": { "type": "array", "items": { "type": "string" }, "default": [] },
+		"display": { "type": "string", "enum": [ "", "icon_text", "icon", "text" ], "default": "" },
+		"labelStyle": { "type": "string", "enum": [ "", "service", "action" ], "default": "" },
+		"size": { "type": "string", "enum": [ "", "small", "medium", "large" ], "default": "" },
+		"spacing": { "type": "string", "enum": [ "", "compact", "normal", "relaxed" ], "default": "" },
+		"shape": { "type": "string", "enum": [ "", "none", "square", "rounded", "circle" ], "default": "" },
+		"justify": { "type": "string", "enum": [ "start", "center", "end", "space-between" ], "default": "start" },
+		"label": { "type": "string", "default": "" },
+		"showLabel": { "type": "string", "enum": [ "", "show", "hide" ], "default": "" },
+		"newTab": { "type": "string", "enum": [ "", "on", "off" ], "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"spacing": { "margin": [ "top", "bottom" ] }
+	},
+	"editorScript": "file:./editor.js",
+	"style": "cradle-social"
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "mode": "website",
+  "siteId": "cradle-sandbox-demo",
+  "parentTheme": "../cradle",
+  "childTheme": ".",
+  "corePlugin": "../../plugins/cradle",
+  "pluginRoot": "../../plugins",
+  "northstar": "northstar.md",
+  "state": "docs/project-state.md",
+  "skillIndex": "../cradle/skills/INDEX.md",
+  "editorAdapter": "gutenberg",
+  "environment": "development",
+  "sourceLayout": {
+    "note": "Use these paths when this child is opened from the Cradle repository. Edit here; scripts/sync.php mirrors packages into the sandbox. Content model baseline: content/content-types.json; demo provisioning: ../../bin/provision.php.",
+    "parentTheme": "../../../../packages/themes/cradle",
+    "corePlugin": "../../../../packages/plugins/cradle",
+    "pluginRoot": "../../../../packages/plugins",
+    "skillIndex": "../../../../skills/INDEX.md",
+    "sandbox": "../../../../wp",
+    "provisioning": "../../bin/provision.php"
+  }
+}

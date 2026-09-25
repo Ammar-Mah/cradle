@@ -1,0 +1,172 @@
+/* Cradle Social — profile and share links (frontend and editor).
+ * Theme tokens (theme.json presets) with fallbacks; logical properties for RTL;
+ * visible focus; 24px minimum target size (WCAG 2.2 SC 2.5.8); no motion by default. */
+.cradle-social {
+	--cradle-social-color: currentColor;
+	--cradle-social-background: transparent;
+	--cradle-social-icon: 1.25rem;
+	--cradle-social-gap: var(--wp--preset--spacing--20, 0.5rem);
+	--cradle-social-pad-block: 0.4em;
+	--cradle-social-pad-inline: 0.75em;
+	--cradle-social-radius: 6px;
+	--cradle-social-border: color-mix(in srgb, var(--cradle-social-color) 35%, transparent);
+	margin-block: 0;
+}
+
+.cradle-social.is-size-small {
+	--cradle-social-icon: 1rem;
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+}
+
+.cradle-social.is-size-large {
+	--cradle-social-icon: 1.75rem;
+	font-size: var(--wp--preset--font-size--medium, 1.125rem);
+}
+
+.cradle-social.is-spacing-compact {
+	--cradle-social-gap: 0.25rem;
+}
+
+.cradle-social.is-spacing-relaxed {
+	--cradle-social-gap: var(--wp--preset--spacing--30, 1rem);
+}
+
+.cradle-social.is-shape-square {
+	--cradle-social-radius: 0;
+}
+
+.cradle-social.is-shape-circle {
+	--cradle-social-radius: 999px;
+}
+
+.cradle-social__label {
+	margin-block: 0 0.5em;
+	font-weight: 600;
+}
+
+.cradle-social__list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cradle-social-gap);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cradle-social.is-justify-center .cradle-social__list {
+	justify-content: center;
+}
+
+.cradle-social.is-justify-end .cradle-social__list {
+	justify-content: flex-end;
+}
+
+.cradle-social.is-justify-space-between .cradle-social__list {
+	justify-content: space-between;
+}
+
+.cradle-social__item {
+	margin: 0;
+	padding: 0;
+}
+
+.cradle-social__item[hidden] {
+	display: none;
+}
+
+.cradle-social__link {
+	box-sizing: border-box;
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4em;
+	min-block-size: 24px;
+	min-inline-size: 24px;
+	margin: 0;
+	padding-block: var(--cradle-social-pad-block);
+	padding-inline: var(--cradle-social-pad-inline);
+	border: 1px solid var(--cradle-social-border);
+	border-radius: var(--cradle-social-radius);
+	background: var(--cradle-social-background);
+	color: var(--cradle-social-color);
+	font: inherit;
+	line-height: 1.2;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.cradle-social.has-background .cradle-social__link {
+	border-color: transparent;
+}
+
+.cradle-social.is-display-icon .cradle-social__link {
+	padding-inline: var(--cradle-social-pad-block);
+}
+
+.cradle-social.is-shape-none .cradle-social__link {
+	padding-inline: 0;
+	border-color: transparent;
+	background: none;
+}
+
+.cradle-social__link:hover .cradle-social__text,
+.cradle-social__link:focus-visible .cradle-social__text {
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+
+.cradle-social.is-display-icon .cradle-social__link:hover {
+	border-color: currentColor;
+}
+
+.cradle-social__link:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.cradle-social__icon {
+	flex: none;
+	inline-size: var(--cradle-social-icon);
+	block-size: var(--cradle-social-icon);
+}
+
+.cradle-social__sr {
+	position: absolute !important;
+	inline-size: 1px;
+	block-size: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+.cradle-social__status {
+	margin-block: 0.5em 0;
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	overflow-wrap: anywhere;
+}
+
+.cradle-social__status:empty {
+	margin: 0;
+}
+
+.cradle-social-placement {
+	margin-block: var(--wp--preset--spacing--30, 1rem);
+}
+
+@media (forced-colors: active) {
+	.cradle-social__link {
+		border-color: ButtonText;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.cradle-social__link {
+		transition: border-color 0.15s ease, background-color 0.15s ease;
+	}
+}

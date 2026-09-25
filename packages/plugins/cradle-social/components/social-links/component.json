@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "cradle/social-links",
+	"version": "1.0.0",
+	"owner": "cradle-social",
+	"title": "Social profile links",
+	"description": "Links to the organization's own social media profiles configured under Cradle → Social. Instances may select and reorder configured profiles and override presentation; they never supply URLs.",
+	"category": "social",
+	"properties": {
+		"services": { "type": "array", "items": { "type": "string", "format": "slug", "maxLength": 31 }, "maxItems": 20, "default": [] },
+		"display": { "type": "string", "enum": [ "", "icon_text", "icon", "text" ], "default": "" },
+		"labelStyle": { "type": "string", "enum": [ "", "service", "action" ], "default": "" },
+		"size": { "type": "string", "enum": [ "", "small", "medium", "large" ], "default": "" },
+		"spacing": { "type": "string", "enum": [ "", "compact", "normal", "relaxed" ], "default": "" },
+		"shape": { "type": "string", "enum": [ "", "none", "square", "rounded", "circle" ], "default": "" },
+		"justify": { "type": "string", "enum": [ "start", "center", "end", "space-between" ], "default": "start" },
+		"label": { "type": "string", "default": "", "maxLength": 120 },
+		"showLabel": { "type": "string", "enum": [ "", "show", "hide" ], "default": "" },
+		"newTab": { "type": "string", "enum": [ "", "on", "off" ], "default": "" }
+	},
+	"slots": [],
+	"adapters": {
+		"gutenberg": { "blockName": "cradle/social-links" },
+		"shortcode": true
+	},
+	"assets": {
+		"styleHandles": [ "cradle-social" ],
+		"viewScriptHandles": []
+	},
+	"renderContract": "social-links-v1",
+	"themeOverride": "cradle/components/social-links/render.php",
+	"fallbackPolicy": "none",
+	"cache": "public"
+}

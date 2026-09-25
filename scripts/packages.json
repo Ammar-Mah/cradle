@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "wpRoot": "wp",
+  "skillsSource": "skills",
+  "packages": [
+    { "name": "cradle", "type": "theme", "source": "packages/themes/cradle", "skills": "*", "inject": ["northstar.md"], "kind": "framework" },
+    { "name": "cradle", "type": "plugin", "source": "packages/plugins/cradle", "skills": ["cradle-project", "cradle-architecture", "cradle-plugin-development", "cradle-security", "cradle-release-cleanup"], "inject": ["docs/architecture/core-api.md", "docs/architecture/components.md", "docs/architecture/data-model.md", "docs/architecture/plugin-conventions.md"], "kind": "framework" },
+    { "name": "cradle-blocks", "type": "plugin", "source": "packages/plugins/cradle-blocks", "skills": ["cradle-project", "cradle-components", "cradle-gutenberg", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-login", "type": "plugin", "source": "packages/plugins/cradle-login", "skills": ["cradle-project", "cradle-login", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-admin", "type": "plugin", "source": "packages/plugins/cradle-admin", "skills": ["cradle-project", "cradle-admin", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-content", "type": "plugin", "source": "packages/plugins/cradle-content", "skills": ["cradle-project", "cradle-content-modeling", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-duplicate", "type": "plugin", "source": "packages/plugins/cradle-duplicate", "skills": ["cradle-project", "cradle-content-operations", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-translations", "type": "plugin", "source": "packages/plugins/cradle-translations", "skills": ["cradle-project", "cradle-translations", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-migration", "type": "plugin", "source": "packages/plugins/cradle-migration", "skills": ["cradle-project", "cradle-migration", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-dummy-content", "type": "plugin", "source": "packages/plugins/cradle-dummy-content", "skills": ["cradle-project", "cradle-content-operations", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-social", "type": "plugin", "source": "packages/plugins/cradle-social", "skills": ["cradle-project", "cradle-components", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-site", "type": "theme", "source": "sites/sandbox/themes/cradle-site", "kind": "site" }
+  ],
+  "exclude": [".git", ".svn", "node_modules", ".DS_Store", "Thumbs.db", "*.log", ".idea", ".vscode"]
+}

@@ -1,0 +1,93 @@
+/* Cradle Migration admin screen. Logical properties for RTL. */
+.cradle-migration .nav-tab-wrapper {
+	margin-block-end: 1rem;
+}
+
+.cradle-migration-runner,
+.cradle-migration-upload-status,
+.cradle-migration-cutover-status {
+	margin-block: 1rem;
+	padding: 0.75rem 1rem;
+	border-inline-start: 4px solid #2271b1;
+	background: #fff;
+}
+
+.cradle-migration progress {
+	inline-size: 100%;
+	max-inline-size: 40rem;
+	block-size: 1.25rem;
+}
+
+.cradle-migration-fields p {
+	margin-block: 0.5rem;
+}
+
+.cradle-migration-files {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cradle-migration-opt {
+	margin-inline-end: 1rem;
+}
+
+.cradle-migration-actions {
+	display: flex;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.cradle-migration-actions form {
+	margin: 0;
+}
+
+.cradle-migration-cli {
+	padding: 0.75rem;
+	overflow-x: auto;
+	background: #f6f7f7;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.cradle-migration-status {
+	display: inline-block;
+	padding-inline: 0.5em;
+	border-radius: 3px;
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: 0.8em;
+}
+
+.cradle-migration-status--pass {
+	background: #d1f0d8;
+	color: #0b5b1f;
+}
+
+.cradle-migration-status--fail {
+	background: #fbe0e0;
+	color: #8a1414;
+}
+
+.cradle-migration-status--warn,
+.cradle-migration-status--skip {
+	background: #fcf0d0;
+	color: #6b4d00;
+}
+
+.cradle-migration-checks li {
+	margin-block: 0.25rem;
+}
+
+.cradle-migration button:focus-visible,
+.cradle-migration a:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cradle-migration progress {
+		transition: none;
+	}
+}

@@ -1,0 +1,152 @@
+{
+    "format": "cradle-content-definitions",
+    "formatVersion": 1,
+    "schemaVersion": 1,
+    "generator": "cradle-content 0.1.0",
+    "definitions": {
+        "post_type": {
+            "project": {
+                "key": "project",
+                "enabled": true,
+                "singular": "Project",
+                "plural": "Projects",
+                "menu_name": "Projects",
+                "description": "Built work shown in the portfolio: text, images, type and facts.",
+                "icon": "building",
+                "menu_position": 21,
+                "public": true,
+                "publicly_queryable": true,
+                "show_ui": true,
+                "show_in_menu": true,
+                "show_in_nav_menus": true,
+                "show_in_admin_bar": true,
+                "show_in_rest": true,
+                "rest_base": "",
+                "exclude_from_search": false,
+                "hierarchical": false,
+                "has_archive": true,
+                "archive_slug": "",
+                "rewrite": true,
+                "rewrite_slug": "projects",
+                "with_front": false,
+                "query_var": true,
+                "supports": [
+                    "title",
+                    "editor",
+                    "excerpt",
+                    "thumbnail",
+                    "revisions"
+                ],
+                "capability_model": "post",
+                "capability_singular": "",
+                "capability_plural": "",
+                "template_lock": "",
+                "order_by": "date",
+                "order": "DESC",
+                "taxonomies": [
+                    "project_type"
+                ],
+                "capability_roles": [],
+                "template": [
+                    {
+                        "block": "core/paragraph",
+                        "placeholder": "Describe the project, the site and the brief…",
+                        "level": 0
+                    }
+                ],
+                "admin_columns": [
+                    "thumbnail",
+                    "field:client",
+                    "field:year"
+                ]
+            }
+        },
+        "taxonomy": {
+            "project_type": {
+                "key": "project_type",
+                "enabled": true,
+                "singular": "Project type",
+                "plural": "Project types",
+                "menu_name": "",
+                "description": "Kinds of work: residential, workplace, restoration.",
+                "hierarchical": true,
+                "public": true,
+                "publicly_queryable": true,
+                "show_ui": true,
+                "show_in_menu": true,
+                "show_in_nav_menus": true,
+                "show_in_rest": true,
+                "rest_base": "",
+                "show_tagcloud": true,
+                "show_in_quick_edit": true,
+                "show_admin_column": true,
+                "query_var": true,
+                "rewrite": true,
+                "rewrite_slug": "project-type",
+                "with_front": false,
+                "rewrite_hierarchical": false,
+                "capability_model": "default",
+                "capability_base": "",
+                "default_term_name": "",
+                "default_term_slug": "",
+                "default_term_description": "",
+                "sort": false,
+                "object_types": [
+                    "project"
+                ],
+                "capability_roles": []
+            }
+        },
+        "field_group": {
+            "project_facts": {
+                "key": "project_facts",
+                "enabled": true,
+                "title": "Project facts",
+                "description": "Client, location and completion year, shown on each project page.",
+                "object": "post",
+                "position": "side",
+                "targets": [
+                    "project"
+                ],
+                "fields": [
+                    {
+                        "key": "client",
+                        "label": "Client",
+                        "type": "text",
+                        "parent": "",
+                        "help": "",
+                        "required": false,
+                        "exposure": "public",
+                        "max_length": 120,
+                        "default": null
+                    },
+                    {
+                        "key": "location",
+                        "label": "Location",
+                        "type": "text",
+                        "parent": "",
+                        "help": "",
+                        "required": false,
+                        "exposure": "public",
+                        "max_length": 120,
+                        "default": null
+                    },
+                    {
+                        "key": "year",
+                        "label": "Completion year",
+                        "type": "number",
+                        "parent": "",
+                        "help": "",
+                        "required": false,
+                        "exposure": "public",
+                        "integer": true,
+                        "min": 1900,
+                        "max": 2100,
+                        "step": null,
+                        "default": null
+                    }
+                ]
+            }
+        }
+    }
+}
