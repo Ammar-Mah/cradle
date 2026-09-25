@@ -1,409 +1,263 @@
 # Cradle
 
-**A WordPress foundation for building real, editable websites with an AI coding agent.**
+**Build WordPress websites with an AI coding agent, and keep them fully editable.**
 
-You install Cradle on a WordPress site, describe the website you want (or hand over screenshots, a
-reference site or an HTML/CSS design folder), and a coding agent such as Claude Code or Codex builds it,
-using native WordPress pages, blocks, menus and content types. The result looks like the design and
-stays fully editable in the WordPress editor. It is not a picture of a page pasted into one HTML block.
+You describe the website you want, and optionally add screenshots or a design. Your AI coding agent
+(Claude Code, Codex, Cursor…) builds it inside WordPress with real pages, blocks, menus and content
+types. Afterwards, you or your client can change everything in the normal WordPress editor.
 
-Cradle is a **development platform**, not a ready-made theme and not an AI service inside WordPress.
-Nothing runs an LLM on your server, and there is no API key, subscription or cloud dashboard. The agent
-works on the source files on your machine, guided by the instructions and skills that Cradle ships with.
+Cradle is a theme, a set of plugins, and instructions that tell the AI how to work. It does not run AI
+inside WordPress and needs no API key or subscription.
 
 ---
 
-## Contents
+## What you need
 
-1. [How it works](#how-it-works)
-2. [What's in the box](#whats-in-the-box)
-3. [Requirements](#requirements)
-4. [Install Cradle on a WordPress site](#install-cradle-on-a-wordpress-site)
-5. [Build a website with an LLM](#build-a-website-with-an-llm)
-6. [Update, deploy and move a site](#update-deploy-and-move-a-site)
-7. [Working on the framework (this repository)](#working-on-the-framework-this-repository)
-8. [Documentation map](#documentation-map)
-9. [Status](#status)
+- **A fresh WordPress 7.1 site**, ideally on your own computer (Local, WAMP, XAMPP, MAMP…), with PHP 8.3
+  or newer.
+- **An AI coding agent** that works with files on your computer, such as Claude Code, Codex or Cursor.
+- **The Cradle kit**, `cradle-kit-<date>.zip`, from this repository's **Releases** page.
 
 ---
 
-## How it works
+## Build a new website in 5 steps
 
-A Cradle website is made of four layers. Only one of them belongs to your site:
+### Step 1: Install the kit
 
-```
-wp-content/
-├── themes/
-│   ├── cradle/            Parent theme: shared layout, styles, component loading,
-│   │                      agent skills and rules. Updated, never edited.
-│   └── my-site/           YOUR child theme: the brief, design tokens, CSS/JS, site
-│                          components, templates you override, project notes.
-└── plugins/
-    ├── cradle/            Core plugin: module registry, settings, components, jobs.
-    └── cradle-*/          Feature add-ons (blocks, content types, translations,
-                           migration, login, admin branding...). Turn on what you need.
-```
+1. Open your WordPress folder, the one that contains `wp-config.php`.
+2. Extract `cradle-kit-<date>.zip` into it. When asked, choose to **merge** the `wp-content` folder.
+   You now have:
+   ```
+   wp-content/
+   ├── themes/cradle/          Cradle parent theme (never edit it)
+   ├── themes/cradle-child/    YOUR website
+   └── plugins/cradle…         Cradle plugins
+   ```
+3. *Optional:* rename the `cradle-child` folder to your site's name, for example `acme-site`. Do it
+   **now**. Renaming it after activation loses the theme's settings.
 
-- **The child theme is the website.** Everything specific to one site lives there and nowhere else.
-  It stays *thin*: it holds data and design, no framework code. The parent and plugins can therefore be
-  replaced by newer versions without touching your site.
-- **Content lives in WordPress.** Pages are made of real blocks, menus are real navigation menus, and
-  repeated items (projects, services, team members) are posts with fields. Custom content types are
-  created with **Cradle Content**, not with a custom plugin. A Cradle website has no site plugin.
-- **The agent's instructions travel with the code.** Each child theme contains an `AGENTS.md` (and a
-  `CLAUDE.md` that imports it). These files point the agent to the parent's rules and a set of
-  **skills**: step-by-step procedures for tasks such as "convert this design", "add a content type" and
-  "build a reusable component".
-- **Progress is written down, not remembered.** The agent keeps the site's state, decisions, component
-  map and verification results in the child theme's `docs/` folder. A new agent session, or a different
-  agent, can continue from the files alone without the old chat history.
+### Step 2: Activate
 
----
+1. **Plugins:** activate **Cradle** first. Then activate **Cradle Blocks**, **Cradle Content**, and any
+   other Cradle plugin you want (see [The plugins](#the-plugins)).
+2. **Appearance → Themes:** activate **Cradle Child**. Don't activate **Cradle**; that's the parent.
+3. Open **Cradle → Overview** in the admin menu and check that everything is ready.
 
-## What's in the box
+### Step 3: Describe your website
 
-| Package | What it does |
-| --- | --- |
-| **Cradle** (parent theme) | Minimal block theme. Loads the child's styles, scripts and components by convention; ships the child-theme starter, the child-theme generator and the agent skills. |
-| **Cradle** (core plugin) | Shared services: module registry, settings schemas, capabilities, component contract, background jobs, protected storage, diagnostics (Cradle → Overview). |
-| **Cradle Blocks** | Generic components as Gutenberg blocks (cards, post lists, hero slider…) plus a shortcode/PHP fallback. Needed by most sites. |
-| **Cradle Content** | Custom post types, taxonomies and fields through an admin screen, with export/import. |
-| **Cradle Translations** | One editable JSON catalog per language to override interface strings of Cradle, WordPress and WooCommerce. German and Arabic examples included. |
-| **Cradle Migration** | Full-site export, import, restore and move (new domain, folder or table prefix), with resumable jobs and recovery. |
-| **Cradle Admin** | White-label branding, admin colors, label overrides and admin CSS. Everything is off until configured. |
-| **Cradle Login** | Optional custom login URL that keeps the native WordPress login flows, with server-side recovery. |
-| **Cradle Duplicate** | Duplicate posts and pages as editable drafts. |
-| **Cradle Dummy Content** | Generate tracked sample content and remove exactly what was generated. |
-| **Cradle Social** | Social profile and share links, with local icons and no tracking scripts. |
+Put your material in the child theme folder, `wp-content/themes/cradle-child/`:
 
-Everything is plain PHP, CSS and vanilla JavaScript. There is no build step, no bundled framework, no
-jQuery and no third-party runtime library. The editor code uses only the packages WordPress already ships.
+| What | Required? | Contents |
+| --- | --- | --- |
+| `northstar.md` | **Yes** | Your website brief (see below). The file is already there, empty. |
+| `design-reference/` | Optional | Create this folder for screenshots, an HTML/CSS design, logo, photos, fonts and texts. |
 
----
+**How to write `northstar.md`:** use plain words, in any format or language. A good brief covers:
 
-## Requirements
+- the site name, what the business does, and who the visitors are
+- the pages you need and what goes on each one
+- what editors should be able to change later ("add new projects", "change the slider")
+- the look: colors, fonts, sites you like, or "match the files in design-reference/"
+- menus, forms, languages and anything special
+- what "finished" means to you
 
-| | |
-| --- | --- |
-| WordPress | 7.1.x, single site (multisite is not supported and activation is refused) |
-| PHP | 8.3 or newer, with `json`, `mbstring`, `mysqli`, `hash`; `zip` for Cradle Migration |
-| Database | MySQL 8.0+ or MariaDB 10.6+ |
-| Server | Apache or Nginx; HTTPS in production |
-| Coding agent | Any agent that reads `AGENTS.md` (Claude Code, Codex, Cursor, …) with access to the site's files |
+It doesn't have to be complete, because the AI asks about anything that is missing. For a full checklist,
+see [website-brief.md](packages/themes/cradle/docs/website-brief.md).
 
-Tested versions are recorded in [`compatibility.json`](compatibility.json).
+### Step 4: Open the site in your AI agent
 
----
+Open the folder `wp-content/themes/cradle-child/` in your coding agent. The agent finds its instructions
+there automatically (`AGENTS.md`, or `CLAUDE.md` for Claude Code).
 
-## Install Cradle on a WordPress site
-
-Release packages are built into `dist/` with `php scripts/build.php` (see
-[building releases](#building-release-packages)). Check downloads against `SHA256SUMS` before installing.
-
-### Option A: the kit (recommended, no commands)
-
-1. Extract **`cradle-kit-<date>.zip`** into the WordPress folder (the one containing `wp-config.php`) and
-   let it merge into `wp-content/`. This adds the parent theme, a blank child theme `cradle-child` and
-   every Cradle plugin.
-2. *Optional:* rename `wp-content/themes/cradle-child` to your site's name (for example `acme-site`).
-   Do this **before** activating it, because WordPress stores theme settings under the folder name.
-3. **Plugins:** activate **Cradle** first, then the add-ons you need (almost always **Cradle Blocks** and
-   **Cradle Content**).
-4. **Appearance → Themes:** activate the child theme, **not** the parent.
-5. Open **Cradle → Overview**. It checks the theme and shows the state of every module.
-
-### Option B: separate ZIPs
-
-1. **Plugins → Add New → Upload:** install and activate `cradle-plugin-*.zip`, then the
-   `cradle-<feature>-plugin-*.zip` add-ons you need.
-2. **Appearance → Themes → Add New → Upload:** install `cradle-theme-*.zip` (parent) and
-   `cradle-child-theme-starter-*.zip` (child). Activate the child.
-
-### Option C: generate a named child theme (command line)
-
-```bash
-php wp-content/themes/cradle/bin/child-theme.php new --slug=acme-site --name="Acme Studio"
-```
-
-It refuses to overwrite an existing folder. Activation of Cradle never changes your existing site title,
-menus, homepage, permalinks, users or settings. Full details are in
-[`docs/installation.md`](docs/installation.md).
-
----
-
-## Build a website with an LLM
-
-### 1. Prepare the child theme
-
-Your child theme folder (`wp-content/themes/<your-child>/`) already contains everything the agent needs
-to find its way:
-
-```
-my-site/
-├── AGENTS.md              How to work on this site (points to the parent's rules)
-├── CLAUDE.md              Imports AGENTS.md for Claude Code
-├── northstar.md           YOUR website brief (starts empty)
-├── design-reference/      Put your screenshots / HTML design / logos / fonts here
-├── cradle-workspace.json  Tells the agent where the parent theme and plugins are
-├── docs/                  State, decisions, component map, asset map, content model, verification
-├── theme.json             Design tokens (colors, fonts, spacing)
-├── assets/                design.css, site.css, site.js, images, fonts
-└── components/ patterns/ templates/ parts/   (added by the agent as needed)
-```
-
-**Write the brief.** Put your own description of the site into `northstar.md`, in any structure or
-language. Cover the identity, audience, pages, content that editors manage, visual direction, navigation,
-features and what counts as "done". A full checklist is in the parent theme's
-[`docs/website-brief.md`](packages/themes/cradle/docs/website-brief.md). An incomplete brief is fine:
-the agent asks about gaps instead of inventing content.
-
-**Add your references.** Copy screenshots, an exported HTML/CSS/JS design, logos, images and licensed
-fonts into `design-reference/` unchanged. Files in the folder are more reliable than descriptions in
-chat.
-
-### 2. Open the child theme in your coding agent
-
-Open the **child theme folder** as the project, so its `AGENTS.md`/`CLAUDE.md` is loaded. Also give the
-agent access to the parent theme and the plugins, because that is where the rules, skills and components
-live. With Claude Code, from inside the child theme folder:
+Also allow the agent to read the parent theme and the plugins, because its skills and rules are stored
+there. With Claude Code, run this from the child theme folder:
 
 ```bash
 claude --add-dir ../cradle --add-dir ../../plugins
 ```
 
-For other agents, open the child folder and allow them to read `../cradle` and `../../plugins`.
+In other agents, allow access to those two folders when asked.
 
-The agent works on a **development copy** of the site (local or staging) where it can run PHP and look
-at pages in a browser. Do not point it at a live production site.
+### Step 5: Start prompting
 
-### 3. Talk to the agent: a proven sequence
+Go one step at a time. Copy these prompts and adjust them:
 
-You do not need to name skills or files. The instructions tell the agent which ones to load. These
-prompts walk a new site from brief to finished pages:
+1. **Set up:** *"This is a new Cradle website called Acme Studio. Set it up for first use."*
+2. **Check the brief:** *"Read northstar.md and design-reference/. Tell me what's missing or unclear.
+   Don't build anything yet."*
+3. **Plan:** *"Make a plan: pages, sections, content types, and what editors can change. Show it to me
+   before building."*
+4. **Build:** *"Build the website following the plan."*
+5. **Check:** *"Compare every page with the design on desktop and mobile, test editing each page, and
+   tell me what passed and what didn't."*
+6. **Change things.** Talk to it as you would to a developer:
+   - *"Make the hero a slider of the three latest projects."*
+   - *"Add a Services section that editors can manage."*
+   - *"On mobile the footer doesn't match the screenshot. Fix it."*
+7. **Continue another day:** *"Continue the website. Where are we, and what's next?"*
 
-**① First use: name the site.**
-> This is a new Cradle website called "Acme Studio". Set up the child theme for first use.
+The agent writes its progress into the child theme's `docs/` folder. A new chat, or even a different
+agent, can therefore continue where the last one stopped.
 
-The agent sets the theme name, author and a stable site ID, and records this in `docs/decisions.md`.
+### What you get
 
-**② Check the brief before building.**
-> Read northstar.md and everything in design-reference/. Check the brief against the website-brief
-> checklist and list what is missing or unclear. Don't build anything yet.
+- Real WordPress pages made of blocks. Every text, image, button and menu can be edited in WordPress.
+- Repeating content (projects, services, team members…) as proper content types that editors add to.
+- Your design, not a generic template. Anything the AI had to guess is written down in its notes.
+- No page builders, extra libraries or hidden plugins.
 
-Answer its questions. Your answers are recorded in `docs/decisions.md`, and the brief stays yours.
+### Good habits
 
-**③ Plan.**
-> Make the component map, content model and asset map for this site and show me the plan.
-
-You get `docs/component-map.md`, which lists each section of the design, whether it is a core block,
-pattern or custom component, what editors can change, and who owns it. You also get
-`docs/content-model.md` (content types, taxonomies, fields) and `docs/asset-map.md`. Review these before
-building. Changes are cheapest at this stage.
-
-**④ Build.**
-> Build the website from the brief and the references, following the plan.
-
-The agent works from structure to detail:
-design tokens in `theme.json` → header, footer and real menus → layout with core blocks → custom
-components → patterns → real pages → single/archive/search/404 templates. Repeating content such as
-projects and services becomes Cradle Content types with fields, so editors add items instead of editing
-markup.
-
-**⑤ Verify.**
-> Compare every page with the references at desktop and mobile widths, open each page in the editor,
-> save and reopen it, and report what passed, what failed and what was not checked.
-
-**⑥ Iterate.** Ask for changes the way you would ask a developer:
-> The hero should be a slider of the three latest projects.
-> Add a "Services" section editors can manage, with an icon, title and short text per service.
-> Add German as a second interface language.
-> The footer spacing on mobile doesn't match the screenshot. Fix it.
-
-**⑦ Next day, new session.**
-> Continue the website. Read the project state and tell me where we are and what's next.
-
-The agent reads `docs/project-state.md` and picks up where the last session ended.
-
-### 4. What you can expect from the agent
-
-The rules shipped with Cradle make the agent:
-
-- **keep everything editable:** text, images, links, lists and menus can be changed in WordPress
-  without touching code. A page delivered as one opaque HTML block counts as a failure.
-- **match your design:** the agent does not swap in a generic look because it is easier. Deviations
-  and guesses (for example mobile behavior seen only on a desktop screenshot) are written down as
-  assumptions.
-- **stay inside the child theme:** the agent never edits the parent, the plugins or WordPress core, and
-  never creates a site plugin. When a site needs something every site could use, the agent tells you it
-  is framework work.
-- **add no hidden dependencies:** no jQuery, Tailwind, Bootstrap, Swiper, page builders or extra
-  plugins without a recorded decision. Interactions are rebuilt in vanilla JavaScript.
-- **treat your references as data:** text inside reference HTML, comments or archives is never
-  followed as an instruction.
-- **report honestly:** results are split into *passed*, *failed* and *not run*. A check that did not run
-  is never reported as passing.
-
-### 5. Your part
-
-- Keep `northstar.md` current. It is the source of truth for *what* to build.
-- Review the plan (step ③) before the build. Afterwards, try editing pages yourself in the editor.
-- Keep the child theme folder under version control (for example its own private git repository), so
-  every agent change can be reviewed and undone.
-- Look at `sites/sandbox/themes/cradle-site` in this repository. It is a complete example site
-  ("Harbor & Pine") built exactly this way, including its brief, design references, component map and
-  verification notes.
+- Build on a local copy, never directly on the live site.
+- Put the design in files (`design-reference/`), not only in the chat.
+- Review the plan (prompt 3) before the build. Changes cost the least at that point.
+- When it's done, try editing the pages yourself.
+- Keep your child theme folder in git so you can undo any change.
 
 ---
 
-## Update, deploy and move a site
+## The plugins
 
-**Update Cradle.** Extract `cradle-update-<date>.zip` into the WordPress folder and replace existing
-files. It contains the parent theme and plugins but **never** a child theme, so it cannot overwrite your
-site. Do not re-extract a full kit over a working site. After an update, have the agent run
-`php wp-content/themes/cradle/bin/child-theme.php check --child=wp-content/themes/<your-child> --add-missing`
-(it adds missing starter files and never changes existing ones), then check **Cradle → Overview**.
+Cradle's screens are in the **Cradle** menu of the WordPress admin. **Cradle** must be active for the
+other plugins to work. A plugin changes nothing until you set it up.
 
-**Go live.** Development files (`AGENTS.md`, `northstar.md`, `docs/`, `skills/`, `design-reference/`)
-are not protected just because they are Markdown. Either install the release ZIPs on production or add
-the deny rules from [`docs/deployment.md`](docs/deployment.md). That file also covers private storage,
-Nginx, caching and permalinks.
+### Cradle (required)
 
-**Move a site** (to another domain, folder or host) with **Cradle Migration** (Cradle → Migration).
-Content-type definitions can also be exported to the child's `content/content-types.json` and imported
-elsewhere.
+The engine that the other plugins use.
+**How to use:** **Cradle → Overview** shows whether the theme is set up correctly and which Cradle plugins
+are installed, active or broken, with links to activate them. Check this page first when something
+doesn't work.
 
-**Something broke?** [`docs/recovery.md`](docs/recovery.md) covers login lockouts
-(`CRADLE_DISABLE_CUSTOM_LOGIN`), broken admin styling (`CRADLE_ADMIN_SAFE_MODE`), failed modules,
-interrupted restores and rollbacks. None of these fixes require database edits.
+### Cradle Blocks (recommended)
 
----
+Adds these blocks to the editor:
 
-## Working on the framework (this repository)
+- **Feature card**: an image, title, text and link.
+- **Post cards**: a list of cards showing posts, pages or entries of any content type.
+- **Hero slider**: a large slider made of entries, for example the latest three projects or ones you
+  pick.
 
-This repository is the Cradle **framework**: the parent theme, the plugins, the skills, the docs, and a
-representative website used for testing. Agents working here follow [`AGENTS.md`](AGENTS.md).
+**How to use:** in the editor, click **+**, search for the block's name and add it. Set its options in
+the right-hand sidebar.
 
-### Repository layout
+### Cradle Content (recommended)
 
-| Path | Contents |
-| --- | --- |
-| `packages/themes/cradle/` | Parent theme, including the child-theme starter (`starter/child-theme/`) and generator (`bin/child-theme.php`). |
-| `packages/plugins/cradle/` | Core plugin. |
-| `packages/plugins/cradle-<feature>/` | Feature add-ons. |
-| `skills/` | Canonical agent skills and `INDEX.md`. Copied into packages by sync/build; edit only here. |
-| `sites/sandbox/` | Example website: child theme `themes/cradle-site`, demo content in `provisioning/`, `bin/provision.php`. |
-| `docs/` | Architecture, installation, deployment, recovery, tooling, state, decisions. |
-| `scripts/` | `sync.php` (mirror into the sandbox), `build.php` (release ZIPs), `sandbox/` helpers. |
-| `tests/` | Integration tests run against the sandbox (`php tests/run.php`). |
-| `wp/`, `wp-target/`, `dist/` | Local sandbox installs and build output. **Not in git.** |
+Create your own content types (Projects, Services, Team…), with categories and extra fields such as
+price, location or date. No code is needed.
+**How to use:** go to **Cradle → Content types**.
 
-### Set up the sandbox after cloning
+1. **Post types:** add a type, for example "Projects". It appears in the admin menu.
+2. **Taxonomies:** add categories for it if needed, for example "Project types".
+3. **Field groups:** add fields and attach them to the type.
+4. **Export / import:** copy your content types to another site.
 
-The sandbox WordPress (`wp/`) is not committed, so create it once. The defaults below match the scripts
-(WAMP-style local server, repository at `C:\wamp64\www\cradle`, served as
-`http://localhost/cradle/`). Adjust `--url` if yours differs.
+### Cradle Translations
 
-1. **Tools:** PHP 8.3+ CLI (with `zip`, `tokenizer`, `mysqli`), MySQL 8, and Apache with `mod_rewrite`.
-   WP-CLI is not needed.
-2. **WordPress:** download WordPress 7.1.x from wordpress.org and extract it so that `wp/wp-load.php`
-   exists.
-3. **Database:** create the database `cradle_wp`.
-4. **Config:** copy `wp/wp-config-sample.php` to `wp/wp-config.php`, add fresh salts from
-   <https://api.wordpress.org/secret-key/1.1/salt/>, and set:
-   ```php
-   define( 'DB_NAME', 'cradle_wp' );
-   define( 'DB_USER', 'root' );
-   define( 'DB_PASSWORD', '' );
-   define( 'DB_HOST', '127.0.0.1:3306' );
-   $table_prefix = 'cw_';
-   define( 'WP_ENVIRONMENT_TYPE', 'development' );
-   define( 'WP_DEVELOPMENT_MODE', 'theme' );
-   define( 'WP_DEBUG', true );
-   define( 'WP_DEBUG_LOG', true );
-   define( 'WP_DEBUG_DISPLAY', false );
-   ```
-5. **Install, sync, activate, add demo content:**
-   ```bash
-   php scripts/sandbox/install.php
-   php scripts/sync.php
-   php scripts/sandbox/activate.php plugin cradle cradle-blocks cradle-content cradle-translations cradle-admin cradle-login cradle-migration cradle-duplicate cradle-dummy-content cradle-social
-   php scripts/sandbox/activate.php theme cradle-site
-   php sites/sandbox/bin/provision.php --path=wp
-   ```
-   `install.php` prints the admin password **once**. Keep it out of the repository and out of notes.
-6. **Migration test target (optional):** the migration suite restores into a second install in
-   `wp-target/` (database `cradle_wp_target`, prefix `ct_`). Point `CRADLE_WP_ZIP` at a WordPress 7.1.x
-   zip and run:
-   ```bash
-   CRADLE_WP_ZIP=/path/to/wordpress-7.1.2.zip php tests/fixtures/migration/target.php install
-   ```
-   In PowerShell, set the variable first with `$env:CRADLE_WP_ZIP = "C:\path\wordpress-7.1.2.zip"`.
+Change the interface text of the site, per language. This covers text from Cradle, WordPress and
+WooCommerce, such as buttons, labels and messages. It does not translate your page content.
+**How to use:** go to **Cradle → Translations**.
 
-The sandbox runs at `http://localhost/cradle/wp/` (admin at `/wp-admin/`).
+1. Add a language (for example `fr_FR`), or open German or Arabic, which are included.
+2. Click **Refresh source strings**, find a text, and type your wording.
+3. Your changes are saved as drafts. Publish them to make them live.
+4. Under **Import & export**, you can move translations as JSON or `.po`/`.pot` files.
 
-### Development loop
+### Cradle Migration
 
-1. Edit source in `packages/`, `skills/`, `sites/sandbox/`. **Never** edit files under
-   `wp/wp-content/{themes,plugins}/cradle*`; they are overwritten.
-2. Mirror to the sandbox: `php scripts/sync.php [package]`. The Claude Code hook in
-   `.claude/settings.json` runs this automatically after each edit.
-3. Check the change in the sandbox as a real site would use it (front end, editor, allowed and denied
-   roles).
-4. Run the tests:
-   ```bash
-   php tests/run.php
-   ```
-   Filter with `php tests/run.php <name>` or `--suite=core,blocks`. A missing precondition is reported as
-   SKIP, never as PASS.
-5. Record progress in `docs/project-state.md` and durable decisions in `docs/decisions.md`.
+Back up a whole site, or move it to another domain, folder or server.
+**How to use:**
 
-New or changed interface strings need German and Arabic entries in
-`packages/plugins/cradle-translations/examples/{de_DE,ar}.json`. The translations suite fails without
-them.
+1. On the old site, go to **Cradle → Migration** and click **Export this site**, then **Start export**.
+2. Under **Archives**, download every file of the export: one `.manifest.json` and the `.part-NNNN.zip`
+   files.
+3. On the new site (a fresh WordPress with Cradle and Cradle Migration active), go to
+   **Import & restore**, upload the files and click **Upload and check**.
+4. Read the checklist and click **Approve and stage**. The live site isn't changed yet. Then click
+   **Switch the site over now**.
+5. If something is wrong, use **Roll back** under **Jobs & recovery**.
 
-### Building release packages
+### Cradle Admin
 
-```bash
-php scripts/build.php
-```
+Brand the WordPress admin and the login page, for example for a client.
+**How to use:** go to **Cradle → Branding & admin**.
 
-This writes to `dist/`: per-package ZIPs, the kit, the update bundle, the child-theme starter, a source
-bundle, `manifest.json` and `SHA256SUMS`. `dist/` is not committed. Attach the ZIPs to a GitHub Release
-instead:
+- **Branding:** your name, logo, help links, a dashboard welcome box, and the login page design.
+- **Appearance:** admin colors, spacing and font size. Color combinations that are hard to read are
+  refused.
+- **Labels:** rename admin menu items and content type labels.
+- **Custom CSS:** extra admin styles (administrators only).
 
-```bash
-gh release create v0.1.1 dist/*.zip dist/SHA256SUMS dist/manifest.json --title "Cradle 0.1.1" --notes-file CHANGELOG.md
-```
+Each section has **Reset to defaults**. If the admin becomes unusable, add
+`define( 'CRADLE_ADMIN_SAFE_MODE', true );` to `wp-config.php`.
+
+### Cradle Login
+
+Moves the login page from `/wp-login.php` to an address you choose, such as `/team-login/`. This reduces
+bot traffic, but it does not replace strong passwords.
+**How to use:** go to **Cradle → Login**.
+
+1. Enter the new address. Choose what visitors see at the old address: a "not found" page or the home
+   page.
+2. Click **Run health check**, then turn the new address on. It won't turn on if the check fails.
+3. Bookmark the new address.
+
+If you get locked out, add `define( 'CRADLE_DISABLE_CUSTOM_LOGIN', true );` to `wp-config.php` and log
+in at `/wp-login.php` as usual.
+
+### Cradle Duplicate
+
+Copies a post or page as a new draft.
+**How to use:** in the Posts or Pages list, hover over an item and click **Duplicate**. In the editor,
+use **Duplicate as new draft**. Settings (which content types, a title suffix, and who becomes the
+author) are under **Cradle → Duplicate**.
+
+### Cradle Dummy Content
+
+Fills a site with sample posts for testing, then removes exactly those posts.
+**How to use:** go to **Cradle → Dummy content**.
+
+1. **Generate:** choose the content type, how many items, and options such as images, categories and
+   fields. Then click **Generate batch**.
+2. **Batches & cleanup:** open the batch and move its items to the trash, or delete them for good. Items
+   that someone edited or that are in use are kept unless you tick the option to include them. Your
+   real content is never touched.
+
+### Cradle Social
+
+Adds links to your social profiles and "share this page" buttons, without tracking scripts.
+**How to use:**
+
+1. Go to **Cradle → Social**. Enter your profile addresses, and choose the share services and a style.
+2. In the editor, add the **Social profile links** or **Share links** block where you want it, for
+   example in the footer. You can also turn on automatic share links for posts.
 
 ---
 
-## Documentation map
+## Keeping Cradle up to date
 
-| Document | Read it for |
-| --- | --- |
-| [`northstar.md`](northstar.md) | The full product specification. Where it differs, later entries in `docs/decisions.md` win (for example: no site plugin, the hero slider is a block, Cradle Fonts was replaced by the WordPress Font Library). |
-| [`AGENTS.md`](AGENTS.md) | Rules for agents working on the framework. |
-| [`packages/themes/cradle/docs/child-themes.md`](packages/themes/cradle/docs/child-themes.md) | Rules for building a website: what goes in a child theme, update safety, working rules. |
-| [`packages/themes/cradle/docs/website-brief.md`](packages/themes/cradle/docs/website-brief.md) | Checklist for a good website brief. |
-| [`skills/INDEX.md`](skills/INDEX.md) | The agent skills and when each one applies. |
-| [`docs/installation.md`](docs/installation.md) · [`docs/deployment.md`](docs/deployment.md) · [`docs/recovery.md`](docs/recovery.md) | Installing, going live, getting out of trouble. |
-| [`docs/architecture/`](docs/architecture/) | Core API, component contract, data model, plugin conventions, security surface. |
-| [`docs/tooling.md`](docs/tooling.md) | Every repository script and the tools that are (and aren't) available. |
-| [`docs/project-state.md`](docs/project-state.md) · [`docs/decisions.md`](docs/decisions.md) | Where the framework stands and why it is the way it is. |
-| [`CHANGELOG.md`](CHANGELOG.md) · [`compatibility.json`](compatibility.json) | Changes per version; tested and supported versions. |
+1. Get the newer `cradle-update-<date>.zip` from **Releases**.
+2. Extract it into the WordPress folder as you did with the kit, but this time choose **replace**. It
+   contains no child theme, so your website is not affected.
+3. Check **Cradle → Overview**.
 
----
+Never extract the full kit over a working site.
 
-## Status
+## Going live
 
-Version **0.1.x**, in development and not yet published as a release. From `docs/project-state.md`:
+- Move the finished site to its server with **Cradle Migration**.
+- Your child theme contains working files (the brief, notes and design references). Don't leave them
+  readable on a public server. See [docs/deployment.md](docs/deployment.md).
+- For emergencies, see [docs/recovery.md](docs/recovery.md).
 
-- **Done:** parent and child themes, core, all nine add-ons, the design-to-website workflow (proven on
-  the Harbor & Pine example), translations, login, migration with an independent restore, and release
-  packaging. Last recorded full test run (2026-09-25): 194 passed, 0 failed, 3 skipped.
-- **Not done yet:** WooCommerce integration; automated accessibility, visual and performance testing
-  (axe, Lighthouse, Playwright); a screen-reader pass; multisite support.
+## Example
+
+`sites/sandbox/themes/cradle-site` is a complete example website ("Harbor & Pine") built this way. It
+includes the brief, design files, plan and notes.
+
+## Working on Cradle itself
+
+To change the framework rather than build a website, see [docs/development.md](docs/development.md).
 
 ## License
 
-GPL-2.0-or-later, like WordPress.
+GPL-2.0-or-later

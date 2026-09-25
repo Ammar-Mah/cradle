@@ -4,7 +4,8 @@
 | --- | --- |
 | Mode | framework |
 | Environment | Windows, WAMP: Apache 2.4.65, PHP 8.4.15, MySQL 8.4.7; sandbox WordPress 7.1.2 at `wp/` (`cw_` prefix, subdirectory `/cradle/wp`); migration target `wp-target/` (`ct_` prefix) |
-| Last inspected | 2026-09-24 (working tree; not a git repository) |
+| Last inspected | 2026-09-24 (working tree) |
+| Repository | git, `main` branch, private GitHub `Ammar-Mah/cradle` (initial commit 2026-09-25); `wp/`, `wp-target/`, `dist/` are not versioned |
 | Active theme (sandbox) | `cradle-site` child of `cradle` — runtime-verified |
 | Active packages | theme `cradle`, core, blocks, content, translations and admin 0.1.1, other add-ons 0.1.0 (9 add-ons; Cradle Hero and Cradle Fonts retired); websites have no site plugin — the sandbox child `cradle-site` holds everything site-specific and Projects are Cradle Content definitions; every module `ready` — runtime-verified |
 
