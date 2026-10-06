@@ -315,7 +315,7 @@ cradle_test(
 		assert_true( $info['uploadsTargetOnly'] );
 		global $wpdb;
 		assert_same( 'cw_', $wpdb->prefix, 'Source keeps its own prefix.' );
-		assert_true( CM_T_URL !== cm_src_url() && 'C:/wamp64/www/cradle/wp-target/' !== wp_normalize_path( ABSPATH ) );
+		assert_true( CM_T_URL !== cm_src_url() && dirname( wp_normalize_path( ABSPATH ) ) . '/wp-target/' !== wp_normalize_path( ABSPATH ) );
 		assert_same( 200, wp_remote_retrieve_response_code( cm_http( 'GET', '/' ) ) );
 	}
 );
@@ -776,8 +776,9 @@ cradle_test(
 		$exp['json']       = wp_json_encode( array( 'u' => CM_T_URL . '/j/' ) );
 		$exp['nested']     = array( 'deep' => array( 'deeper' => CM_T_URL . '/d/' ) );
 		$exp['serialized'] = serialize( array( 'x' => CM_T_URL . '/s/' ) );
-		$exp['path']       = 'C:/wamp64/www/cradle/wp-target/wp-content/uploads';
-		$exp['winpath']    = 'C:\\wamp64\\www\\cradle\\wp-target\\wp-content';
+		$t_root            = dirname( wp_normalize_path( ABSPATH ) ) . '/wp-target/';
+		$exp['path']       = $t_root . 'wp-content/uploads';
+		$exp['winpath']    = str_replace( '/', '\\', $t_root ) . 'wp-content';
 		assert_same( $exp, $opt, 'Every serialized/JSON/path variant rewritten; look-alikes and other hosts untouched.' );
 		$info = cm_target( 'info' );
 		assert_same( 'ct_', $info['prefix'] );

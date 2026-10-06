@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "php \"C:/wamp64/www/cradle/scripts/sync.php\" --hook 2>/dev/null || true",
+            "command": "php \"$CLAUDE_PROJECT_DIR/scripts/sync.php\" --hook 2>/dev/null || true",
             "timeout": 60,
             "statusMessage": "Syncing package into wp sandbox"
           }

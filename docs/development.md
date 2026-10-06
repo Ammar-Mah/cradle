@@ -21,8 +21,10 @@ the docs. To **build a website** with Cradle, see the [README](../README.md). Ag
 ## Set up the sandbox after cloning
 
 The sandbox WordPress (`wp/`) is not committed, so create it once. The defaults below match the scripts
-(local Apache/MySQL such as WAMP, repository at `C:\wamp64\www\cradle`, served as
-`http://localhost/cradle/`). Adjust `--url` if yours differs.
+(local Apache/MySQL such as WAMP, repository in the web root as `cradle`, for example
+`C:\wamp64\www\cradle` or `D:\wamp64\www\cradle`, served as `http://localhost/cradle/`). The drive does
+not matter: scripts, tests and the Claude Code hook locate the repository themselves. Adjust `--url` if
+the URL differs.
 
 1. **Tools:** PHP 8.3+ CLI (with `zip`, `tokenizer`, `mysqli`), MySQL 8, and Apache with `mod_rewrite`.
    WP-CLI is not needed.
@@ -52,8 +54,9 @@ The sandbox WordPress (`wp/`) is not committed, so create it once. The defaults 
    ```
    `install.php` prints the admin password **once**. Keep it out of the repository and out of notes.
 6. **Migration test target (optional):** the migration suite restores into a second install in
-   `wp-target/` (database `cradle_wp_target`, prefix `ct_`). Point `CRADLE_WP_ZIP` at a WordPress 7.1.x
-   zip and run:
+   `wp-target/` (database `cradle_wp_target`, prefix `ct_`). It needs the WordPress 7.1.2 zip (checked by
+   SHA-1): either save it as `wordpress-7.1.2.zip` in the system temp folder (`%TEMP%` on Windows), or
+   point `CRADLE_WP_ZIP` at it, and run:
    ```bash
    CRADLE_WP_ZIP=/path/to/wordpress-7.1.2.zip php tests/fixtures/migration/target.php install
    ```

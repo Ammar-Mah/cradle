@@ -64,7 +64,7 @@ function t_zip_path(): string {
 	if ( $env && is_file( $env ) ) {
 		return $env;
 	}
-	return 'C:/Users/Guest/AppData/Local/Temp/claude/C--wamp64-www-cradle/b1903608-7b2a-4cfc-826c-91420db0f9fb/scratchpad/wordpress-7.1.2.zip';
+	return sys_get_temp_dir() . '/wordpress-7.1.2.zip';
 }
 
 function t_rmdir( string $dir ) {
