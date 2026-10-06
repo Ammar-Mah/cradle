@@ -1,12 +1,13 @@
 <?php
 /**
- * Chunked, resumable, idempotent archive uploads into private storage.
+ * Chunked, resumable, idempotent upload of one `.cradle` file into private storage.
  *
- * A session records the expected files (name + size) and a SHA-256 per received
- * chunk. Chunks are written at their fixed offset, so a repeated submission of the
- * same chunk rewrites identical bytes (and is acknowledged as a duplicate without
- * writing); a different payload for an already-received chunk is refused.
- * Re-selecting the same files resumes the owner's unfinished session.
+ * A session records the expected file (stored as `archive.cradle`, whatever the
+ * visitor's file was called) and a SHA-256 per received chunk. Chunks are written at
+ * their fixed offset, so a repeated submission of the same chunk is acknowledged as a
+ * duplicate without writing; a different payload for an already-received chunk is
+ * refused. Selecting the same file again (name, size, modification time) resumes the
+ * owner's unfinished session.
  *
  * @package Cradle\Migration
  */
@@ -26,7 +27,7 @@ final class Upload {
 	}
 
 	/**
-	 * @param array $files list of {name,size}.
+	 * @param array $files list with exactly one {name, size, modified} for a `.cradle` file.
 	 * @return array|\WP_Error
 	 */
 	public static function begin( array $files, int $user ) {
@@ -34,54 +35,34 @@ final class Upload {
 		if ( is_wp_error( $protected ) ) {
 			return $protected;
 		}
-		$limits   = Manifest::limits();
-		$manifest = null;
-		$norm     = array();
-		$total    = 0;
-		if ( ! $files || count( $files ) > $limits['maxParts'] + 1 ) {
-			return new \WP_Error( 'cradle_migration_upload', 'Select the archive manifest and all of its parts.' );
+		$limits = Manifest::limits();
+		$file   = 1 === count( $files ) && is_array( reset( $files ) ) ? reset( $files ) : null;
+		if ( ! $file ) {
+			return new \WP_Error( 'cradle_migration_upload', __( 'Choose one .cradle file.', 'cradle-migration' ) );
 		}
-		foreach ( $files as $f ) {
-			$name = is_array( $f ) ? (string) ( $f['name'] ?? '' ) : '';
-			$size = is_array( $f ) ? (int) ( $f['size'] ?? -1 ) : -1;
-			if ( preg_match( '/^([A-Za-z0-9][A-Za-z0-9-]{7,63})\.manifest\.json$/', $name, $m ) ) {
-				if ( null !== $manifest ) {
-					return new \WP_Error( 'cradle_migration_upload', 'Select exactly one manifest.' );
-				}
-				$manifest = $m[1];
-				if ( $size < 2 || $size > $limits['maxManifestBytes'] ) {
-					return new \WP_Error( 'cradle_migration_upload', 'The manifest size is not acceptable.' );
-				}
-			} elseif ( ! preg_match( '/^[A-Za-z0-9][A-Za-z0-9-]{7,63}\.part-[0-9]{4}\.zip$/', $name ) || $size < 22 || $size > $limits['maxPartBytes'] ) {
-				return new \WP_Error( 'cradle_migration_upload', sprintf( '"%s" is not a Cradle archive file (expected <id>.manifest.json and <id>.part-NNNN.zip).', Path_Guard::printable( $name ) ) );
-			}
-			if ( isset( $norm[ $name ] ) ) {
-				return new \WP_Error( 'cradle_migration_upload', 'A file was selected twice.' );
-			}
-			$norm[ $name ] = $size;
-			$total        += $size;
+		$name = (string) ( $file['name'] ?? '' );
+		$size = (int) ( $file['size'] ?? -1 );
+		if ( ! preg_match( '/\.cradle$/i', $name ) ) {
+			return new \WP_Error( 'cradle_migration_upload', __( 'This is not a .cradle file. Export the other site with Cradle Migration and choose the .cradle file it downloads.', 'cradle-migration' ) );
 		}
-		if ( null === $manifest ) {
-			return new \WP_Error( 'cradle_migration_upload', 'The archive manifest (<id>.manifest.json) is required.' );
+		if ( $size < 100 || $size > (int) $limits['maxTotalBytes'] ) {
+			return new \WP_Error( 'cradle_migration_upload', __( 'The size of this .cradle file is not acceptable.', 'cradle-migration' ) );
 		}
-		foreach ( array_keys( $norm ) as $name ) {
-			if ( 0 !== strpos( $name, $manifest . '.' ) ) {
-				return new \WP_Error( 'cradle_migration_upload', 'All files must belong to the same archive.' );
-			}
-		}
-		ksort( $norm );
-		$area = Workspace::area( 'incoming' );
+		$label    = mb_substr( sanitize_file_name( $name ), 0, 120 );
+		$modified = max( 0, (int) ( $file['modified'] ?? 0 ) );
+		$area     = Workspace::area( 'incoming' );
 		if ( is_wp_error( $area ) ) {
 			return $area;
 		}
 		$free = Workspace::free_space( $area );
-		if ( null !== $free && $total > $free * 0.45 ) {
-			return new \WP_Error( 'cradle_migration_space', 'Not enough free disk space to receive, stage and back up this archive.' );
+		if ( null !== $free && $size > $free * 0.3 ) {
+			return new \WP_Error( 'cradle_migration_space', __( 'Not enough free disk space to receive, unpack, stage and back up this file.', 'cradle-migration' ) );
 		}
-		// Resume an unfinished session of this user with the same files.
+		// Resume an unfinished session of this user for the same file.
 		foreach ( (array) glob( $area . '/up-*/session.json' ) as $path ) {
 			$s = json_decode( (string) file_get_contents( $path ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-			if ( is_array( $s ) && (int) $s['owner'] === $user && empty( $s['finished'] ) && (int) $s['expires'] > time() && $s['files'] === self::shape( $norm, (int) $s['chunkSize'], $s['files'] ) ) {
+			if ( is_array( $s ) && (int) ( $s['owner'] ?? 0 ) === $user && empty( $s['finished'] ) && (int) ( $s['expires'] ?? 0 ) > time()
+				&& ( $s['label'] ?? '' ) === $label && (int) ( $s['modified'] ?? -1 ) === $modified && (int) ( $s['files'][0]['size'] ?? -1 ) === $size ) {
 				return self::view( $s, true );
 			}
 		}
@@ -90,38 +71,30 @@ final class Upload {
 		if ( is_wp_error( $dir ) ) {
 			return $dir;
 		}
+		$chunk   = self::chunk_size();
 		$session = array(
 			'id'        => $id,
 			'owner'     => $user,
 			'created'   => time(),
 			'expires'   => time() + self::TTL,
-			'archiveId' => $manifest,
-			'chunkSize' => self::chunk_size(),
-			'files'     => array(),
-			'received'  => array(),
+			'label'     => $label,
+			'modified'  => $modified,
+			'chunkSize' => $chunk,
+			'files'     => array(
+				array(
+					'name'   => Container::UPLOAD,
+					'size'   => $size,
+					'chunks' => max( 1, (int) ceil( $size / $chunk ) ),
+				),
+			),
+			'received'  => array( array() ),
 			'finished'  => false,
 		);
-		$session['files'] = self::shape( $norm, $session['chunkSize'], array() );
-		foreach ( $session['files'] as $i => $f ) {
-			$session['received'][ $i ] = array();
-		}
 		$ok = Workspace::write_json( $dir . '/session.json', $session );
 		if ( is_wp_error( $ok ) ) {
 			return $ok;
 		}
 		return self::view( $session, false );
-	}
-
-	private static function shape( array $norm, int $chunk, array $unused ): array {
-		$out = array();
-		foreach ( $norm as $name => $size ) {
-			$out[] = array(
-				'name'   => $name,
-				'size'   => $size,
-				'chunks' => max( 1, (int) ceil( $size / $chunk ) ),
-			);
-		}
-		return $out;
 	}
 
 	private static function view( array $s, bool $resumed ): array {
@@ -243,7 +216,7 @@ final class Upload {
 	}
 
 	/**
-	 * Verifies completeness, moves files into place and creates the import job.
+	 * Verifies completeness, moves the file into place and creates the one-step import job.
 	 *
 	 * @return array|\WP_Error
 	 */
@@ -273,8 +246,8 @@ final class Upload {
 				}
 				$s['finished'] = true;
 				return array(
-					'archiveId' => $s['archiveId'],
-					'__save'    => $s,
+					'label'  => (string) ( $s['label'] ?? '' ),
+					'__save' => $s,
 				);
 			}
 		);
@@ -283,22 +256,25 @@ final class Upload {
 		}
 		return Importer::create(
 			array(
-				'location' => 'incoming/' . $id,
-				'manifest' => Manifest::manifest_name( $result['archiveId'] ),
-				'options'  => $options,
+				'location'  => 'incoming/' . $id,
+				'container' => 'incoming/' . $id . '/' . Container::UPLOAD,
+				'options'   => $options,
+				'auto'      => true,
 			)
 		);
 	}
 
 	/**
-	 * Copies a local archive (manifest + parts) into private storage for a CLI import.
+	 * Copies a local archive into private storage for a CLI import: a `.cradle` file, or the
+	 * manifest of an unpacked archive (its parts are copied from the same folder).
 	 *
-	 * @return array{location:string,manifest:string}|\WP_Error
+	 * @return array{location:string,manifest?:string,container?:string}|\WP_Error
 	 */
 	public static function import_local( string $manifest_path ) {
 		$manifest_path = wp_normalize_path( $manifest_path );
-		if ( ! preg_match( '/^([A-Za-z0-9][A-Za-z0-9-]{7,63})\.manifest\.json$/', basename( $manifest_path ), $m ) || ! is_file( $manifest_path ) ) {
-			return new \WP_Error( 'cradle_migration_manifest', 'Pass the path of an <archiveId>.manifest.json file.' );
+		$is_container  = (bool) preg_match( '/\.cradle$/i', $manifest_path );
+		if ( ( ! $is_container && ! preg_match( '/^([A-Za-z0-9][A-Za-z0-9-]{7,63})\.manifest\.json$/', basename( $manifest_path ), $m ) ) || ! is_file( $manifest_path ) || is_link( $manifest_path ) ) {
+			return new \WP_Error( 'cradle_migration_manifest', 'Pass the path of a .cradle file (or of an <archiveId>.manifest.json file).' );
 		}
 		$protected = Workspace::ensure_protected();
 		if ( is_wp_error( $protected ) ) {
@@ -308,6 +284,15 @@ final class Upload {
 		$dir = Workspace::subdir( 'incoming', $id );
 		if ( is_wp_error( $dir ) ) {
 			return $dir;
+		}
+		if ( $is_container ) {
+			if ( ! copy( $manifest_path, $dir . '/' . Container::UPLOAD ) ) {
+				return new \WP_Error( 'cradle_migration_copy', 'Could not copy the .cradle file (disk full?).' );
+			}
+			return array(
+				'location'  => 'incoming/' . $id,
+				'container' => 'incoming/' . $id . '/' . Container::UPLOAD,
+			);
 		}
 		$src = dirname( $manifest_path );
 		foreach ( (array) glob( $src . '/' . $m[1] . '.*' ) as $file ) {

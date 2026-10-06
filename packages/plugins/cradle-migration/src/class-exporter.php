@@ -2,7 +2,8 @@
 /**
  * Export job (`migration/export`): bounded, idempotent steps that produce a Cradle archive.
  *
- * Phases: prepare → scan_files → dump_db → pack → finalize.
+ * Phases: prepare → scan_files → dump_db → pack → finalize → bundle.
+ * `bundle` packs the manifest and parts into the single `<archiveId>.cradle` file (Container).
  * Working files live in jobs/<uuid>/; every JSON-lines working file is truncated to the
  * committed length at the start of a step, so a retried or taken-over step never
  * duplicates records. ZIP parts are written with ZipArchive (libzip writes a temporary
@@ -38,6 +39,7 @@ final class Exporter {
 			'themes'    => 'active',
 			'plugins'   => 'active',
 			'rootFiles' => array(),
+			'languages' => true,
 			'quiesce'   => false,
 			'partSize'  => 67108864,
 			'label'     => '',
@@ -52,6 +54,7 @@ final class Exporter {
 		// Missing keys keep their defaults; present keys are read as booleans.
 		$o['database']    = array_key_exists( 'database', $in ) ? ! empty( $in['database'] ) : $o['database'];
 		$o['uploads']     = array_key_exists( 'uploads', $in ) ? ! empty( $in['uploads'] ) : $o['uploads'];
+		$o['languages']   = array_key_exists( 'languages', $in ) ? ! empty( $in['languages'] ) : $o['languages'];
 		$o['themes']      = in_array( $in['themes'] ?? 'active', array( 'active', 'all', 'none' ), true ) ? $in['themes'] ?? 'active' : 'active';
 		$o['plugins']     = in_array( $in['plugins'] ?? 'active', array( 'active', 'all', 'none' ), true ) ? $in['plugins'] ?? 'active' : 'active';
 		$o['quiesce']     = ! empty( $in['quiesce'] );
@@ -68,7 +71,7 @@ final class Exporter {
 			}
 			$o['rootFiles'][] = $name;
 		}
-		if ( ! $o['database'] && ! $o['uploads'] && 'none' === $o['themes'] && 'none' === $o['plugins'] && ! $o['rootFiles'] ) {
+		if ( ! $o['database'] && ! $o['uploads'] && ! $o['languages'] && 'none' === $o['themes'] && 'none' === $o['plugins'] && ! $o['rootFiles'] ) {
 			return new \WP_Error( 'cradle_migration_empty', 'Select at least one thing to export.' );
 		}
 		return $o;
@@ -137,7 +140,8 @@ final class Exporter {
 			return new \WP_Error( $dir->get_error_code(), $dir->get_error_message(), 'fatal' );
 		}
 		$opts = $job['payload']['options'] ?? self::default_options();
-		if ( ! empty( $opts['quiesce'] ) && 'prepare' !== $job['phase'] ) {
+		// The data is captured once finalize ran; bundling needs no write-quiescence window.
+		if ( ! empty( $opts['quiesce'] ) && ! in_array( $job['phase'], array( 'prepare', 'bundle' ), true ) ) {
 			Guard::start_quiesce( $job['uuid'], 'export', 900 );
 		}
 		switch ( $job['phase'] ) {
@@ -151,6 +155,8 @@ final class Exporter {
 				return self::pack( $job, $dir, $opts );
 			case 'finalize':
 				return self::finalize( $job, $dir, $opts );
+			case 'bundle':
+				return self::bundle( $job, $dir );
 		}
 		return new \WP_Error( 'cradle_migration_phase', 'Unknown export phase.', 'fatal' );
 	}
@@ -176,7 +182,10 @@ final class Exporter {
 			'php'           => PHP_VERSION,
 			'dbServer'      => (string) $wpdb->db_server_info(),
 			'dbCharset'     => (string) $wpdb->charset,
-			'locale'        => get_locale(),
+			// The site language setting itself (get_locale() is cached for the request).
+			'locale'        => '' !== (string) get_option( 'WPLANG', '' ) ? (string) get_option( 'WPLANG' ) : get_locale(),
+			// What visitors actually get (the front page's <html dir>), compared again after a restore.
+			'textDirection' => Verifier::page_direction( home_url( '/' ) ),
 			'template'      => get_template(),
 			'stylesheet'    => get_stylesheet(),
 			'activePlugins' => array_values( array_filter( (array) get_option( 'active_plugins', array() ), 'is_string' ) ),
@@ -309,6 +318,31 @@ final class Exporter {
 				'file'     => wp_normalize_path( ABSPATH . $name ),
 				'prefix'   => $name,
 			);
+		}
+		// WordPress language packs (core, themes, plugins): without them an Arabic or Hebrew site
+		// comes back in English and left-to-right.
+		if ( ! empty( $opts['languages'] ) && defined( 'WP_LANG_DIR' ) ) {
+			$lang = untrailingslashit( wp_normalize_path( WP_LANG_DIR ) );
+			if ( is_dir( $lang ) && ! is_link( $lang ) && ! ( $opts['uploads'] && \Cradle\Core\Storage::path_within( $lang, untrailingslashit( wp_normalize_path( wp_upload_dir( null, false )['basedir'] ) ) ) ) ) {
+				$roots[] = array(
+					'category' => 'languages',
+					'dir'      => $lang,
+					'prefix'   => '',
+				);
+			}
+		}
+		// Cradle Translations catalogs live in private storage; they belong to the database (whose
+		// options index them), so they travel with it.
+		if ( $opts['database'] ) {
+			$private = cradle()->storage()->private_root();
+			$tdir    = is_array( $private ) ? untrailingslashit( wp_normalize_path( (string) $private['path'] ) ) . '/translations' : '';
+			if ( '' !== $tdir && is_dir( $tdir ) && ! is_link( $tdir ) ) {
+				$roots[] = array(
+					'category' => 'translations',
+					'dir'      => $tdir,
+					'prefix'   => '',
+				);
+			}
 		}
 		foreach ( $packages['themes'] as $i => $theme ) {
 			unset( $packages['themes'][ $i ]['dir'] );
@@ -508,6 +542,29 @@ final class Exporter {
 			}
 			if ( is_file( $abs ) && Path_Guard::is_executable_name( $name ) ) {
 				return 'executable file in uploads (not exported)';
+			}
+		}
+		$rel = '' === $parent_rel ? $name : $parent_rel . '/' . $name;
+		if ( 'languages' === $category ) {
+			if ( is_dir( $abs ) ) {
+				return '' === $parent_rel && in_array( $name, array( 'plugins', 'themes' ), true ) ? null : 'not a WordPress language folder (only languages/, languages/plugins/ and languages/themes/ are exported)';
+			}
+			if ( str_ends_with( strtolower( $name ), '.l10n.php' ) ) {
+				return 'PHP translation cache (never exported; WordPress uses the .mo file of the same translation)';
+			}
+			if ( ! preg_match( Manifest::LANGUAGE_FILE, $rel ) ) {
+				return 'not a WordPress translation file (.mo, .po, .json)';
+			}
+		}
+		if ( 'translations' === $category ) {
+			if ( is_dir( $abs ) ) {
+				return '' === $parent_rel && in_array( $name, array( 'catalogs', 'history', 'runtime', 'manifest' ), true ) ? null : 'not Cradle Translations data';
+			}
+			if ( preg_match( '/^(\.htaccess|index\.php|web\.config)$/i', $name ) ) {
+				return 'private-storage protection file (the destination writes its own)';
+			}
+			if ( ! preg_match( Manifest::TRANSLATION_FILE, $rel ) ) {
+				return 'not Cradle Translations data';
 			}
 		}
 		if ( is_file( $abs ) && ! is_readable( $abs ) ) {
@@ -1080,11 +1137,13 @@ final class Exporter {
 			),
 			'mode'          => $full ? 'full' : 'selective',
 			'scope'         => array(
-				'database'  => (bool) $opts['database'],
-				'uploads'   => (bool) $opts['uploads'],
-				'themes'    => $scope_theme,
-				'plugins'   => $scope_plug,
-				'rootFiles' => $opts['rootFiles'],
+				'database'     => (bool) $opts['database'],
+				'uploads'      => (bool) $opts['uploads'],
+				'themes'       => $scope_theme,
+				'plugins'      => $scope_plug,
+				'rootFiles'    => $opts['rootFiles'],
+				'languages'    => in_array( 'languages', array_column( $files, 'category' ), true ),
+				'translations' => in_array( 'translations', array_column( $files, 'category' ), true ),
 			),
 			'redacted'      => false,
 			'consistency'   => array(
@@ -1138,31 +1197,92 @@ final class Exporter {
 		$digest = hash( 'sha256', $json );
 		Guard::end_quiesce( $job['uuid'] );
 		Workspace::remove_tree( $dir );
-		cradle_log_activity(
-			'migration',
-			'export_completed',
-			sprintf( 'Site export %1$s completed (%2$d parts, %3$d files, %4$d rows).', $archive, count( $parts ), count( $files ), $rows ),
-			array(
-				'job'     => $job['uuid'],
-				'archive' => $archive,
-			)
-		);
 		$payload            = $job['payload'];
 		$payload['archive'] = array(
 			'id'          => $archive,
 			'location'    => 'archives/' . $archive,
 			'parts'       => count( $parts ),
 			'bytes'       => array_sum( array_column( $parts, 'size' ) ),
+			'files'       => count( $files ),
+			'rows'        => $rows,
 			'unsupported' => count( $plan['unsupported'] ),
 			'warnings'    => count( $warnings ),
 			'consistency' => $manifest['consistency']['strategy'],
 		);
 		return array(
-			'state'           => 'completed',
-			'phase'           => 'done',
+			'phase'           => 'bundle',
 			'manifest_digest' => $digest,
 			'payload'         => $payload,
-			'progress_done'   => (int) $job['progress_total'],
+			'cursor_data'     => array(
+				'entries' => array(),
+				'offset'  => 0,
+			),
+		);
+	}
+
+	/* ------------------------------- bundle ------------------------------- */
+
+	/**
+	 * Packs the manifest and every part into one `<archiveId>.cradle` file, then removes the
+	 * separate parts (the manifest stays beside it for the archive list).
+	 */
+	private static function bundle( array $job, string $dir ) {
+		$info    = (array) ( $job['payload']['archive'] ?? array() );
+		$archive = (string) ( $info['id'] ?? '' );
+		$target  = Workspace::subdir( 'archives', $archive, false );
+		if ( is_wp_error( $target ) || ! is_dir( $target ) ) {
+			return new \WP_Error( 'cradle_migration_bundle', 'The finished archive folder is missing.', 'fatal' );
+		}
+		$files = array(
+			array(
+				'name' => Manifest::manifest_name( $archive ),
+				'path' => $target . '/' . Manifest::manifest_name( $archive ),
+			),
+		);
+		for ( $p = 1; $p <= (int) $info['parts']; $p++ ) {
+			$files[] = array(
+				'name' => Manifest::part_name( $archive, $p ),
+				'path' => $target . '/' . Manifest::part_name( $archive, $p ),
+			);
+		}
+		$final = $target . '/' . Container::file_name( $archive );
+		// A previous attempt may have renamed the finished file just before its commit was lost.
+		if ( ! is_file( $final ) ) {
+			$state = Container::write( $final . '.partial', $files, (array) $job['cursor_data'], microtime( true ) + self::STEP_SECONDS );
+			if ( is_wp_error( $state ) ) {
+				return $state;
+			}
+			if ( empty( $state['complete'] ) ) {
+				return array( 'cursor_data' => $state );
+			}
+			if ( ! rename( $final . '.partial', $final ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename
+				return new \WP_Error( 'cradle_migration_write', 'Could not move the .cradle file into place.' );
+			}
+		}
+		foreach ( array_slice( $files, 1 ) as $file ) {
+			wp_delete_file( $file['path'] );
+		}
+		wp_delete_file( $target . '/summary.json' );
+		Workspace::remove_tree( $dir );
+		clearstatcache( true, $final );
+		$info['file']       = Container::file_name( $archive );
+		$info['fileBytes']  = (int) filesize( $final );
+		$payload            = $job['payload'];
+		$payload['archive'] = $info;
+		cradle_log_activity(
+			'migration',
+			'export_completed',
+			sprintf( 'Site export %1$s completed (%2$d files, %3$d rows, %4$s).', $archive, (int) ( $info['files'] ?? 0 ), (int) ( $info['rows'] ?? 0 ), Container::file_name( $archive ) ),
+			array(
+				'job'     => $job['uuid'],
+				'archive' => $archive,
+			)
+		);
+		return array(
+			'state'         => 'completed',
+			'phase'         => 'done',
+			'payload'       => $payload,
+			'progress_done' => (int) $job['progress_total'],
 		);
 	}
 }

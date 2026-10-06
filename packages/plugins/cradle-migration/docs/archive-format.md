@@ -1,7 +1,7 @@
 # Cradle archive format, version 1
 
-Status: implemented by `cradle-migration` 0.1.0 (`Cradle\Migration\Archive_Writer`,
-`Cradle\Migration\Archive_Reader`, `Cradle\Migration\Manifest`).
+Status: implemented by `cradle-migration` (`Cradle\Migration\Exporter`, `Cradle\Migration\Importer`,
+`Cradle\Migration\Manifest`); the single-file `.cradle` container (§1.1) since 0.2.0.
 This is an open, documented format. It is **not** compatible with `.wpress` or any
 other vendor format, and Cradle makes no such claim.
 
@@ -26,6 +26,35 @@ An archive is a set of sibling files that share an archive ID:
 - No custom compression is used. Encryption is not part of format version 1 (no audited
   native implementation is bundled); protect archives with storage and transport controls.
 
+### 1.1 The `.cradle` file (single-file container)
+
+What operators download and upload is one file, `<archiveId>.cradle` (offered for download as
+`<site>-<time>-<suffix>.cradle`; the importer ignores the file name). It is an ordinary ZIP file
+with another extension: renamed to `.zip`, any ZIP tool opens it.
+
+- Entries, in this order: `<archiveId>.manifest.json`, then `<archiveId>.part-0001.zip`,
+  `…part-0002.zip`, … — the files of §1, byte-for-byte unchanged. The container adds no
+  metadata of its own; the manifest's part checksums still cover every part.
+- Written by Cradle with method 0 (stored, no recompression of the already compressed parts),
+  ZIP64 size and offset fields on every entry (valid beyond 4 GiB), Unix regular-file mode 0644,
+  CRC-32 per entry. The exporter appends whole files per job step and keeps the committed byte
+  offset in its cursor, so an interrupted step is truncated back and repeated. The separate
+  parts are deleted once the container is complete; the manifest stays beside it for the
+  archive list.
+- Importers also accept a container made by hand: entries stored or deflated, at the top level
+  or all inside one folder (`/` or the `\` written by Windows PowerShell 5.1), plus that
+  folder's own directory entry.
+- Container validation, before anything is extracted: a readable ZIP; 2 … `maxParts` + 2
+  entries; exactly one manifest and only part files of the same archive ID (no other names, no
+  deeper folders, no duplicates); no encrypted entries; no Unix symlink, device, FIFO or socket
+  entries; method stored or deflate only; manifest ≤ `maxManifestBytes`, each part 22 bytes …
+  `maxPartBytes`; deflated entries within the compression-ratio limit (§6.5); enough free disk
+  space (and `diskQuota`) for the unpacked files. Entry names are matched against these
+  patterns and never used as file system paths.
+- Extraction (import phase `unpack`) writes each entry through a temporary name and refuses
+  any size mismatch. Then the normal validation of §6 runs on the unpacked manifest and parts.
+  An uploaded container is deleted after unpacking; one stored in the site's archives is kept.
+
 ## 2. Trust model
 
 Checksums (SHA-256) detect corruption and truncation. They do **not** prove who made the
@@ -46,7 +75,7 @@ the importer.
 | `createdAt`, `completedAt` | string | UTC ISO-8601 (`2026-09-24T10:35:00Z`). |
 | `generator` | object | `name` (`cradle-migration`), `version`, `coreVersion`, `coreApi`. |
 | `mode` | string | `full` (database + all selected file categories) or `selective`. |
-| `scope` | object | `database` (bool), `uploads` (bool), `themes` (list of theme directory slugs), `plugins` (list of plugin slugs), `rootFiles` (list of allowlisted root file names). |
+| `scope` | object | `database` (bool), `uploads` (bool), `themes` (list of theme directory slugs), `plugins` (list of plugin slugs), `rootFiles` (list of allowlisted root file names), `languages` and `translations` (bool, since 0.3.0: the archive holds files of that category). |
 | `redacted` | bool | `false` in format 1 (a redacted, potentially non-restorable mode is not offered yet). |
 | `consistency` | object | `strategy` = `write-quiescence` or `none`; `windowStart`/`windowEnd` (UTC, optional); `notes` (plain text describing the limitation). |
 | `source` | object | §3.1 |
@@ -66,7 +95,9 @@ the importer.
 `themesDir` (paths normalized with forward slashes, no trailing slash except `abspath`),
 `tablePrefix`, `multisite` (always `false`; multisite export is refused), `wordpress`
 (version), `dbVersion` (WordPress `db_version` option), `php`, `dbServer`, `dbCharset`,
-`locale`, `template`, `stylesheet`, `activePlugins` (list of plugin basenames).
+`locale` (the site language setting), `textDirection` (since 0.3.0: `rtl` or `ltr` as the
+source front page's `<html dir>` showed it, `''` when it could not be read), `template`,
+`stylesheet`, `activePlugins` (list of plugin basenames).
 
 These values drive URL/path/prefix transformation on import (§7). Absolute paths in the
 manifest are informational; they are never used as write destinations.
@@ -93,9 +124,10 @@ Each `files[]` entry:
 }
 ```
 
-- `category` is one of `uploads`, `themes`, `plugins`, `root`. Roots on the destination:
-  uploads base directory, theme root, `WP_PLUGIN_DIR`, and `ABSPATH` (root files only from the
-  explicit allowlist in §4.3).
+- `category` is one of `uploads`, `themes`, `plugins`, `root`, `languages`, `translations`.
+  Roots on the destination: uploads base directory, theme root, `WP_PLUGIN_DIR`, `ABSPATH`
+  (root files only from the explicit allowlist in §4.3), `WP_LANG_DIR` and the Cradle
+  Translations folder in private storage (§4.4).
 - `path` is relative to the category root, uses `/`, and must satisfy §6.3. For `themes` and
   `plugins` the first segment is the package slug (a single-file plugin is `hello.php`).
 - Only regular files are archived. Directories are implied. Symlinks, devices, FIFOs and
@@ -121,6 +153,27 @@ Only names matching `^(?!index\.)[A-Za-z0-9._-]{1,64}\.(txt|xml|json|ico|webmani
 explicitly; importing them additionally requires the import option `root`. `index.*`,
 `.htaccess`, `web.config`, `.user.ini`, `php.ini`, `wp-config.php` and any PHP file are never
 root files.
+
+### 4.4 Language files and Cradle Translations data (since 0.3.0)
+
+The site language is a database option, but the translations that make a site Arabic or
+Hebrew — and right-to-left — are files. Both travel:
+
+- `languages`: WordPress language packs from `WP_LANG_DIR` (core, `plugins/`, `themes/`).
+  Only `.mo`, `.po` and `.json` files matching
+  `^((plugins|themes)/)?[A-Za-z0-9@][A-Za-z0-9@._-]{0,199}\.(mo|po|json)$` are archived. PHP
+  translation caches (`*.l10n.php`) are never archived (WordPress falls back to the `.mo` file
+  and rebuilds the cache with its next translation update); other folders (for example
+  `loco/`) are excluded and listed. Export option `languages` (default on); import option
+  `languages` (default on). Import replaces entry by entry: a language file, or the whole
+  `plugins/` or `themes/` folder, with the destination's copy moved to the job backup.
+- `translations`: the Cradle Translations data folder in private storage — `catalogs/`,
+  `history/`, `runtime/`, `manifest/`, JSON files only (pattern
+  `^(catalogs|history|runtime|manifest)/[A-Za-z0-9@][A-Za-z0-9@._-]{0,199}\.json$`). The
+  private-storage protection files are not archived; the destination writes its own. These
+  files are indexed by options in the database, so they are exported with the database and
+  restored only when the database is restored. Import replaces each of the four folders,
+  keeping the destination's copies in the job backup.
 
 ## 5. Database
 
@@ -184,6 +237,7 @@ No SQL statements are stored in the archive. The importer never executes archive
 
 ### 6.1 Order
 
+0. For a `.cradle` file: the container validation and extraction of §1.1.
 1. Permission (`cradle_import_site`), request nonce, protected private storage, no other active
    migration job, no core update lock or `.maintenance` file.
 2. Manifest size ≤ 64 MiB, strict JSON, known keys, `format`/`formatVersion`, archive ID matches
@@ -194,7 +248,10 @@ No SQL statements are stored in the archive. The importer never executes archive
 5. Every manifest path validated (§6.3); limits enforced (§6.5); disk space/quota checked.
 6. Every DB chunk hashed, parsed and dry-run transformed (§7); unsupported serialized shapes
    that need transformation block the import with the table/row named.
-7. Preflight report shown; nothing on the destination changes before the operator approves.
+7. Preflight report written; nothing on the destination changes before approval. A one-step
+   browser import counts the confirmation given when it was started as that approval and
+   continues only when the report has no blocking problems; the command line stops for review
+   unless `--yes`.
 8. During staging each file is re-hashed while it is written (per-file SHA-256).
 
 ### 6.2 ZIP entries
@@ -219,7 +276,9 @@ refused. Upload paths with executable extensions (`.php`, `.phtml`, `.phar`, `.p
 `.shtml`, `.cgi`, `.pl`, `.py`, `.sh`) are skipped and reported. Upload paths whose first
 segment starts with `cradle-private-` are rejected (reserved for the destination's private
 storage). Plugin folders `cradle` and `cradle-migration` are never replaced from an archive: the
-running engine of the destination is preserved and reported.
+running engine of the destination is preserved and reported. `languages` and `translations`
+paths must match the patterns of §4.4; anything else (including any PHP file) blocks the
+import.
 
 ### 6.4 Column type grammar
 
@@ -271,3 +330,9 @@ Integers `tinyint|smallint|mediumint|int|bigint` with optional `(n)`, `unsigned`
 Additive, backward-compatible manifest keys increase the minor generator version only.
 Any change that an older importer could misread increases `formatVersion`; importers refuse
 unknown major versions and unknown top-level keys rather than guessing.
+
+The `languages` and `translations` categories (generator 0.3.0) keep `formatVersion` 1: an
+importer older than 0.3.0 cannot misread them, it refuses the archive in preflight ("File
+entry N is invalid") before anything changes. Update Cradle Migration on the destination to
+import such archives. `source.textDirection` and the new `scope` keys are ignored by older
+importers.

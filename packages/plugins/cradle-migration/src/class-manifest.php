@@ -18,7 +18,12 @@ final class Manifest {
 	const FORMAT         = 'cradle-archive';
 	const FORMAT_VERSION = 1;
 	const ID_PATTERN     = '/^[A-Za-z0-9][A-Za-z0-9-]{7,63}$/';
-	const CATEGORIES     = array( 'uploads', 'themes', 'plugins', 'root' );
+	const CATEGORIES     = array( 'uploads', 'themes', 'plugins', 'root', 'languages', 'translations' );
+	// WordPress language files (WP_LANG_DIR): .mo/.po/.json at the top level or in plugins/ or themes/.
+	// PHP translation caches (.l10n.php) are never archived: WordPress uses the .mo file instead.
+	const LANGUAGE_FILE  = '/^(?:(?:plugins|themes)\/)?[A-Za-z0-9@][A-Za-z0-9@._-]{0,199}\.(?:mo|po|json)$/';
+	// Cradle Translations data in private storage (catalogs, their history, runtime maps, source manifest).
+	const TRANSLATION_FILE = '/^(?:catalogs|history|runtime|manifest)\/[A-Za-z0-9@][A-Za-z0-9@._-]{0,199}\.json$/';
 	const ROOT_FILE      = '/^(?!index\.)[A-Za-z0-9._-]{1,64}\.(txt|xml|json|ico|webmanifest|html)$/i';
 	const SEGMENT_BYTES  = 33554432;
 
@@ -300,6 +305,14 @@ final class Manifest {
 				$fail( 'Root file ' . Path_Guard::printable( $path ) . ' is not in the root-file allowlist.' );
 				continue;
 			}
+			if ( 'languages' === $f['category'] && ! preg_match( self::LANGUAGE_FILE, $path ) ) {
+				$fail( 'Language file ' . Path_Guard::printable( $path ) . ' is not a WordPress translation file (.mo, .po or .json in languages/, languages/plugins/ or languages/themes/).' );
+				continue;
+			}
+			if ( 'translations' === $f['category'] && ! preg_match( self::TRANSLATION_FILE, $path ) ) {
+				$fail( 'Translation data file ' . Path_Guard::printable( $path ) . ' is not a Cradle Translations JSON file.' );
+				continue;
+			}
 			if ( ! is_int( $f['size'] ?? null ) || $f['size'] < 0 || $f['size'] > $limits['maxFileBytes'] || ! preg_match( '/^[a-f0-9]{64}$/', (string) ( $f['sha256'] ?? '' ) ) ) {
 				$fail( 'File ' . Path_Guard::printable( $path ) . ' has an invalid size or checksum.' );
 				continue;
@@ -384,10 +397,12 @@ final class Manifest {
 			'generator'   => $text_list( array( $m['generator'] ?? array() ) )[0] ?? array(),
 			'mode'        => in_array( $m['mode'] ?? '', array( 'full', 'selective' ), true ) ? $m['mode'] : 'selective',
 			'scope'       => array(
-				'database' => ! empty( $scope['database'] ),
-				'uploads'  => ! empty( $scope['uploads'] ),
-				'themes'   => array_values( array_filter( (array) ( $scope['themes'] ?? array() ), 'is_string' ) ),
-				'plugins'  => array_values( array_filter( (array) ( $scope['plugins'] ?? array() ), 'is_string' ) ),
+				'database'     => ! empty( $scope['database'] ),
+				'uploads'      => ! empty( $scope['uploads'] ),
+				'themes'       => array_values( array_filter( (array) ( $scope['themes'] ?? array() ), 'is_string' ) ),
+				'plugins'      => array_values( array_filter( (array) ( $scope['plugins'] ?? array() ), 'is_string' ) ),
+				'languages'    => ! empty( $scope['languages'] ),
+				'translations' => ! empty( $scope['translations'] ),
 			),
 			'consistency' => is_array( $m['consistency'] ?? null ) ? array(
 				'strategy' => (string) ( $m['consistency']['strategy'] ?? 'none' ),
@@ -404,6 +419,9 @@ final class Manifest {
 				'wordpress'     => (string) ( $src['wordpress'] ?? '' ),
 				'dbVersion'     => (int) ( $src['dbVersion'] ?? 0 ),
 				'php'           => is_string( $src['php'] ?? null ) ? substr( $src['php'], 0, 40 ) : '',
+				'locale'        => is_string( $src['locale'] ?? null ) && preg_match( '/^[A-Za-z0-9_@-]{2,40}$/', $src['locale'] ) ? $src['locale'] : '',
+				// Recorded since 0.3.0; '' for older archives.
+				'textDirection' => in_array( $src['textDirection'] ?? '', array( 'ltr', 'rtl' ), true ) ? $src['textDirection'] : '',
 				'template'      => is_string( $src['template'] ?? null ) ? $src['template'] : '',
 				'stylesheet'    => is_string( $src['stylesheet'] ?? null ) ? $src['stylesheet'] : '',
 				'activePlugins' => array_values( array_filter( (array) ( $src['activePlugins'] ?? array() ), 'is_string' ) ),

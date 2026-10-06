@@ -15,6 +15,7 @@
  *   php tests/fixtures/migration/target.php marker [set|get]    Target-only marker option (proves replacement/rollback).
  *   php tests/fixtures/migration/target.php private-url <job>   Public URL a job-directory file would have (must be denied).
  *   php tests/fixtures/migration/target.php lease-test <manifest path>   Expired-lease / stale-commit test.
+ *   php tests/fixtures/migration/target.php unpack-lost-commit <file.cradle>   Lost commit of the unpack step.
  *   php tests/fixtures/migration/target.php quiesce <start|finish> [job]      Export write-quiescence window test.
  *   php tests/fixtures/migration/target.php view <create|drop>  A database view (unsupported object) in the target.
  *
@@ -38,6 +39,24 @@ $rest = array_slice( $argv, 2 );
 function t_out( array $data, int $code = 0 ) {
 	echo json_encode( $data, JSON_UNESCAPED_SLASHES ) . "\n";
 	exit( $code );
+}
+
+/**
+ * Files below $dir (two levels), as relative paths — or relative path => absolute path with $absolute.
+ */
+function t_files( string $dir, bool $absolute = false ): array {
+	$out = array();
+	if ( '' === $dir || ! is_dir( $dir ) ) {
+		return $out;
+	}
+	foreach ( array_merge( (array) glob( $dir . '/*' ), (array) glob( $dir . '/*/*' ) ) as $path ) {
+		if ( is_file( (string) $path ) ) {
+			$rel         = substr( wp_normalize_path( (string) $path ), strlen( wp_normalize_path( $dir ) ) + 1 );
+			$out[ $rel ] = (string) $path;
+		}
+	}
+	ksort( $out );
+	return $absolute ? $out : array_keys( $out );
 }
 
 function t_zip_path(): string {
@@ -312,6 +331,9 @@ switch ( $cmd ) {
 				'sessions'      => (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->usermeta} WHERE meta_key = 'session_tokens'" ),
 				'uploadsTargetOnly' => is_file( wp_upload_dir()['basedir'] . '/target-only/marker.txt' ),
 				'wpVersion'     => $GLOBALS['wp_version'],
+				'locale'        => (string) get_option( 'WPLANG', '' ),
+				'languageFiles' => t_files( WP_LANG_DIR ),
+				'translations'  => array_map( static fn( $f ) => hash_file( 'sha256', $f ), t_files( Cradle\Migration\Importer::translations_dir(), true ) ),
 			)
 		);
 		break;
@@ -450,6 +472,48 @@ switch ( $cmd ) {
 		Cradle\Migration\Importer::discard_staging( $uuid );
 		$jobs->cancel( $uuid );
 		t_out( array( 'uuid' => $uuid, 'repeated' => $next, 'takeover' => $took, 'lateCommitRefused' => false === $late, 'state' => $state, 'mismatch' => $mismatch, 'tables' => count( $counts ) ) );
+		break;
+
+	case 'unpack-lost-commit':
+		// The worker that unpacks a .cradle file "dies" before committing; after the lease expires
+		// the job is taken over and must still reach the preflight (the uploaded file is kept
+		// until the unpack step is committed).
+		t_boot();
+		$jobs  = cradle()->jobs();
+		$local = Cradle\Migration\Upload::import_local( (string) ( $rest[0] ?? '' ) );
+		if ( is_wp_error( $local ) || empty( $local['container'] ) ) {
+			t_out( array( 'error' => is_wp_error( $local ) ? $local->get_error_message() : 'not a .cradle file' ), 1 );
+		}
+		$job = Cradle\Migration\Importer::create( $local, true );
+		if ( is_wp_error( $job ) ) {
+			t_out( array( 'error' => $job->get_error_message() ), 1 );
+		}
+		$uuid  = $job['uuid'];
+		$stale = $jobs->claim( $uuid, 1 );
+		$work  = Cradle\Migration\Importer::step( $stale, $jobs ); // Everything unpacked; never committed.
+		sleep( 3 );
+		$phases = array();
+		for ( $i = 0; $i < 50; $i++ ) {
+			$claim = $jobs->claim( $uuid, 60 );
+			if ( ! is_array( $claim ) ) {
+				break;
+			}
+			$res = Cradle\Migration\Importer::step( $claim, $jobs );
+			$jobs->commit( $claim, is_array( $res ) ? $res : array(), true );
+			$job      = $jobs->get( $uuid );
+			$phases[] = $job['phase'];
+			if ( ! in_array( $job['phase'], array( 'unpack', 'verify_manifest' ), true ) || in_array( $job['state'], Cradle\Core\Jobs::TERMINAL_STATES, true ) ) {
+				break;
+			}
+		}
+		$dir  = Cradle\Migration\Workspace::resolve_rel( $local['location'] );
+		$left = is_string( $dir ) && is_file( $dir . '/' . Cradle\Migration\Container::UPLOAD );
+		$jobs->cancel( $uuid );
+		Cradle\Migration\Importer::discard_staging( $uuid );
+		if ( is_string( $dir ) ) {
+			Cradle\Migration\Workspace::remove_tree( $dir );
+		}
+		t_out( array( 'lostPhase' => is_array( $work ) ? (string) ( $work['phase'] ?? '' ) : 'error', 'phases' => $phases, 'phase' => $job['phase'], 'state' => $job['state'], 'error' => (string) $job['error_message'], 'containerLeft' => $left ) );
 		break;
 
 	case 'quiesce':

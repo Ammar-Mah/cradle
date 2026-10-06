@@ -41,11 +41,15 @@ description: Use when working on Cradle Migration or any export, backup, import,
    declared roots. List non-migrated items (DNS, email, TLS, server packages) before export.
 3. Export: choose and report the consistency strategy (snapshot or maintenance window); structured
    table metadata plus bounded row batches; file inventory with sizes and hashes; manifest with source
-   URLs, paths, prefix, versions, parts and checksums; standard ZIP or documented segments.
+   URLs, paths, prefix, versions, parts and checksums; standard ZIP or documented segments. Operators
+   handle one `<id>.cradle` file (archive-format §1.1: a stored ZIP64 container of the manifest and
+   parts, written resumably); keep its validation before extraction and never trust entry names as paths.
 4. Import preflight (checklist): permission, nonce, target identity, format version, runtime/extension
    compatibility, disk space, inventory validation (traversal, symlinks, duplicates, special files,
    size/count/depth/ratio limits), checksums, replacement preview (tables, files, URL map, admin login and
    external-service implications), protected staging, verified destination checkpoint, no concurrent job.
+   A one-step browser import (the operator confirmed once when starting it) may skip the review stop,
+   never the blocking checks; only the browser tab that started it may request the switch-over itself.
 5. Stage without executing imported PHP. Transform URLs/paths with the structural serialized parser
    (`packages/plugins/cradle-migration/src/class-serialized.php`, replacer `class-replacer.php`) — never
    SQL `REPLACE()`, never `unserialize()` of archive data; handle JSON-escaped URLs, block attributes,

@@ -15,6 +15,10 @@
  * @return array{id:string,manifest:array,entries:array<string,string>}
  */
 function cm_craft_read( string $manifest_path ): array {
+	// The whole sandbox archive (uploads, language packs, …) is held in memory, then copied per variant.
+	if ( wp_convert_hr_to_bytes( (string) ini_get( 'memory_limit' ) ) < 1073741824 && '-1' !== (string) ini_get( 'memory_limit' ) ) {
+		ini_set( 'memory_limit', '1024M' ); // phpcs:ignore WordPress.PHP.IniSet.memory_limit_Disallowed -- test helper only.
+	}
 	$dir      = dirname( $manifest_path );
 	$id       = basename( $manifest_path, '.manifest.json' );
 	$manifest = json_decode( (string) file_get_contents( $manifest_path ), true );

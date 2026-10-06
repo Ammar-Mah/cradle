@@ -7,12 +7,14 @@
  * wp-target/ (URL /cradle/wp-target, database cradle_wp_target, prefix ct_), reinstalled
  * fresh by this suite (tests/fixtures/migration/target.php). Restores never touch wp/.
  *
- * The main restore runs through the browser runner over real HTTP (chunked upload,
- * core job-step endpoint, approval, cutover with the job-scoped recovery token); the
- * §15.10 failure cases run through the package CLI in separate processes.
+ * The export is one `.cradle` file. The main restore is the one-step browser import
+ * over real HTTP (chunked upload of that file, core job-step endpoint without a review
+ * stop, cutover with the job-scoped recovery token); the §15.10 failure cases run
+ * through the package CLI in separate processes, using the unpacked manifest and parts.
  */
 
 use Cradle\Migration\Archives;
+use Cradle\Migration\Container;
 use Cradle\Migration\Exporter;
 use Cradle\Migration\Importer;
 use Cradle\Migration\Manifest;
@@ -184,6 +186,21 @@ function cm_open_import(): string {
 		}
 	}
 	return '';
+}
+
+/**
+ * Writes a ZIP file (deflated, like operating-system tools) from entry name => file path or literal content.
+ */
+function cm_zip( string $target, array $entries ): string {
+	$zip = new ZipArchive();
+	if ( true !== $zip->open( $target, ZipArchive::CREATE | ZipArchive::OVERWRITE ) ) {
+		throw new Cradle_Test_Failure( 'Could not create ' . $target );
+	}
+	foreach ( $entries as $name => $source ) {
+		is_file( $source ) ? $zip->addFile( $source, $name ) : $zip->addFromString( $name, $source );
+	}
+	$zip->close();
+	return $target;
 }
 
 function cm_blocking( array $r ): string {
@@ -371,6 +388,30 @@ cradle_test(
 			);
 			update_option( 'cradle_mig_fixture', $fx['option'], false );
 
+			// A right-to-left site language: a Hebrew language file that translates only the text direction
+			// (strings stay English for the later assertions), a plugin translation, and a PHP translation
+			// cache that must never travel.
+			$fx['langCreated'] = ! is_dir( WP_LANG_DIR );
+			$fx['langFiles']   = array( 'he_IL.mo', 'plugins/cradle-mig-fixture-he_IL.mo', 'he_IL.l10n.php' );
+			wp_mkdir_p( WP_LANG_DIR . '/plugins' );
+			require_once ABSPATH . WPINC . '/pomo/mo.php';
+			$mo = new MO();
+			$mo->set_header( 'Language', 'he_IL' );
+			$mo->add_entry( new Translation_Entry( array( 'context' => 'text direction', 'singular' => 'ltr', 'translations' => array( 'rtl' ) ) ) );
+			$mo->export_to_file( WP_LANG_DIR . '/he_IL.mo' );
+			$mo->export_to_file( WP_LANG_DIR . '/plugins/cradle-mig-fixture-he_IL.mo' );
+			file_put_contents( WP_LANG_DIR . '/he_IL.l10n.php', "<?php\nreturn array( 'messages' => array( \"text direction\\4ltr\" => 'rtl' ) );\n" );
+			$fx['wplang'] = get_option( 'WPLANG', false );
+			// WordPress accepts only installed languages and caches that list for this process.
+			wp_cache_flush_group( 'translation_files' );
+			update_option( 'WPLANG', 'he_IL' );
+			assert_same( 'he_IL', get_option( 'WPLANG' ), 'Fixture site language set.' );
+			$fx['translations'] = array();
+			$tdir               = Importer::translations_dir();
+			foreach ( array_merge( (array) glob( $tdir . '/*/*.json' ) ) as $tfile ) {
+				$fx['translations'][ substr( wp_normalize_path( (string) $tfile ), strlen( wp_normalize_path( $tdir ) ) + 1 ) ] = hash_file( 'sha256', (string) $tfile );
+			}
+
 			$job = Exporter::create( array( 'partSize' => 1048576, 'themes' => 'active', 'plugins' => 'active' ) );
 			assert_true( is_array( $job ), 'Export job: ' . ( is_wp_error( $job ) ? $job->get_error_message() : '' ) );
 			$GLOBALS['cm']['export_job'] = $job['uuid'];
@@ -381,12 +422,35 @@ cradle_test(
 			assert_same( 'completed', $job['state'], 'Export: ' . $job['error_message'] );
 			$archive = $job['payload']['archive'];
 			$dir     = Cradle\Migration\Workspace::resolve_rel( $archive['location'] );
-			$path    = $dir . '/' . Manifest::manifest_name( $archive['id'] );
-			$m       = json_decode( (string) file_get_contents( $path ), true );
+			$cradle  = $dir . '/' . Container::file_name( $archive['id'] );
+			assert_true( is_file( $cradle ), 'The export is one .cradle file.' );
+			assert_same( Container::file_name( $archive['id'] ), $archive['file'] ?? '', 'The job names its .cradle file.' );
+			assert_same( array(), glob( $dir . '/*.part-*.zip' ), 'The separate parts are removed once bundled.' );
+			$zip = new ZipArchive();
+			assert_true( true === $zip->open( $cradle, ZipArchive::RDONLY ), 'A .cradle file is a standard ZIP file.' );
+			$names = array();
+			for ( $i = 0; $i < $zip->numFiles; $i++ ) {
+				$stat    = $zip->statIndex( $i );
+				$names[] = $stat['name'];
+				assert_same( ZipArchive::CM_STORE, (int) $stat['comp_method'], 'Entries are stored, not recompressed: ' . $stat['name'] );
+			}
+			$zip->close();
+			// Unpack into the suite's private temp folder: the failure tests below reuse this manifest and these parts.
+			$unpacked = $GLOBALS['cm']['tmp'] . '/archive';
+			wp_mkdir_p( $unpacked );
+			$info = Container::inspect( $cradle, Manifest::limits() );
+			assert_true( is_array( $info ), 'The .cradle file passes inspection: ' . ( is_wp_error( $info ) ? $info->get_error_message() : '' ) );
+			foreach ( $info['entries'] as $entry ) {
+				assert_true( true === Container::extract( $cradle, $entry, $unpacked . '/' . $entry['name'] ), 'Unpacked ' . $entry['name'] );
+			}
+			$path = $unpacked . '/' . Manifest::manifest_name( $archive['id'] );
+			$m    = json_decode( (string) file_get_contents( $path ), true );
 			assert_same( hash_file( 'sha256', $path ), $job['manifest_digest'], 'Job stores the verified manifest digest.' );
+			assert_same( hash_file( 'sha256', $path ), hash_file( 'sha256', $dir . '/' . Manifest::manifest_name( $archive['id'] ) ), 'The manifest beside the .cradle file is the bundled one.' );
+			assert_same( array_merge( array( Manifest::manifest_name( $archive['id'] ) ), array_column( $m['parts'], 'name' ) ), $names, 'The .cradle file holds the manifest and every part, in order.' );
 			assert_true( count( $m['parts'] ) >= 2, 'Archive is split into bounded parts.' );
 			foreach ( $m['parts'] as $p ) {
-				assert_same( $p['sha256'], hash_file( 'sha256', $dir . '/' . $p['name'] ), 'Part checksum.' );
+				assert_same( $p['sha256'], hash_file( 'sha256', $unpacked . '/' . $p['name'] ), 'Part checksum.' );
 			}
 			assert_same( 'cw_', $m['source']['tablePrefix'] );
 			assert_same( $src, $m['source']['homeUrl'] );
@@ -404,10 +468,23 @@ cradle_test(
 			}
 			assert_contains( 'private storage', wp_json_encode( $m['exclusions'] ), 'Exclusions are listed.' );
 			assert_true( isset( $m['unsupported'], $m['notMigrated'], $m['consistency']['strategy'] ) );
+			// Language files, Cradle Translations data and the direction visitors saw.
+			assert_true( in_array( 'languages/he_IL.mo', $paths, true ) && in_array( 'languages/plugins/cradle-mig-fixture-he_IL.mo', $paths, true ), 'WordPress language files are archived.' );
+			assert_true( ! in_array( 'languages/he_IL.l10n.php', $paths, true ), 'A PHP translation cache is never archived.' );
+			assert_contains( 'PHP translation cache', wp_json_encode( $m['exclusions'] ), 'The skipped PHP cache is listed.' );
+			assert_same( 'he_IL', $m['source']['locale'] );
+			assert_same( 'rtl', $m['source']['textDirection'] ?? '', 'The source front page was right-to-left.' );
+			assert_true( ! empty( $m['scope']['languages'] ) );
+			foreach ( array_keys( $fx['translations'] ) as $tpath ) {
+				assert_true( in_array( 'translations/' . $tpath, $paths, true ), 'Cradle Translations data archived: ' . $tpath );
+			}
+			assert_true( (bool) $fx['translations'], 'The source has Cradle Translations catalogs to carry over.' );
+			assert_true( ! preg_grep( '#^translations/.*\.(php|htaccess|config)$#', $paths ), 'Private-storage protection files are not archived.' );
 			$GLOBALS['cm']['archive'] = array(
 				'id'       => $archive['id'],
-				'dir'      => $dir,
+				'dir'      => $unpacked,
 				'manifest' => $path,
+				'cradle'   => $cradle,
 			);
 		} finally {
 			// The source sandbox is shared: remove every fixture immediately after the export.
@@ -424,6 +501,16 @@ cradle_test(
 				wp_delete_term( $fx['term'], 'category' );
 			}
 			delete_option( 'cradle_mig_fixture' );
+			if ( array_key_exists( 'wplang', $fx ) ) {
+				false === $fx['wplang'] ? delete_option( 'WPLANG' ) : update_option( 'WPLANG', $fx['wplang'] );
+			}
+			foreach ( (array) ( $fx['langFiles'] ?? array() ) as $lf ) {
+				wp_delete_file( WP_LANG_DIR . '/' . $lf );
+			}
+			if ( ! empty( $fx['langCreated'] ) ) {
+				@rmdir( WP_LANG_DIR . '/plugins' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors -- only if empty.
+				@rmdir( WP_LANG_DIR ); // phpcs:ignore WordPress.PHP.NoSilencedErrors
+			}
 		}
 	}
 );
@@ -442,11 +529,14 @@ cradle_test(
 			$uid = cradle_test_user( $role );
 			wp_set_current_user( $uid );
 			assert_wp_error( Exporter::create( array() ), 'cradle_migration_forbidden', $role . ' cannot create an export job.' );
-			assert_wp_error( Importer::create( array( 'location' => 'archives/' . $a['id'], 'manifest' => Manifest::manifest_name( $a['id'] ) ) ), 'cradle_migration_forbidden', $role . ' cannot create an import job.' );
+			assert_wp_error( Importer::create( array( 'container' => 'archives/' . $a['id'] . '/' . Container::file_name( $a['id'] ) ) ), 'cradle_migration_forbidden', $role . ' cannot create an import job.' );
+			assert_wp_error( Importer::create_from_archive( $a['id'] ), 'cradle_migration_forbidden', $role . ' cannot restore a stored archive.' );
 			$session = cradle_test_cookies( $uid );
 			$nonce   = cradle_test_nonce( $uid, $session, 'cradle_migration' );
 			$r       = cradle_test_http( 'POST', $ajax, array( 'body' => array( 'action' => 'cradle_migration_upload_begin', 'nonce' => $nonce, 'files' => '[]' ) ), $uid, $session );
 			assert_same( 403, wp_remote_retrieve_response_code( $r ), $role . ' cannot start an upload.' );
+			$r = cradle_test_http( 'POST', $ajax, array( 'body' => array( 'action' => 'cradle_migration_restore', 'nonce' => $nonce, 'archive' => $a['id'] ) ), $uid, $session );
+			assert_same( 403, wp_remote_retrieve_response_code( $r ), $role . ' cannot start a one-click restore.' );
 			$jn = cradle_test_nonce( $uid, $session, 'cradle_jobs' );
 			foreach ( array( 'cradle_job_status', 'cradle_job_cancel', 'cradle_job_step' ) as $action ) {
 				$r = cradle_test_http( 'POST', $ajax, array( 'body' => array( 'action' => $action, 'nonce' => $jn, 'job' => $export ) ), $uid, $session );
@@ -457,7 +547,7 @@ cradle_test(
 			assert_same( 403, wp_remote_retrieve_response_code( $r ), $role . ' cannot export via admin-post.' );
 			wp_set_current_user( $uid );
 			$_COOKIE[ LOGGED_IN_COOKIE ] = $session['logged_in'];
-			$url                         = Archives::download_url( $a['id'], Manifest::manifest_name( $a['id'] ) );
+			$url                         = Archives::download_url( $a['id'], Container::file_name( $a['id'] ) );
 			unset( $_COOKIE[ LOGGED_IN_COOKIE ] );
 			$r = cradle_test_http( 'GET', $url, array(), $uid, $session );
 			assert_same( 403, wp_remote_retrieve_response_code( $r ), $role . ' cannot download an archive even with its own signed link.' );
@@ -471,18 +561,22 @@ cradle_test(
 		assert_same( 404, wp_remote_retrieve_response_code( $r ), 'Status of another user\'s job is refused.' );
 		wp_set_current_user( $mig );
 		$_COOKIE[ LOGGED_IN_COOKIE ] = $msess['logged_in'];
-		$url                         = Archives::download_url( $a['id'], Manifest::manifest_name( $a['id'] ) );
+		$url                         = Archives::download_url( $a['id'], Container::file_name( $a['id'] ) );
 		unset( $_COOKIE[ LOGGED_IN_COOKIE ] );
 		assert_same( 403, wp_remote_retrieve_response_code( cradle_test_http( 'GET', $url, array(), $mig, $msess ) ), 'Another user\'s archive cannot be downloaded.' );
-		// The owner can download through the short-lived link; tampering or expiry is refused.
+		// The owner can download the .cradle file through the short-lived link; tampering or expiry is refused.
 		$session                     = cradle_test_cookies( $admin );
 		wp_set_current_user( $admin );
 		$_COOKIE[ LOGGED_IN_COOKIE ] = $session['logged_in'];
-		$url                         = Archives::download_url( $a['id'], Manifest::manifest_name( $a['id'] ) );
+		$url                         = Archives::download_url( $a['id'], Container::file_name( $a['id'] ) );
 		unset( $_COOKIE[ LOGGED_IN_COOKIE ] );
-		$r = cradle_test_http( 'GET', $url, array(), $admin, $session );
+		$saved = $GLOBALS['cm']['tmp'] . '/downloaded.cradle';
+		$r     = cradle_test_http( 'GET', $url, array( 'stream' => true, 'filename' => $saved, 'timeout' => 300 ), $admin, $session );
 		assert_same( 200, wp_remote_retrieve_response_code( $r ), 'Owner download works.' );
-		assert_same( filesize( $a['manifest'] ), strlen( wp_remote_retrieve_body( $r ) ), 'Download is complete.' );
+		assert_same( hash_file( 'sha256', $a['cradle'] ), hash_file( 'sha256', $saved ), 'The downloaded .cradle file is complete and identical.' );
+		assert_true( (bool) preg_match( '/filename="[a-z0-9-]+-[0-9]{8}T[0-9]{6}Z-[a-z0-9]{8}\.cradle"/i', (string) wp_remote_retrieve_header( $r, 'content-disposition' ) ), 'Downloaded as <site>-<time>.cradle: ' . wp_remote_retrieve_header( $r, 'content-disposition' ) );
+		assert_same( 'application/octet-stream', (string) wp_remote_retrieve_header( $r, 'content-type' ), 'Sent as a binary so browsers keep the .cradle extension.' );
+		wp_delete_file( $saved );
 		assert_contains( 'no-store', (string) wp_remote_retrieve_header( $r, 'cache-control' ) );
 		$r = cradle_test_http( 'GET', add_query_arg( 'exp', time() - 10, $url ), array(), $admin, $session );
 		assert_same( 403, wp_remote_retrieve_response_code( $r ), 'Expired/tampered link is refused.' );
@@ -490,7 +584,7 @@ cradle_test(
 		assert_same( 403, wp_remote_retrieve_response_code( $r ), 'Path tampering is refused.' );
 		assert_same( 200, wp_remote_retrieve_response_code( cradle_test_http( 'GET', admin_url( 'admin.php?page=cradle-migration&tab=archives' ), array(), $admin, $session ) ), 'Admin opens the Migration screen.' );
 		$private = cradle()->storage()->private_root();
-		$rel     = substr( wp_normalize_path( $a['manifest'] ), strlen( $private['path'] ) );
+		$rel     = substr( wp_normalize_path( $a['cradle'] ), strlen( $private['path'] ) );
 		$r       = wp_remote_get( $private['url'] . $rel, array( 'redirection' => 0 ) );
 		assert_true( 200 !== wp_remote_retrieve_response_code( $r ), 'Archives have no public URL.' );
 		require_once ABSPATH . 'wp-admin/includes/user.php';
@@ -504,72 +598,66 @@ cradle_test(
 /* ------------------------------------------------------------------ */
 
 cradle_test(
-	'migration: chunked upload to the target resumes after an interruption and ignores duplicate chunks',
+	'migration: chunked upload of one .cradle file to the target resumes after an interruption and ignores duplicate chunks',
 	function () {
 		$a       = cm_require_archive();
 		$session = cm_session( 'target_admin' );
 		$GLOBALS['cm']['session'] = $session;
-		$files   = array( basename( $a['manifest'] ) => $a['manifest'] );
-		foreach ( json_decode( (string) file_get_contents( $a['manifest'] ), true )['parts'] as $p ) {
-			$files[ $p['name'] ] = $a['dir'] . '/' . $p['name'];
-		}
-		$list  = array_map( static fn( $n, $p ) => array( 'name' => $n, 'size' => filesize( $p ) ), array_keys( $files ), $files );
-		$begin = static fn() => cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_begin', 'nonce' => $session['nonces']['cradle_migration'], 'files' => wp_json_encode( $list ) ) ) );
+		$file    = $a['cradle'];
+		$nonce   = $session['nonces']['cradle_migration'];
+		$wrong   = cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_begin', 'nonce' => $nonce, 'files' => wp_json_encode( array( array( 'name' => 'site.zip', 'size' => filesize( $file ), 'modified' => 1 ) ) ) ) ) );
+		assert_true( empty( $wrong['success'] ), 'Only a .cradle file is accepted.' );
+		$two     = cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_begin', 'nonce' => $nonce, 'files' => wp_json_encode( array( array( 'name' => 'a.cradle', 'size' => 1000, 'modified' => 1 ), array( 'name' => 'b.cradle', 'size' => 1000, 'modified' => 1 ) ) ) ) ) );
+		assert_true( empty( $two['success'] ), 'Exactly one file is accepted.' );
+		// The visitor's file name is irrelevant: the server stores the upload under a fixed name.
+		$list  = array( array( 'name' => 'Harbor & Pine (copy).cradle', 'size' => filesize( $file ), 'modified' => filemtime( $file ) ) );
+		$begin = static fn() => cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_begin', 'nonce' => $nonce, 'files' => wp_json_encode( $list ) ) ) );
 		$s     = $begin();
 		assert_true( ! empty( $s['success'] ), 'Upload session: ' . wp_json_encode( $s['data'] ?? null ) );
-		$s      = $s['data'];
-		$paths  = array_values( $files );
-		$byname = $files;
-		$send   = static function ( array $s, int $fi, int $ci, ?string $override = null ) use ( $session, $byname ) {
-			$f     = $s['files'][ $fi ];
-			$bytes = null !== $override ? $override : (string) file_get_contents( $byname[ $f['name'] ], false, null, $ci * $s['chunkSize'], $s['chunkSize'] );
-			return cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_chunk', 'nonce' => $session['nonces']['cradle_migration'], 'session' => $s['session'], 'file' => $fi, 'index' => $ci ), $bytes ) );
+		$s = $s['data'];
+		assert_same( 1, count( $s['files'] ) );
+		assert_true( $s['files'][0]['chunks'] >= 2, 'The .cradle file is uploaded in several chunks (' . $s['files'][0]['chunks'] . ').' );
+		$send = static function ( array $s, int $ci, ?string $override = null ) use ( $session, $nonce, $file ) {
+			$bytes = null !== $override ? $override : (string) file_get_contents( $file, false, null, $ci * $s['chunkSize'], $s['chunkSize'] );
+			return cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_chunk', 'nonce' => $nonce, 'session' => $s['session'], 'file' => 0, 'index' => $ci ), $bytes ) );
 		};
-		$all = array();
-		foreach ( $s['files'] as $fi => $f ) {
-			for ( $ci = 0; $ci < $f['chunks']; $ci++ ) {
-				$all[] = array( $fi, $ci );
-			}
-		}
+		$all  = range( 0, $s['files'][0]['chunks'] - 1 );
 		$half = (int) ceil( count( $all ) / 2 );
-		foreach ( array_slice( $all, 0, $half ) as $c ) {
-			$r = $send( $s, $c[0], $c[1] );
+		foreach ( array_slice( $all, 0, $half ) as $ci ) {
+			$r = $send( $s, $ci );
 			assert_true( ! empty( $r['success'] ), 'Chunk upload: ' . wp_json_encode( $r['data'] ?? null ) );
 		}
-		// Interruption: the browser forgets everything; re-selecting the same files resumes.
+		// Interruption: the browser forgets everything; choosing the same file again resumes.
 		$again = $begin();
-		assert_true( ! empty( $again['data']['resumed'] ) && $again['data']['session'] === $s['session'], 'Same files resume the unfinished session.' );
-		$received = array_sum( array_map( static fn( $f ) => count( $f['received'] ), $again['data']['files'] ) );
-		assert_same( $half, $received, 'Server reports exactly the chunks already stored.' );
-		$dup = $send( $s, $all[0][0], $all[0][1] );
+		assert_true( ! empty( $again['data']['resumed'] ) && $again['data']['session'] === $s['session'], 'The same file resumes the unfinished session.' );
+		assert_same( $half, count( $again['data']['files'][0]['received'] ), 'Server reports exactly the chunks already stored.' );
+		$dup = $send( $s, 0 );
 		assert_true( ! empty( $dup['success'] ) && ! empty( $dup['data']['duplicate'] ), 'A duplicate chunk submission is acknowledged without writing twice.' );
-		$len  = strlen( (string) file_get_contents( $byname[ $s['files'][ $all[0][0] ]['name'] ], false, null, 0, $s['chunkSize'] ) );
-		$evil = $send( $s, $all[0][0], $all[0][1], str_repeat( 'X', $len ) );
+		$evil = $send( $s, 0, str_repeat( 'X', $s['chunkSize'] ) );
 		assert_true( empty( $evil['success'] ), 'A different payload for a stored chunk is refused.' );
-		$early = cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_finish', 'nonce' => $session['nonces']['cradle_migration'], 'session' => $s['session'] ) ) );
+		$early = cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_finish', 'nonce' => $nonce, 'session' => $s['session'] ) ) );
 		assert_true( empty( $early['success'] ), 'An incomplete upload cannot be finished.' );
-		foreach ( array_slice( $all, $half ) as $c ) {
-			$r = $send( $s, $c[0], $c[1] );
+		foreach ( array_slice( $all, $half ) as $ci ) {
+			$r = $send( $s, $ci );
 			assert_true( ! empty( $r['success'] ) && empty( $r['data']['duplicate'] ), 'Resumed chunk upload.' );
 		}
-		$done = cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_finish', 'nonce' => $session['nonces']['cradle_migration'], 'session' => $s['session'] ) ) );
+		$done = cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_upload_finish', 'nonce' => $nonce, 'session' => $s['session'] ) ) );
 		assert_true( ! empty( $done['success'] ), 'Finish: ' . wp_json_encode( $done['data'] ?? null ) );
+		assert_same( 'unpack', $done['data']['phase'], 'The import starts by unpacking the .cradle file.' );
 		$GLOBALS['cm']['job'] = $done['data']['uuid'];
-		unset( $paths );
 	}
 );
 
 cradle_test(
-	'migration: preflight via the browser runner, operator review/approval and staging (live target untouched)',
+	'migration: one-step import unpacks, checks and stages without a review stop (live target untouched)',
 	function () {
 		$uuid    = (string) $GLOBALS['cm']['job'];
 		$session = $GLOBALS['cm']['session'];
 		if ( '' === $uuid ) {
 			skip_test( 'Upload did not finish.' );
 		}
-		$view = cm_step_until( $session, $uuid, array( 'paused' ) );
-		assert_same( 'paused', $view['state'], 'Preflight stops for review: ' . $view['error'] );
-		assert_same( 'review', $view['phase'] );
+		$view = cm_step_until( $session, $uuid, array( 'paused', 'awaiting_cutover' ) );
+		assert_same( 'awaiting_cutover', $view['state'], 'Unpacking, preflight and staging run through without a review stop: ' . $view['phase'] . ' ' . $view['error'] );
 		$report = cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_report', 'nonce' => $session['nonces']['cradle_migration'], 'job' => $uuid ) ) );
 		assert_true( ! empty( $report['success'] ) && ! $report['data']['blocking'], 'No blocking problems: ' . wp_json_encode( $report['data']['blocking'] ?? null ) );
 		assert_contains( 'cradle_admin', $report['data']['admin']['summary'], 'The report names the administrator account that works after restore.' );
@@ -583,15 +671,12 @@ cradle_test(
 		}
 		$r = cm_ajax( $editor, array( 'action' => 'cradle_job_cancel', 'nonce' => $editor['nonces']['cradle_jobs'], 'job' => $uuid ) );
 		assert_same( 404, wp_remote_retrieve_response_code( $r ), 'Editor cannot cancel the import.' );
-		$ok = cm_json( cm_ajax( $session, array( 'action' => 'cradle_migration_approve', 'nonce' => $session['nonces']['cradle_migration'], 'job' => $uuid ) ) );
-		assert_true( ! empty( $ok['success'] ), 'Approve: ' . wp_json_encode( $ok['data'] ?? null ) );
-		$view = cm_step_until( $session, $uuid, array( 'awaiting_cutover' ) );
-		assert_same( 'awaiting_cutover', $view['state'], 'Staging completes: ' . $view['error'] );
 		$info = cm_target( 'info' );
 		assert_same( 'original-target', $info['marker'], 'The live target is unchanged before cutover.' );
 		assert_true( (bool) array_filter( $info['tables'], static fn( $t ) => str_starts_with( $t, 'cmig_' ) ), 'Staged tables exist beside the live ones.' );
-		$page = cm_http( 'GET', '/wp-admin/admin.php?page=cradle-migration&tab=import&job=' . $uuid, $session );
-		assert_contains( 'Switch the site over now', wp_remote_retrieve_body( $page ), 'The cutover confirmation screen renders.' );
+		$page = wp_remote_retrieve_body( cm_http( 'GET', '/wp-admin/admin.php?page=cradle-migration&tab=import&job=' . $uuid, $session ) );
+		assert_contains( 'Switch the site over now', $page, 'Another tab (without the starting tab\'s flag) gets the switch-over button.' );
+		assert_contains( 'data-auto="1"', $page, 'The tab that started the one-step import switches over by itself.' );
 	}
 );
 
@@ -620,7 +705,13 @@ cradle_test(
 		}
 		assert_same( 'completed', $view['state'], 'Restore completes: ' . $view['error'] );
 		assert_true( ! empty( $view['verification']['passed'] ), 'Post-restore verification passed: ' . wp_json_encode( $view['verification'] ?? null ) );
+		assert_true( str_starts_with( (string) $view['loginUrl'], CM_T_URL . '/wp-login.php' ), 'The browser is sent to the login page: ' . $view['loginUrl'] );
+		assert_contains( rawurlencode( 'tab=import&job=' . $uuid ), (string) $view['loginUrl'], 'After signing in the administrator sees this import\'s outcome.' );
 		assert_true( in_array( 'cradle_admin', $view['verification']['admins'], true ), 'Documented admin account exists.' );
+		$checks = array_column( $view['verification']['checks'], null, 'label' );
+		foreach ( array( 'Language files', 'Text direction', 'Cradle Translations catalogs' ) as $label ) {
+			assert_same( 'pass', $checks[ $label ]['status'] ?? '', $label . ': ' . ( $checks[ $label ]['detail'] ?? 'missing check' ) );
+		}
 		$GLOBALS['cm']['restored'] = true;
 		$old = cm_ajax( $session, array( 'action' => 'cradle_job_status', 'nonce' => $session['nonces']['cradle_jobs'], 'job' => $uuid ) );
 		assert_true( empty( cm_json( $old )['success'] ), 'The pre-restore admin session no longer authorizes job requests.' );
@@ -638,6 +729,17 @@ cradle_test(
 		$r    = cm_http( 'GET', '/' );
 		assert_same( 200, wp_remote_retrieve_response_code( $r ), 'Front page.' );
 		assert_not_contains( $src . '/', str_replace( $src . '-target', '', wp_remote_retrieve_body( $r ) ), 'No source URLs on the front page.' );
+		// The site language, its language files and the right-to-left layout came along.
+		assert_true( (bool) preg_match( '/<html\b[^>]*\bdir="rtl"/i', wp_remote_retrieve_body( $r ) ), 'The restored front page is right-to-left like the source.' );
+		$lang = cm_target( 'info' );
+		assert_same( 'he_IL', $lang['locale'], 'Site language restored.' );
+		assert_true( in_array( 'he_IL.mo', $lang['languageFiles'], true ) && in_array( 'plugins/cradle-mig-fixture-he_IL.mo', $lang['languageFiles'], true ), 'Language files restored: ' . wp_json_encode( $lang['languageFiles'] ) );
+		assert_true( ! in_array( 'he_IL.l10n.php', $lang['languageFiles'], true ), 'No PHP translation cache arrived.' );
+		$restored = array_filter( $lang['translations'], static fn( $k ) => str_ends_with( $k, '.json' ), ARRAY_FILTER_USE_KEY );
+		ksort( $restored );
+		$expected = $fx['translations'];
+		ksort( $expected );
+		assert_same( $expected, $restored, 'Cradle Translations catalogs are the source\'s, byte for byte.' );
 		$page = cm_target( 'post', $fx['page_title'] )['post'];
 		assert_true( is_array( $page ), 'Fixture page restored.' );
 		$dst_file = CM_T_URL . '/wp-content/uploads/' . $fx['file_rel'];
@@ -698,6 +800,8 @@ cradle_test(
 		assert_contains( 'Dashboard', wp_remote_retrieve_body( $dash ) );
 		$mig = cm_http( 'GET', '/wp-admin/admin.php?page=cradle-migration&tab=jobs', $admin );
 		assert_contains( 'safety hold', strtolower( wp_remote_retrieve_body( $mig ) ) );
+		$outcome = wp_remote_retrieve_body( cm_http( 'GET', '/wp-admin/admin.php?page=cradle-migration&tab=import&job=' . $uuid, $admin ) );
+		assert_contains( 'The site was imported.', $outcome, 'The page after login confirms the import.' );
 		// Staging, backups and the journal are not publicly readable.
 		$priv = cm_target( 'private-url', $uuid );
 		assert_true( in_array( 'journal.jsonl', $priv['files'], true ) && in_array( 'backup', $priv['files'], true ), 'Job keeps journal and backups.' );
@@ -766,6 +870,9 @@ cradle_test(
 		);
 		$cases['reserved private dir'] = array( $variant( 'reserved', static fn( &$x ) => cm_craft_add_file( $x, 'uploads', 'cradle-private-abc/x.txt', 'x' ) ), 'reserved Cradle private storage' );
 		$cases['root file not allowlisted'] = array( $variant( 'rootfile', static fn( &$x ) => cm_craft_add_file( $x, 'root', 'wp-config.php', 'x' ) ), 'root-file allowlist' );
+		$cases['PHP as a language file']    = array( $variant( 'langphp', static fn( &$x ) => cm_craft_add_file( $x, 'languages', 'de_DE.l10n.php', '<?php echo 1;' ) ), 'is not a WordPress translation file' );
+		$cases['language file in a stray folder'] = array( $variant( 'langdir', static fn( &$x ) => cm_craft_add_file( $x, 'languages', 'loco/de_DE.mo', 'x' ) ), 'is not a WordPress translation file' );
+		$cases['translation data outside its folders'] = array( $variant( 'tdata', static fn( &$x ) => cm_craft_add_file( $x, 'translations', 'evil.php', '<?php echo 1;' ) ), 'is not a Cradle Translations JSON file' );
 		$link = null;
 		$cases['symlink entry']    = array(
 			$variant(
@@ -812,6 +919,21 @@ cradle_test(
 		);
 		$cases['disk full (operator quota)'] = array( $a['manifest'], 'Insufficient disk space', '--max-disk-use=4096' );
 
+		// Single-file .cradle containers.
+		file_put_contents( $tmp . '/not-a-zip.cradle', 'A text file renamed to .cradle.' );
+		$cases['container: not a ZIP file'] = array( $tmp . '/not-a-zip.cradle', 'cannot be read as a ZIP file' );
+		$stray = array(
+			basename( $a['manifest'] )           => $a['manifest'],
+			Manifest::part_name( $a['id'], 1 )   => $a['dir'] . '/' . Manifest::part_name( $a['id'], 1 ),
+			'shell.php'                          => '<?php echo 1;',
+		);
+		$cases['container: stray file'] = array( cm_zip( $tmp . '/stray.cradle', $stray ), 'Unexpected entry shell.php' );
+		$damaged = array();
+		foreach ( glob( $tmp . '/bad-checksum/*' ) as $f ) {
+			$damaged[ basename( $f ) ] = $f;
+		}
+		$cases['container: damaged part inside'] = array( cm_zip( $tmp . '/damaged.cradle', $damaged ), 'SHA-256 checksum' );
+
 		$results = array();
 		foreach ( $cases as $label => $case ) {
 			$args = array( 'import', '--archive=' . $case[0] );
@@ -832,6 +954,30 @@ cradle_test(
 );
 
 cradle_test(
+	'migration: a .cradle file zipped by hand (files in a folder, deflated) passes the command-line preflight',
+	function () {
+		$a       = cm_require_archive();
+		cm_require_restore();
+		$entries = array( 'My export/' . basename( $a['manifest'] ) => $a['manifest'] );
+		foreach ( glob( $a['dir'] . '/' . $a['id'] . '.part-*.zip' ) as $part ) {
+			$entries[ 'My export/' . basename( $part ) ] = $part;
+		}
+		$file = cm_zip( $GLOBALS['cm']['tmp'] . '/hand-made.cradle', $entries );
+		$r    = cm_cli( 'import', '--archive=' . $file );
+		try {
+			assert_same( 0, $r['code'], 'Preflight of a hand-made .cradle file: ' . cm_blocking( $r ) . substr( $r['stdout'], 0, 400 ) );
+			assert_same( 'paused', $r['json']['state'] ?? '', 'The command line (without --yes) still stops for review.' );
+			assert_same( 'review', $r['json']['phase'] ?? '' );
+			assert_same( array(), $r['json']['report']['blocking'] ?? null, 'No blocking problems.' );
+		} finally {
+			if ( ! empty( $r['json']['uuid'] ) ) {
+				cm_cli( 'discard', '--job=' . $r['json']['uuid'] );
+			}
+		}
+	}
+);
+
+cradle_test(
 	'migration: expired lease takeover repeats a load step idempotently and refuses the stale commit',
 	function () {
 		$a = cm_require_archive();
@@ -844,6 +990,20 @@ cradle_test(
 		assert_same( 'awaiting_cutover', $r['state'] );
 		assert_same( array(), $r['mismatch'], 'Staged row counts equal the archive (no duplicated rows).' );
 		assert_true( $r['tables'] >= 10 );
+	}
+);
+
+cradle_test(
+	'migration: a lost commit of the unpack step is repeated safely (the uploaded .cradle file is kept until then)',
+	function () {
+		$a = cm_require_archive();
+		cm_require_restore();
+		$r = cm_target( 'unpack-lost-commit', $a['cradle'] );
+		assert_true( empty( $r['error'] ), 'unpack-lost-commit: ' . wp_json_encode( $r ) );
+		assert_same( 'verify_manifest', $r['lostPhase'], 'The step whose commit was lost had unpacked everything.' );
+		assert_same( array( 'verify_manifest', 'hash_parts' ), $r['phases'], 'The new worker unpacks again, then the preflight continues.' );
+		assert_same( 'preflight', $r['state'] );
+		assert_same( false, $r['containerLeft'], 'The uploaded .cradle file is deleted once the unpack step is committed.' );
 	}
 );
 
@@ -1070,13 +1230,31 @@ cradle_test(
 		assert_contains( 'data-cradle-job="' . $q['job'] . '"', wp_remote_retrieve_body( $page ), 'The runner markup is rendered.' );
 		$view = cm_step_until( $admin, $q['job'], array( 'completed' ) );
 		assert_same( 'completed', $view['state'], 'Browser-driven export completes: ' . $view['error'] );
+		$done = wp_remote_retrieve_body( cm_http( 'GET', '/wp-admin/admin.php?page=cradle-migration&tab=export&job=' . $q['job'] . '&download=1', $admin ) );
+		assert_contains( 'data-cradle-autodownload', $done, 'Right after the export the page starts the download by itself.' );
 		$list = wp_remote_retrieve_body( cm_http( 'GET', '/wp-admin/admin.php?page=cradle-migration&tab=archives', $admin ) );
 		assert_true( (bool) preg_match( '/<code>(cradle-[A-Za-z0-9-]+)<\/code>/', $list, $m ), 'Archive listed.' );
 		$id = $m[1];
-		assert_true( (bool) preg_match( '/href="([^"]+action=cradle_migration_download[^"]+manifest\.json[^"]*)"/', $list, $l ), 'Signed download link rendered.' );
-		$dl = cm_http( 'GET', html_entity_decode( $l[1] ), $admin );
+		assert_true( (bool) preg_match( '/href="([^"]+action=cradle_migration_download[^"]+\.cradle[^"]*)"/', $list, $l ), 'One signed .cradle download link rendered.' );
+		assert_not_contains( 'part-0001.zip', $list, 'No separate part downloads.' );
+		$saved = $GLOBALS['cm']['tmp'] . '/target-export.cradle';
+		$dl    = cm_http( 'GET', html_entity_decode( $l[1] ), $admin, array( 'stream' => true, 'filename' => $saved ) );
 		assert_same( 200, wp_remote_retrieve_response_code( $dl ), 'Download through the signed link.' );
-		assert_same( $id, json_decode( wp_remote_retrieve_body( $dl ), true )['archiveId'] ?? '' );
+		$zip = new ZipArchive();
+		assert_true( true === $zip->open( $saved, ZipArchive::RDONLY ), 'The download is a ZIP file.' );
+		assert_same( $id, json_decode( (string) $zip->getFromName( Manifest::manifest_name( $id ) ), true )['archiveId'] ?? '', 'It contains the archive manifest.' );
+		$zip->close();
+		wp_delete_file( $saved );
+		$import = wp_remote_retrieve_body( cm_http( 'GET', '/wp-admin/admin.php?page=cradle-migration&tab=import', $admin ) );
+		assert_contains( 'accept=".cradle"', $import, 'The import form takes one .cradle file.' );
+		// Archives → Restore… starts a one-step import; it is cancelled here before anything is changed.
+		$restore = cm_json( cm_ajax( $admin, array( 'action' => 'cradle_migration_restore', 'nonce' => $admin['nonces']['cradle_migration'], 'archive' => $id ) ) );
+		assert_true( ! empty( $restore['success'] ), 'Restore starts: ' . wp_json_encode( $restore['data'] ?? null ) );
+		assert_same( 'unpack', $restore['data']['phase'], 'The stored .cradle file is unpacked first.' );
+		$busy = cm_json( cm_ajax( $admin, array( 'action' => 'cradle_migration_restore', 'nonce' => $admin['nonces']['cradle_migration'], 'archive' => $id ) ) );
+		assert_true( empty( $busy['success'] ), 'A second import cannot start while one is open.' );
+		assert_same( 302, wp_remote_retrieve_response_code( $post( array( 'action' => 'cradle_migration_discard', 'job' => $restore['data']['uuid'] ) ) ), 'The one-step import can be cancelled before the switch.' );
+		assert_same( '', cm_open_import(), 'No import is left open.' );
 		assert_same( 302, wp_remote_retrieve_response_code( $post( array( 'action' => 'cradle_migration_delete_archive', 'archive' => $id ) ) ) );
 		assert_not_contains( $id, wp_remote_retrieve_body( cm_http( 'GET', '/wp-admin/admin.php?page=cradle-migration&tab=archives', $admin ) ), 'Archive deleted.' );
 		assert_true( ! empty( cm_target( 'info' )['hold']['active'] ) );

@@ -39,10 +39,10 @@ final class Cli {
 		return <<<TXT
 Usage: php bin/cradle-migrate.php --path=<wordpress root> <command> [options]
 
-  export   [--database=0|1] [--uploads=0|1] [--themes=active|all|none] [--plugins=active|all|none]
-           [--quiesce] [--part-size=<MB>] [--out=<dir>]
-  import   --archive=<path/to/<id>.manifest.json> [--yes] [--no-database] [--no-uploads]
-           [--no-themes] [--no-plugins] [--opaque=key1,key2*] [--max-disk-use=<bytes>]
+  export   [--database=0|1] [--uploads=0|1] [--languages=0|1] [--themes=active|all|none]
+           [--plugins=active|all|none] [--quiesce] [--part-size=<MB>] [--out=<dir>]
+  import   --archive=<path/to/file.cradle | <id>.manifest.json> [--yes] [--no-database] [--no-uploads]
+           [--no-languages] [--no-themes] [--no-plugins] [--opaque=key1,key2*] [--max-disk-use=<bytes>]
   approve  --job=<uuid>    Approve a reviewed preflight report and stage.
   cutover  --job=<uuid>    Switch the site over (after staging) and finish.
   run      --job=<uuid>    Continue a job that is running (e.g. after an interruption).
@@ -121,7 +121,7 @@ TXT;
 			case 'archives':
 				self::$result = array( 'archives' => Archives::all() );
 				foreach ( self::$result['archives'] as $a ) {
-					self::out( sprintf( '%s  %s  %d parts  %s', $a['id'], $a['createdAt'], count( $a['parts'] ), size_format( $a['bytes'] ) ) );
+					self::out( sprintf( '%s  %s  %s', $a['id'], $a['createdAt'], '' !== $a['file'] ? $a['file'] . '  ' . size_format( $a['fileBytes'] ) : count( $a['parts'] ) . ' parts  ' . size_format( $a['bytes'] ) ) );
 				}
 				$code = 0;
 				break;
@@ -258,6 +258,7 @@ TXT;
 		$opts = array(
 			'database' => '0' !== (string) ( $a['database'] ?? '1' ),
 			'uploads'  => '0' !== (string) ( $a['uploads'] ?? '1' ),
+			'languages' => '0' !== (string) ( $a['languages'] ?? '1' ),
 			'themes'   => (string) ( $a['themes'] ?? 'active' ),
 			'plugins'  => (string) ( $a['plugins'] ?? 'active' ),
 			'quiesce'  => ! empty( $a['quiesce'] ),
@@ -276,17 +277,17 @@ TXT;
 		$archive                 = $job['payload']['archive'];
 		self::$result['archive'] = $archive;
 		$dir                     = Workspace::resolve_rel( $archive['location'] );
-		self::out( sprintf( 'Archive %1$s: %2$d part(s), %3$s, consistency: %4$s, unsupported objects: %5$d', $archive['id'], $archive['parts'], size_format( $archive['bytes'] ), $archive['consistency'], $archive['unsupported'] ) );
+		self::out( sprintf( 'Archive %1$s: %2$s (%3$s), consistency: %4$s, unsupported objects: %5$d', $archive['id'], $archive['file'], size_format( $archive['fileBytes'] ), $archive['consistency'], $archive['unsupported'] ) );
 		if ( ! empty( $a['out'] ) && ! is_wp_error( $dir ) ) {
 			$out = rtrim( wp_normalize_path( (string) $a['out'] ), '/' );
 			if ( ! is_dir( $out ) && ! wp_mkdir_p( $out ) ) {
 				return self::err( 'Could not create ' . $out );
 			}
-			foreach ( (array) glob( $dir . '/' . $archive['id'] . '.*' ) as $file ) {
-				copy( (string) $file, $out . '/' . basename( (string) $file ) );
+			if ( ! copy( $dir . '/' . $archive['file'], $out . '/' . $archive['file'] ) ) {
+				return self::err( 'Could not copy ' . $archive['file'] . ' to ' . $out );
 			}
-			self::$result['out'] = $out;
-			self::out( 'Copied to ' . $out . ' — keep it private: it contains password hashes and secrets.' );
+			self::$result['out'] = $out . '/' . $archive['file'];
+			self::out( 'Copied to ' . self::$result['out'] . ' — keep it private: it contains password hashes and secrets.' );
 		}
 		return 0;
 	}
@@ -308,11 +309,13 @@ TXT;
 		}
 		$job = Importer::create(
 			array(
-				'location' => $local['location'],
-				'manifest' => $local['manifest'],
-				'options'  => array(
+				'location'  => $local['location'],
+				'manifest'  => $local['manifest'] ?? '',
+				'container' => $local['container'] ?? '',
+				'options'   => array(
 					'database' => empty( $a['no-database'] ),
 					'uploads'  => empty( $a['no-uploads'] ),
+					'languages' => empty( $a['no-languages'] ),
 					'themes'   => empty( $a['no-themes'] ),
 					'plugins'  => empty( $a['no-plugins'] ),
 					'opaque'   => array_filter( explode( ',', (string) ( $a['opaque'] ?? '' ) ) ),

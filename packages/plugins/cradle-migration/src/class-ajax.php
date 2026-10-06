@@ -22,7 +22,7 @@ final class Ajax {
 	const POST_CUTOVER = array( 'cutover_db', 'replace_files', 'finalize', 'verify', 'verify_failed', 'done' );
 
 	public static function hooks() {
-		foreach ( array( 'upload_begin', 'upload_chunk', 'upload_status', 'upload_finish', 'approve', 'cutover', 'report' ) as $action ) {
+		foreach ( array( 'upload_begin', 'upload_chunk', 'upload_status', 'upload_finish', 'restore', 'approve', 'cutover', 'report' ) as $action ) {
 			add_action( 'wp_ajax_cradle_migration_' . $action, array( __CLASS__, $action ) );
 		}
 		add_action( 'wp_ajax_cradle_migration_continue', array( __CLASS__, 'continue_job' ) );
@@ -110,7 +110,7 @@ final class Ajax {
 	public static function upload_finish() {
 		self::authorize( 'cradle_import_site' );
 		$opts = array();
-		foreach ( array( 'uploads', 'themes', 'plugins', 'database' ) as $k ) {
+		foreach ( array( 'uploads', 'themes', 'plugins', 'languages', 'database' ) as $k ) {
 			$opts[ $k ] = '0' !== self::post_string( 'opt_' . $k );
 		}
 		$result = Upload::finish( self::post_string( 'session' ), get_current_user_id(), $opts );
@@ -118,6 +118,18 @@ final class Ajax {
 			self::deny( $result->get_error_message(), 400 );
 		}
 		wp_send_json_success( Jobs::public_view( $result ) );
+	}
+
+	/**
+	 * One-step restore of an archive stored on this site (Archives → Restore).
+	 */
+	public static function restore() {
+		self::authorize( 'cradle_import_site' );
+		$job = Importer::create_from_archive( self::post_string( 'archive' ) );
+		if ( is_wp_error( $job ) ) {
+			self::deny( $job->get_error_message(), 400 );
+		}
+		wp_send_json_success( Jobs::public_view( $job ) );
 	}
 
 	public static function approve() {
@@ -201,7 +213,8 @@ final class Ajax {
 					),
 				);
 			}
-			$view['loginUrl'] = wp_login_url( admin_url( 'admin.php?page=cradle-migration&tab=jobs' ) );
+			// After signing in, the administrator lands on this import's outcome.
+			$view['loginUrl'] = wp_login_url( admin_url( 'admin.php?page=cradle-migration&tab=import&job=' . $uuid ) );
 		}
 		wp_send_json_success( $view );
 	}

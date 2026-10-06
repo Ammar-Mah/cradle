@@ -11019,9 +11019,9 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "A full export contains this site's database tables (including plugin tables), uploads and fonts, the active parent/child themes and the selected plugins, with an inventory of installed packages. The archive contains password hashes, customer data and any secrets stored in the database: keep it as private as the database itself.",
+            "msgid": ".cradle file (exported with Cradle Migration)",
             "forms": [
-                "Ein vollständiger Export enthält die Datenbanktabellen dieser Website (einschließlich Plugin-Tabellen), Uploads und Schriftarten, die aktiven Eltern- und Child-Themes sowie die ausgewählten Plugins, zusammen mit einer Übersicht der installierten Pakete. Das Archiv enthält Passwort-Hashes, Kundendaten und alle in der Datenbank gespeicherten Geheimnisse: Behandeln Sie es so vertraulich wie die Datenbank selbst."
+                ".cradle-Datei (mit Cradle Migration exportiert)"
             ]
         },
         {
@@ -11029,13 +11029,6 @@
             "msgid": "A restore is switching this site over. Visitors see a maintenance page until it finishes.",
             "forms": [
                 "Eine Wiederherstellung schaltet diese Website gerade um. Besucher sehen bis zum Abschluss eine Wartungsseite."
-            ]
-        },
-        {
-            "domain": "cradle-migration",
-            "msgid": "A restore replaces this site's database, uploads and the themes/plugins contained in the archive. Restoring themes and plugins deploys code. Checksums detect corruption, not who made the archive: only restore archives you trust.",
-            "forms": [
-                "Eine Wiederherstellung ersetzt die Datenbank und die Uploads dieser Website sowie die im Archiv enthaltenen Themes/Plugins. Das Wiederherstellen von Themes und Plugins spielt Code ein. Prüfsummen erkennen Beschädigungen, nicht aber, wer das Archiv erstellt hat: Stellen Sie nur Archive wieder her, denen Sie vertrauen."
             ]
         },
         {
@@ -11138,13 +11131,6 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Archive files (the .manifest.json and every .part-NNNN.zip)",
-            "forms": [
-                "Archivdateien (die .manifest.json und jede .part-NNNN.zip)"
-            ]
-        },
-        {
-            "domain": "cradle-migration",
             "msgid": "Archive not found.",
             "forms": [
                 "Archiv nicht gefunden."
@@ -11180,6 +11166,27 @@
         },
         {
             "domain": "cradle-migration",
+            "msgid": "Cancel import",
+            "forms": [
+                "Import abbrechen"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Cancel this import? The live site was not changed.",
+            "forms": [
+                "Diesen Import abbrechen? Die Live-Website wurde nicht verändert."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Check the site, then release the safety hold under Jobs & recovery so that email, scheduled tasks and connections to other services work again. The replaced site is kept as a backup until you purge it there.",
+            "forms": [
+                "Prüfen Sie die Website und heben Sie dann unter „Aufträge & Störungsbehebung“ die Sicherheitspause auf, damit E-Mails, geplante Aufgaben und Verbindungen zu anderen Diensten wieder funktionieren. Die ersetzte Website bleibt dort als Sicherung erhalten, bis Sie sie löschen."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
             "msgid": "Checking or staging the archive. The live site is not changed in this phase.",
             "forms": [
                 "Das Archiv wird geprüft oder bereitgestellt. Die Live-Website wird in dieser Phase nicht geändert."
@@ -11187,9 +11194,51 @@
         },
         {
             "domain": "cradle-migration",
+            "msgid": "Checking the export…",
+            "forms": [
+                "Export wird geprüft …"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Checking the file…",
+            "forms": [
+                "Datei wird geprüft …"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Checking the imported site…",
+            "forms": [
+                "Importierte Website wird geprüft …"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
             "msgid": "Choose an archive.",
             "forms": [
                 "Wählen Sie ein Archiv aus."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Choose one .cradle file.",
+            "forms": [
+                "Wählen Sie eine .cradle-Datei."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Choose the .cradle file to import.",
+            "forms": [
+                "Wählen Sie die zu importierende .cradle-Datei."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Collecting files…",
+            "forms": [
+                "Dateien werden gesammelt …"
             ]
         },
         {
@@ -11208,9 +11257,16 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Connection lost. Select the same files again to resume the upload.",
+            "msgid": "Connection lost. Choose the same file again to resume the upload.",
             "forms": [
-                "Verbindung unterbrochen. Wählen Sie dieselben Dateien erneut aus, um den Upload fortzusetzen."
+                "Verbindung unterbrochen. Wählen Sie dieselbe Datei erneut, um den Upload fortzusetzen."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Connection lost. The import keeps its progress; reload the page to continue.",
+            "forms": [
+                "Verbindung unterbrochen. Der Import behält seinen Fortschritt; laden Sie die Seite neu, um fortzufahren."
             ]
         },
         {
@@ -11267,6 +11323,20 @@
             "msgid": "Created (UTC)",
             "forms": [
                 "Erstellt (UTC)"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Creates one .cradle file with this site's database, uploads, themes and plugins. To move the site, import that file on the other site under Cradle → Migration → Import.",
+            "forms": [
+                "Erstellt eine .cradle-Datei mit der Datenbank, den Uploads, Themes und Plugins dieser Website. Um die Website umzuziehen, importieren Sie diese Datei auf der anderen Website unter Cradle → Migration → Import."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Creating the .cradle file…",
+            "forms": [
+                ".cradle-Datei wird erstellt …"
             ]
         },
         {
@@ -11355,6 +11425,20 @@
         },
         {
             "domain": "cradle-migration",
+            "msgid": "Download %s",
+            "forms": [
+                "%s herunterladen"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Download .cradle file",
+            "forms": [
+                ".cradle-Datei herunterladen"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
             "msgid": "Download it from Archives.",
             "forms": [
                 "Sie können ihn unter „Archive“ herunterladen."
@@ -11365,6 +11449,13 @@
             "msgid": "Download links are personal and expire after 10 minutes. Archives are stored in protected private storage and are never publicly reachable.",
             "forms": [
                 "Download-Links sind personengebunden und laufen nach 10 Minuten ab. Archive werden in geschütztem privatem Speicher abgelegt und sind nie öffentlich erreichbar."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Download the file and import it on the other site.",
+            "forms": [
+                "Laden Sie die Datei herunter und importieren Sie sie auf der anderen Website."
             ]
         },
         {
@@ -11418,9 +11509,30 @@
         },
         {
             "domain": "cradle-migration",
+            "msgid": "Export site",
+            "forms": [
+                "Website exportieren"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
             "msgid": "Export this site",
             "forms": [
                 "Diese Website exportieren"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Exporting the database…",
+            "forms": [
+                "Datenbank wird exportiert …"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Exporting… Keep this page open. The .cradle file downloads automatically when it is ready.",
+            "forms": [
+                "Export läuft … Lassen Sie diese Seite geöffnet. Die .cradle-Datei wird automatisch heruntergeladen, sobald sie fertig ist."
             ]
         },
         {
@@ -11439,6 +11551,13 @@
         },
         {
             "domain": "cradle-migration",
+            "msgid": "Import",
+            "forms": [
+                "Import"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
             "msgid": "Import %1$s — %2$s (%3$s)",
             "forms": [
                 "Import %1$s – %2$s (%3$s)"
@@ -11446,16 +11565,16 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Import & restore",
+            "msgid": "Import a site",
             "forms": [
-                "Import & Wiederherstellung"
+                "Website importieren"
             ]
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Import and restore",
+            "msgid": "Import complete. Taking you to the login page…",
             "forms": [
-                "Importieren und wiederherstellen"
+                "Import abgeschlossen. Sie werden zur Anmeldeseite weitergeleitet …"
             ]
         },
         {
@@ -11463,6 +11582,34 @@
             "msgid": "Import discarded. The live site was not changed.",
             "forms": [
                 "Import verworfen. Die Live-Website wurde nicht geändert."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Import this file? It replaces this site's content, users, uploads, themes and plugins. When it finishes you will be taken to the login page.",
+            "forms": [
+                "Diese Datei importieren? Sie ersetzt Inhalte, Benutzer, Uploads, Themes und Plugins dieser Website. Danach werden Sie zur Anmeldeseite weitergeleitet."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Importing needs JavaScript. Without it, copy the .cradle file to the server and use the command line below.",
+            "forms": [
+                "Der Import benötigt JavaScript. Ohne JavaScript kopieren Sie die .cradle-Datei auf den Server und verwenden die Befehlszeile unten."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Importing replaces this site's content, users, uploads, themes and plugins with the ones in the .cradle file. Only import files you trust: restoring themes and plugins deploys their code.",
+            "forms": [
+                "Der Import ersetzt Inhalte, Benutzer, Uploads, Themes und Plugins dieser Website durch die aus der .cradle-Datei. Importieren Sie nur Dateien, denen Sie vertrauen: Beim Wiederherstellen von Themes und Plugins wird deren Code installiert."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Importing… Keep this page open.",
+            "forms": [
+                "Import läuft … Lassen Sie diese Seite geöffnet."
             ]
         },
         {
@@ -11491,6 +11638,20 @@
             "msgid": "Keep this tab open until it reports completion: it holds a one-time recovery token that lets it finish without a session. If the tab closes, finish with the CLI command below.",
             "forms": [
                 "Lassen Sie diesen Tab geöffnet, bis er den Abschluss meldet: Er enthält ein einmaliges Wiederherstellungstoken, mit dem der Vorgang ohne Sitzung abgeschlossen werden kann. Wird der Tab geschlossen, schließen Sie den Vorgang mit dem unten stehenden CLI-Befehl ab."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Language files",
+            "forms": [
+                "Sprachdateien"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Language files (WordPress, theme and plugin translations; they keep the site language and right-to-left layout)",
+            "forms": [
+                "Sprachdateien (Übersetzungen von WordPress, Themes und Plugins; sie erhalten die Website-Sprache und das Rechts-nach-links-Layout)"
             ]
         },
         {
@@ -11551,9 +11712,9 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Nothing changes until you have reviewed the preflight report and confirmed. Replaced tables and files are kept as backups for rollback until you purge them.",
+            "msgid": "Not enough free disk space to receive, unpack, stage and back up this file.",
             "forms": [
-                "Es wird nichts geändert, bevor Sie den Bericht der Vorabprüfung durchgesehen und bestätigt haben. Ersetzte Tabellen und Dateien werden als Sicherungen für ein Zurücksetzen aufbewahrt, bis Sie sie entfernen."
+                "Nicht genug freier Speicherplatz, um diese Datei zu empfangen, zu entpacken, vorzubereiten und zu sichern."
             ]
         },
         {
@@ -11572,6 +11733,13 @@
         },
         {
             "domain": "cradle-migration",
+            "msgid": "Options",
+            "forms": [
+                "Optionen"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
             "msgid": "Outbound HTTP is paused by the Cradle Migration safety hold until an administrator releases it.",
             "forms": [
                 "Ausgehende HTTP-Anfragen sind durch die Sicherheitspause von Cradle Migration angehalten, bis ein Administrator sie aufhebt."
@@ -11579,9 +11747,9 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Part size",
+            "msgid": "Packing files…",
             "forms": [
-                "Teilgröße"
+                "Dateien werden gepackt …"
             ]
         },
         {
@@ -11614,7 +11782,21 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Preparing upload…",
+            "msgid": "Preparing the export…",
+            "forms": [
+                "Export wird vorbereitet …"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Preparing the imported site beside this one…",
+            "forms": [
+                "Importierte Website wird neben dieser vorbereitet …"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "Preparing the upload…",
             "forms": [
                 "Upload wird vorbereitet …"
             ]
@@ -11663,9 +11845,9 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Restore completed and verified. Sign in again as a source administrator.",
+            "msgid": "Restore this archive over this site? Its content, users, uploads, themes and plugins replace the current ones, and you will need to sign in again.",
             "forms": [
-                "Wiederherstellung abgeschlossen und überprüft. Melden Sie sich erneut als Administrator der Quell-Website an."
+                "Dieses Archiv über diese Website wiederherstellen? Seine Inhalte, Benutzer, Uploads, Themes und Plugins ersetzen die aktuellen, und Sie müssen sich erneut anmelden."
             ]
         },
         {
@@ -11726,13 +11908,6 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Select the manifest and all part files.",
-            "forms": [
-                "Wählen Sie das Manifest und alle Teildateien aus."
-            ]
-        },
-        {
-            "domain": "cradle-migration",
             "msgid": "Sign in",
             "forms": [
                 "Anmelden"
@@ -11750,20 +11925,6 @@
             "msgid": "Site maintenance is in progress. Please retry shortly.",
             "forms": [
                 "Die Website wird gerade gewartet. Bitte versuchen Sie es in Kürze erneut."
-            ]
-        },
-        {
-            "domain": "cradle-migration",
-            "msgid": "Start export",
-            "forms": [
-                "Export starten"
-            ]
-        },
-        {
-            "domain": "cradle-migration",
-            "msgid": "Starting cutover…",
-            "forms": [
-                "Umschaltung wird gestartet …"
             ]
         },
         {
@@ -11789,9 +11950,58 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "The export runs in short resumable steps while this page is open. Closing the page pauses it; reopening resumes where it stopped.",
+            "msgid": "Switching the site over…",
             "forms": [
-                "Der Export läuft in kurzen, fortsetzbaren Schritten, solange diese Seite geöffnet ist. Wird die Seite geschlossen, pausiert er; beim erneuten Öffnen wird er dort fortgesetzt, wo er angehalten wurde."
+                "Website wird umgeschaltet …"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "The download starts automatically; if it does not, use the button.",
+            "forms": [
+                "Der Download startet automatisch; falls nicht, verwenden Sie die Schaltfläche."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "The file contains password hashes, customer data and any secrets stored in the database. Keep it as private as the database itself.",
+            "forms": [
+                "Die Datei enthält Passwort-Hashes, Kundendaten und alle in der Datenbank gespeicherten Geheimnisse. Behandeln Sie sie so vertraulich wie die Datenbank selbst."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "The import checks the file, prepares the new site beside the current one and then switches over. Afterwards you are taken to the login page: sign in with an administrator account of the imported site. Everything that was replaced is kept as a backup, so the import can be rolled back under Jobs & recovery.",
+            "forms": [
+                "Der Import prüft die Datei, bereitet die neue Website neben der aktuellen vor und schaltet dann um. Anschließend werden Sie zur Anmeldeseite weitergeleitet: Melden Sie sich mit einem Administratorkonto der importierten Website an. Alles Ersetzte wird als Sicherung aufbewahrt, sodass der Import unter „Aufträge & Störungsbehebung“ zurückgesetzt werden kann."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "The import could not continue. Finish it with the command-line recovery described under Jobs & recovery.",
+            "forms": [
+                "Der Import konnte nicht fortgesetzt werden. Schließen Sie ihn mit der unter „Aufträge & Störungsbehebung“ beschriebenen Wiederherstellung über die Befehlszeile ab."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "The import could not start.",
+            "forms": [
+                "Der Import konnte nicht gestartet werden."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "The import finished, but some checks failed. Sign in to review them; the import can be rolled back under Jobs & recovery.",
+            "forms": [
+                "Der Import ist abgeschlossen, aber einige Prüfungen sind fehlgeschlagen. Melden Sie sich an, um sie zu prüfen; der Import kann unter „Aufträge & Störungsbehebung“ zurückgesetzt werden."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "The import request failed. Reload the page to continue.",
+            "forms": [
+                "Die Import-Anfrage ist fehlgeschlagen. Laden Sie die Seite neu, um fortzufahren."
             ]
         },
         {
@@ -11803,9 +12013,23 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "The restore could not continue. Use the CLI recovery command shown below.",
+            "msgid": "The site keeps working normally until the final switch, which takes a few seconds. Then you are taken to the login page.",
             "forms": [
-                "Die Wiederherstellung konnte nicht fortgesetzt werden. Verwenden Sie den unten angezeigten CLI-Wiederherstellungsbefehl."
+                "Die Website funktioniert bis zur abschließenden Umschaltung normal weiter; diese dauert nur wenige Sekunden. Danach werden Sie zur Anmeldeseite weitergeleitet."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "The site was imported.",
+            "forms": [
+                "Die Website wurde importiert."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "The size of this .cradle file is not acceptable.",
+            "forms": [
+                "Die Größe dieser .cradle-Datei ist nicht zulässig."
             ]
         },
         {
@@ -11852,6 +12076,13 @@
         },
         {
             "domain": "cradle-migration",
+            "msgid": "This is not a .cradle file. Export the other site with Cradle Migration and choose the .cradle file it downloads.",
+            "forms": [
+                "Dies ist keine .cradle-Datei. Exportieren Sie die andere Website mit Cradle Migration und wählen Sie die dabei heruntergeladene .cradle-Datei."
+            ]
+        },
+        {
+            "domain": "cradle-migration",
             "msgid": "This job is not in its cutover phase.",
             "forms": [
                 "Dieser Auftrag befindet sich nicht in der Umschaltphase."
@@ -11894,6 +12125,13 @@
         },
         {
             "domain": "cradle-migration",
+            "msgid": "Unpacking the .cradle file…",
+            "forms": [
+                ".cradle-Datei wird entpackt …"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
             "msgid": "Updated (UTC)",
             "forms": [
                 "Aktualisiert (UTC)"
@@ -11901,23 +12139,16 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Upload and check",
+            "msgid": "Upload complete. Starting the import…",
             "forms": [
-                "Hochladen und prüfen"
+                "Upload abgeschlossen. Import wird gestartet …"
             ]
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Upload complete. Starting the preflight check…",
+            "msgid": "Uploading…",
             "forms": [
-                "Upload abgeschlossen. Vorabprüfung wird gestartet …"
-            ]
-        },
-        {
-            "domain": "cradle-migration",
-            "msgid": "Uploading needs JavaScript. Without it, copy the archive to the server and run: php wp-content/plugins/cradle-migration/bin/cradle-migrate.php --path=<site> import --archive=<manifest>",
-            "forms": [
-                "Zum Hochladen wird JavaScript benötigt. Ohne JavaScript kopieren Sie das Archiv auf den Server und führen Folgendes aus: php wp-content/plugins/cradle-migration/bin/cradle-migrate.php --path=<site> import --archive=<manifest>"
+                "Wird hochgeladen …"
             ]
         },
         {
@@ -11932,6 +12163,13 @@
             "msgid": "Uploads and fonts",
             "forms": [
                 "Uploads und Schriftarten"
+            ]
+        },
+        {
+            "domain": "cradle-migration",
+            "msgid": "View site",
+            "forms": [
+                "Website ansehen"
             ]
         },
         {
@@ -12013,16 +12251,16 @@
         },
         {
             "domain": "cradle-migration",
-            "msgid": "Your session expired. Reload the page.",
+            "msgid": "Your export is ready.",
             "forms": [
-                "Ihre Sitzung ist abgelaufen. Laden Sie die Seite neu."
+                "Ihr Export ist fertig."
             ]
         },
         {
             "domain": "cradle-migration",
-            "msgid": "chunks uploaded",
+            "msgid": "Your session expired. Reload the page.",
             "forms": [
-                "Abschnitte hochgeladen"
+                "Ihre Sitzung ist abgelaufen. Laden Sie die Seite neu."
             ]
         },
         {

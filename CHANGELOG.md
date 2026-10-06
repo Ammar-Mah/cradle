@@ -2,6 +2,34 @@
 
 All Cradle packages share this changelog; each package keeps its own version header.
 
+## Unreleased — 2026-09-29
+
+- `cradle-migration` 0.3.0: **the site language and right-to-left layout survive a move.** Exports now carry
+  the WordPress language files (`wp-content/languages`: core, theme and plugin translations — `.mo`, `.po`,
+  `.json`) and the Cradle Translations catalogs, still inside the one `.cradle` file. Before, a site in Arabic
+  or Hebrew was imported with its language setting but without the files that make it right-to-left, so it
+  showed left-to-right (and in English). New export and import option **Language files** (on by default);
+  Cradle Translations data is restored together with the database. After an import, three new checks report
+  the language files, the Cradle Translations catalogs and whether the front page has the same text direction
+  as the source. PHP translation caches (`*.l10n.php`) are never exported or accepted; WordPress uses the
+  `.mo` files. Importing a `.cradle` file made by 0.3.0 needs 0.3.0 on the destination (older versions refuse
+  it before changing anything); `.cradle` files from 0.2.0 still import (they contain no language files — see
+  below for sites already imported that way).
+  Sites imported with 0.2.0 or earlier: release the safety hold, then choose the language again under
+  Settings → General so WordPress downloads its files.
+- `cradle-migration` 0.2.0: **one file, one click.** An export is now a single `.cradle` file (a standard ZIP
+  that holds the archive manifest and all parts unchanged; rename it to `.zip` to look inside). **Export site**
+  downloads it automatically when it is ready; Archives shows one download per archive. **Import** takes one
+  `.cradle` file: after one confirmation it uploads, unpacks, checks, prepares the new site beside the current
+  one, switches over and opens the login page (after signing in you see the import's outcome). Blocking
+  problems still stop the import before anything changes; the journal, backups, rollback and the post-restore
+  safety hold are unchanged. Archives → Restore… works the same way for archives stored on the site.
+  The command line accepts `import --archive=<file.cradle>` (manifest paths still work) and keeps its review
+  and switch-over stops unless `--yes`; `export --out` copies the `.cradle` file. Archives exported by 0.1.0
+  stay listed with their separate files and can still be restored; to upload them, zip the manifest and parts
+  together and rename the file to `.cradle`. Update running sites by replacing the `cradle-migration` plugin
+  folder only (no other package changes are needed).
+
 ## Unreleased — 2026-09-24 (review changes; not yet published)
 
 - `cradle` 0.1.1: the Cradle menu is now **Overview** and **Activity** (plus add-on pages). Overview combines

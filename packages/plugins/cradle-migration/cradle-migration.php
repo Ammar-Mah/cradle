@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Cradle Migration
  * Description:       Full-site export, import, restore and move for single-site WordPress: open archive format, durable resumable jobs, journaled cutover and operator recovery.
- * Version:           0.1.0
+ * Version:           0.3.0
  * Requires at least: 7.1
  * Requires PHP:      8.3
  * Requires Plugins:  cradle
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CRADLE_MIGRATION_VERSION', '0.1.0' );
+define( 'CRADLE_MIGRATION_VERSION', '0.3.0' );
 define( 'CRADLE_MIGRATION_FILE', __FILE__ );
 define( 'CRADLE_MIGRATION_DIR', __DIR__ . '/' );
 

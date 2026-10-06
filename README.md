@@ -164,17 +164,21 @@ WooCommerce, such as buttons, labels and messages. It does not translate your pa
 
 ### Cradle Migration
 
-Back up a whole site, or move it to another domain, folder or server.
+Back up a whole site in one file, or move it to another domain, folder or server.
 **How to use:**
 
-1. On the old site, go to **Cradle → Migration** and click **Export this site**, then **Start export**.
-2. Under **Archives**, download every file of the export: one `.manifest.json` and the `.part-NNNN.zip`
-   files.
-3. On the new site (a fresh WordPress with Cradle and Cradle Migration active), go to
-   **Import & restore**, upload the files and click **Upload and check**.
-4. Read the checklist and click **Approve and stage**. The live site isn't changed yet. Then click
-   **Switch the site over now**.
-5. If something is wrong, use **Roll back** under **Jobs & recovery**.
+1. On the old site, go to **Cradle → Migration** and click **Export site**. Keep the page open; when the
+   export is ready, a `.cradle` file downloads by itself. (It is a normal ZIP file with another extension.)
+   It includes the language files, so an Arabic or other right-to-left site stays right-to-left.
+2. On the new site (a WordPress with Cradle and Cradle Migration active), go to **Cradle → Migration →
+   Import**, choose the `.cradle` file and click **Import**. Confirm once.
+3. Wait while it uploads, checks the file and prepares the new site. The current site keeps working until
+   the final switch, which takes a few seconds.
+4. You are taken to the login page. Sign in with an administrator account **of the imported site**.
+5. Check the site, then release the **safety hold** under **Jobs & recovery** so email and scheduled tasks
+   run again. If something is wrong, use **Roll back** there.
+
+Past exports are listed under **Archives**, with a download link and **Restore…** for each.
 
 ### Cradle Admin
 

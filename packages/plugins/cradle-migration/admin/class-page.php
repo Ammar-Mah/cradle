@@ -1,11 +1,14 @@
 <?php
 /**
- * Cradle → Migration admin screen: export wizard, archive list with protected
- * downloads, chunked import upload, preflight review, cutover, recovery actions.
+ * Cradle → Migration admin screen: one-click export to a `.cradle` file, archive list
+ * with protected downloads, one-step import of a `.cradle` file (upload, checks,
+ * staging, switch-over, then the login page), and recovery actions.
  *
  * Every mutation is a POST to admin-post.php with a nonce and capability check (plus
  * job-level access). The page works without JavaScript except for the chunked upload
- * and the browser-driven cutover, which have CLI equivalents shown on the page.
+ * and the browser-driven import, which have CLI equivalents shown on the page. Imports
+ * created by the command line keep the review and switch-over confirmations; a one-step
+ * import opened in a browser tab that did not start it waits for a switch-over click.
  *
  * @package Cradle\Migration
  */
@@ -63,6 +66,7 @@ final class Page {
 			array(
 				'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 				'nonce'     => wp_create_nonce( 'cradle_migration' ),
+				'jobNonce'  => wp_create_nonce( 'cradle_jobs' ),
 				'pageUrl'   => admin_url( 'admin.php?page=' . self::SLUG ),
 				'chunkSize' => Upload::chunk_size(),
 			)
@@ -118,6 +122,7 @@ final class Page {
 			array(
 				'database'  => ! empty( $_POST['database'] ),
 				'uploads'   => ! empty( $_POST['uploads'] ),
+				'languages' => ! empty( $_POST['languages'] ),
 				'themes'    => isset( $_POST['themes'] ) ? sanitize_key( wp_unslash( $_POST['themes'] ) ) : 'active',
 				'plugins'   => isset( $_POST['plugins'] ) ? sanitize_key( wp_unslash( $_POST['plugins'] ) ) : 'active',
 				'quiesce'   => ! empty( $_POST['quiesce'] ),
@@ -134,19 +139,14 @@ final class Page {
 		$this->redirect( array( 'tab' => 'export', 'job' => $job['uuid'] ) );
 	}
 
+	/**
+	 * Archives → Restore without JavaScript. (With JavaScript the button uses the AJAX endpoint and
+	 * the page switches the site over by itself; here the switch still needs its own click.)
+	 */
 	public function post_import_local() {
 		$this->check( 'cradle_import_site' );
-		$id = isset( $_POST['archive'] ) ? sanitize_text_field( wp_unslash( $_POST['archive'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-		if ( ! preg_match( Manifest::ID_PATTERN, $id ) ) {
-			$this->notice( __( 'Choose an archive.', 'cradle-migration' ), true );
-			$this->redirect( array( 'tab' => 'import' ) );
-		}
-		$job = Importer::create(
-			array(
-				'location' => 'archives/' . $id,
-				'manifest' => Manifest::manifest_name( $id ),
-			)
-		);
+		$id  = isset( $_POST['archive'] ) ? sanitize_text_field( wp_unslash( $_POST['archive'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$job = Importer::create_from_archive( $id );
 		if ( is_wp_error( $job ) ) {
 			$this->notice( $job->get_error_message(), true );
 			$this->redirect( array( 'tab' => 'import' ) );
@@ -234,7 +234,7 @@ final class Page {
 			$tabs['archives'] = __( 'Archives', 'cradle-migration' );
 		}
 		if ( current_user_can( 'cradle_import_site' ) ) {
-			$tabs['import'] = __( 'Import & restore', 'cradle-migration' );
+			$tabs['import'] = __( 'Import', 'cradle-migration' );
 		}
 		$tabs['jobs'] = __( 'Jobs & recovery', 'cradle-migration' );
 		if ( ! isset( $tabs[ $tab ] ) ) {
@@ -282,37 +282,55 @@ final class Page {
 	private function render_export( $job ) {
 		echo '<h2>' . esc_html__( 'Export this site', 'cradle-migration' ) . '</h2>';
 		if ( $job && Exporter::TYPE === $job['type'] ) {
-			if ( in_array( $job['state'], Jobs::TERMINAL_STATES, true ) ) {
-				if ( 'completed' === $job['state'] ) {
-					echo '<div class="notice notice-success inline"><p>' . esc_html( sprintf( /* translators: %s: archive ID */ __( 'Export %s is complete.', 'cradle-migration' ), $job['payload']['archive']['id'] ?? '' ) ) . ' <a href="' . esc_url( $this->url( array( 'tab' => 'archives' ) ) ) . '">' . esc_html__( 'Download it from Archives.', 'cradle-migration' ) . '</a></p></div>';
-				} else {
-					echo '<div class="notice notice-error inline"><p>' . esc_html( $job['state'] . ': ' . (string) $job['error_message'] ) . '</p></div>';
-				}
-			} else {
-				echo '<p>' . esc_html__( 'The export runs in short resumable steps while this page is open. Closing the page pauses it; reopening resumes where it stopped.', 'cradle-migration' ) . '</p>';
+			if ( ! in_array( $job['state'], Jobs::TERMINAL_STATES, true ) ) {
+				echo '<p>' . esc_html__( 'Exporting… Keep this page open. The .cradle file downloads automatically when it is ready.', 'cradle-migration' ) . '</p>';
 				$this->job_box( $job );
+				return;
+			}
+			if ( 'completed' === $job['state'] ) {
+				$this->render_export_done( $job );
+			} else {
+				echo '<div class="notice notice-error inline"><p>' . esc_html( $job['state'] . ': ' . (string) $job['error_message'] ) . '</p></div>';
 			}
 		}
-		echo '<p>' . esc_html__( 'A full export contains this site\'s database tables (including plugin tables), uploads and fonts, the active parent/child themes and the selected plugins, with an inventory of installed packages. The archive contains password hashes, customer data and any secrets stored in the database: keep it as private as the database itself.', 'cradle-migration' ) . '</p>';
-		echo '<details><summary>' . esc_html__( 'What is never migrated', 'cradle-migration' ) . '</summary><ul class="ul-disc">';
-		foreach ( Manifest::NOT_MIGRATED as $item ) {
-			echo '<li>' . esc_html( $item ) . '</li>';
-		}
-		echo '</ul><p>' . esc_html__( 'Excluded by default: wp-config.php and secrets, caches, logs, sessions/transients, prior archives and Cradle private storage, .git/node_modules, server-control files and executable files in uploads, symbolic links and anything outside the WordPress roots. Views, triggers, routines and unsupported table types are reported, never silently dropped.', 'cradle-migration' ) . '</p></details>';
+		echo '<p>' . esc_html__( 'Creates one .cradle file with this site\'s database, uploads, themes and plugins. To move the site, import that file on the other site under Cradle → Migration → Import.', 'cradle-migration' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'The file contains password hashes, customer data and any secrets stored in the database. Keep it as private as the database itself.', 'cradle-migration' ) . '</p>';
 		$this->form_open( 'export' );
+		submit_button( __( 'Export site', 'cradle-migration' ), 'primary', 'submit', true );
+		echo '<details class="cradle-migration-options"><summary>' . esc_html__( 'Options', 'cradle-migration' ) . '</summary>';
 		echo '<fieldset class="cradle-migration-fields"><legend class="screen-reader-text">' . esc_html__( 'Export contents', 'cradle-migration' ) . '</legend>';
 		echo '<p><label><input type="checkbox" name="database" value="1" checked> ' . esc_html__( 'Database (all tables with this site\'s prefix)', 'cradle-migration' ) . '</label></p>';
 		echo '<p><label><input type="checkbox" name="uploads" value="1" checked> ' . esc_html__( 'Uploads and fonts', 'cradle-migration' ) . '</label></p>';
+		echo '<p><label><input type="checkbox" name="languages" value="1" checked> ' . esc_html__( 'Language files (WordPress, theme and plugin translations; they keep the site language and right-to-left layout)', 'cradle-migration' ) . '</label></p>';
 		foreach ( array( 'themes' => __( 'Themes', 'cradle-migration' ), 'plugins' => __( 'Plugins', 'cradle-migration' ) ) as $key => $label ) {
 			echo '<p><label for="cm-' . esc_attr( $key ) . '">' . esc_html( $label ) . '</label> <select id="cm-' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '">';
 			echo '<option value="active">' . esc_html__( 'Active only', 'cradle-migration' ) . '</option><option value="all">' . esc_html__( 'All installed', 'cradle-migration' ) . '</option><option value="none">' . esc_html__( 'None', 'cradle-migration' ) . '</option></select></p>';
 		}
 		echo '<p><label for="cm-root">' . esc_html__( 'Additional root files (comma-separated, e.g. robots.txt; only .txt/.xml/.json/.ico/.webmanifest/.html)', 'cradle-migration' ) . '</label><br><input type="text" class="regular-text" id="cm-root" name="root_files" value=""></p>';
 		echo '<p><label><input type="checkbox" name="quiesce" value="1"> ' . esc_html__( 'Consistent copy: make the site read-only while exporting (write-quiescence window)', 'cradle-migration' ) . '</label><br><span class="description">' . esc_html__( 'Without it, tables are read in batches while the site stays writable, so orders or comments made during the export may be partly included. The window refuses WordPress writes (forms, comments, REST/AJAX writes, WP-Cron); it cannot stop direct database writers outside WordPress.', 'cradle-migration' ) . '</span></p>';
-		echo '<p><label for="cm-part">' . esc_html__( 'Part size', 'cradle-migration' ) . '</label> <select id="cm-part" name="part_size"><option value="16">16 MB</option><option value="64" selected>64 MB</option><option value="256">256 MB</option></select></p>';
-		echo '</fieldset>';
-		submit_button( __( 'Start export', 'cradle-migration' ) );
+		echo '</fieldset></details>';
 		echo '</form>';
+		echo '<details><summary>' . esc_html__( 'What is never migrated', 'cradle-migration' ) . '</summary><ul class="ul-disc">';
+		foreach ( Manifest::NOT_MIGRATED as $item ) {
+			echo '<li>' . esc_html( $item ) . '</li>';
+		}
+		echo '</ul><p>' . esc_html__( 'Excluded by default: wp-config.php and secrets, caches, logs, sessions/transients, prior archives and Cradle private storage, .git/node_modules, server-control files and executable files in uploads, symbolic links and anything outside the WordPress roots. Views, triggers, routines and unsupported table types are reported, never silently dropped.', 'cradle-migration' ) . '</p></details>';
+	}
+
+	/**
+	 * Finished export: the download button (clicked automatically right after the export ran).
+	 */
+	private function render_export_done( array $job ) {
+		$id      = (string) ( $job['payload']['archive']['id'] ?? '' );
+		$dir     = preg_match( Manifest::ID_PATTERN, $id ) ? Workspace::subdir( 'archives', $id, false ) : null;
+		$summary = is_string( $dir ) && is_dir( $dir ) ? Archives::summary( $dir, $id ) : null;
+		if ( ! is_array( $summary ) || '' === $summary['file'] || ! Archives::user_can( $id ) ) {
+			echo '<div class="notice notice-success inline"><p>' . esc_html( sprintf( /* translators: %s: archive ID */ __( 'Export %s is complete.', 'cradle-migration' ), $id ) ) . ' <a href="' . esc_url( $this->url( array( 'tab' => 'archives' ) ) ) . '">' . esc_html__( 'Download it from Archives.', 'cradle-migration' ) . '</a></p></div>';
+			return;
+		}
+		$auto = isset( $_GET['download'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only view flag; the link itself is signed.
+		echo '<div class="notice notice-success inline cradle-migration-ready"><p><strong>' . esc_html__( 'Your export is ready.', 'cradle-migration' ) . '</strong> ' . esc_html( $auto ? __( 'The download starts automatically; if it does not, use the button.', 'cradle-migration' ) : __( 'Download the file and import it on the other site.', 'cradle-migration' ) ) . '</p>';
+		echo '<p><a class="button button-primary" href="' . esc_url( Archives::download_url( $id, $summary['file'] ) ) . '"' . ( $auto ? ' data-cradle-autodownload="1"' : '' ) . '>' . esc_html( sprintf( /* translators: %s: file name */ __( 'Download %s', 'cradle-migration' ), Archives::download_name( $summary ) ) ) . '</a> <span class="description">' . esc_html( size_format( $summary['fileBytes'] ) ) . '</span></p></div>';
 	}
 
 	private function render_archives() {
@@ -325,19 +343,26 @@ final class Page {
 		}
 		echo '<table class="widefat striped"><thead><tr><th scope="col">' . esc_html__( 'Archive', 'cradle-migration' ) . '</th><th scope="col">' . esc_html__( 'Created (UTC)', 'cradle-migration' ) . '</th><th scope="col">' . esc_html__( 'Contents', 'cradle-migration' ) . '</th><th scope="col">' . esc_html__( 'Download', 'cradle-migration' ) . '</th><th scope="col">' . esc_html__( 'Actions', 'cradle-migration' ) . '</th></tr></thead><tbody>';
 		foreach ( $archives as $a ) {
-			echo '<tr><td><code>' . esc_html( $a['id'] ) . '</code><br>' . esc_html( $a['mode'] . ', ' . $a['consistency'] ) . '</td><td>' . esc_html( $a['createdAt'] ) . '</td>';
-			echo '<td>' . esc_html( sprintf( /* translators: 1: files 2: rows 3: size */ __( '%1$d files, %2$d rows, %3$s', 'cradle-migration' ), $a['files'], $a['rows'], size_format( $a['bytes'] ) ) );
+			echo '<tr><td><code>' . esc_html( $a['id'] ) . '</code><br>' . esc_html( $a['source'] ) . '</td><td>' . esc_html( $a['createdAt'] ) . '</td>';
+			echo '<td>' . esc_html( sprintf( /* translators: 1: files 2: rows 3: size */ __( '%1$d files, %2$d rows, %3$s', 'cradle-migration' ), $a['files'], $a['rows'], size_format( '' !== $a['file'] ? $a['fileBytes'] : $a['bytes'] ) ) );
 			if ( $a['unsupported'] ) {
 				echo '<br><strong>' . esc_html( sprintf( /* translators: %d: count */ __( '%d unsupported object(s) reported', 'cradle-migration' ), $a['unsupported'] ) ) . '</strong>';
 			}
-			echo '</td><td><ul class="cradle-migration-files"><li><a href="' . esc_url( Archives::download_url( $a['id'], Manifest::manifest_name( $a['id'] ) ) ) . '">' . esc_html__( 'manifest', 'cradle-migration' ) . '</a></li>';
-			foreach ( $a['parts'] as $part ) {
-				echo '<li><a href="' . esc_url( Archives::download_url( $a['id'], $part['name'] ) ) . '">' . esc_html( substr( $part['name'], strlen( $a['id'] ) + 1 ) ) . '</a> (' . esc_html( size_format( $part['size'] ) ) . ')</li>';
+			echo '</td><td>';
+			if ( '' !== $a['file'] ) {
+				echo '<a class="button" href="' . esc_url( Archives::download_url( $a['id'], $a['file'] ) ) . '">' . esc_html__( 'Download .cradle file', 'cradle-migration' ) . '</a>';
+			} else {
+				// Archive exported before 0.2.0: manifest and separate parts.
+				echo '<ul class="cradle-migration-files"><li><a href="' . esc_url( Archives::download_url( $a['id'], Manifest::manifest_name( $a['id'] ) ) ) . '">' . esc_html__( 'manifest', 'cradle-migration' ) . '</a></li>';
+				foreach ( $a['parts'] as $part ) {
+					echo '<li><a href="' . esc_url( Archives::download_url( $a['id'], $part['name'] ) ) . '">' . esc_html( substr( $part['name'], strlen( $a['id'] ) + 1 ) ) . '</a> (' . esc_html( size_format( $part['size'] ) ) . ')</li>';
+				}
+				echo '</ul>';
 			}
-			echo '</ul></td><td>';
+			echo '</td><td>';
 			if ( current_user_can( 'cradle_import_site' ) ) {
-				$this->form_open( 'import_local' );
-				echo '<input type="hidden" name="archive" value="' . esc_attr( $a['id'] ) . '">';
+				$this->form_open( 'import_local', __( 'Restore this archive over this site? Its content, users, uploads, themes and plugins replace the current ones, and you will need to sign in again.', 'cradle-migration' ) );
+				echo '<input type="hidden" name="archive" value="' . esc_attr( $a['id'] ) . '" data-cradle-restore="1">';
 				submit_button( __( 'Restore…', 'cradle-migration' ), 'secondary small', 'submit', false );
 				echo '</form>';
 			}
@@ -353,7 +378,7 @@ final class Page {
 		if ( ! current_user_can( 'cradle_import_site' ) ) {
 			return;
 		}
-		echo '<h2>' . esc_html__( 'Import and restore', 'cradle-migration' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Import a site', 'cradle-migration' ) . '</h2>';
 		if ( ! $job ) {
 			foreach ( Job_Store::active() as $row ) {
 				if ( Importer::TYPE === $row['type'] ) {
@@ -366,28 +391,42 @@ final class Page {
 			$this->render_import_job( $job );
 			return;
 		}
-		echo '<div class="notice notice-warning inline"><p>' . esc_html__( 'A restore replaces this site\'s database, uploads and the themes/plugins contained in the archive. Restoring themes and plugins deploys code. Checksums detect corruption, not who made the archive: only restore archives you trust.', 'cradle-migration' ) . '</p></div>';
-		echo '<p>' . esc_html__( 'Nothing changes until you have reviewed the preflight report and confirmed. Replaced tables and files are kept as backups for rollback until you purge them.', 'cradle-migration' ) . '</p>';
-		echo '<form id="cradle-migration-upload" class="cradle-migration-upload" novalidate>';
-		echo '<p><label for="cm-files">' . esc_html__( 'Archive files (the .manifest.json and every .part-NNNN.zip)', 'cradle-migration' ) . '</label><br><input type="file" id="cm-files" multiple accept=".json,.zip,application/json,application/zip" required></p>';
-		echo '<fieldset><legend>' . esc_html__( 'Restore', 'cradle-migration' ) . '</legend>';
-		foreach ( array( 'database' => __( 'Database', 'cradle-migration' ), 'uploads' => __( 'Uploads', 'cradle-migration' ), 'themes' => __( 'Themes in the archive', 'cradle-migration' ), 'plugins' => __( 'Plugins in the archive', 'cradle-migration' ) ) as $key => $label ) {
+		echo '<div class="notice notice-warning inline"><p>' . esc_html__( 'Importing replaces this site\'s content, users, uploads, themes and plugins with the ones in the .cradle file. Only import files you trust: restoring themes and plugins deploys their code.', 'cradle-migration' ) . '</p></div>';
+		echo '<form id="cradle-migration-upload" class="cradle-migration-upload" novalidate data-confirm="' . esc_attr__( 'Import this file? It replaces this site\'s content, users, uploads, themes and plugins. When it finishes you will be taken to the login page.', 'cradle-migration' ) . '">';
+		echo '<p><label for="cm-file">' . esc_html__( '.cradle file (exported with Cradle Migration)', 'cradle-migration' ) . '</label><br><input type="file" id="cm-file" accept=".cradle" required></p>';
+		echo '<p><button type="submit" class="button button-primary">' . esc_html__( 'Import', 'cradle-migration' ) . '</button></p>';
+		echo '<div class="cradle-migration-upload-status" hidden><progress max="100" value="0"></progress><p aria-live="polite"></p></div>';
+		echo '<p class="description">' . esc_html__( 'The import checks the file, prepares the new site beside the current one and then switches over. Afterwards you are taken to the login page: sign in with an administrator account of the imported site. Everything that was replaced is kept as a backup, so the import can be rolled back under Jobs & recovery.', 'cradle-migration' ) . '</p>';
+		echo '<details class="cradle-migration-options"><summary>' . esc_html__( 'Options', 'cradle-migration' ) . '</summary><fieldset><legend>' . esc_html__( 'Restore', 'cradle-migration' ) . '</legend>';
+		foreach ( array( 'database' => __( 'Database', 'cradle-migration' ), 'uploads' => __( 'Uploads', 'cradle-migration' ), 'languages' => __( 'Language files', 'cradle-migration' ), 'themes' => __( 'Themes in the archive', 'cradle-migration' ), 'plugins' => __( 'Plugins in the archive', 'cradle-migration' ) ) as $key => $label ) {
 			echo '<label class="cradle-migration-opt"><input type="checkbox" name="opt_' . esc_attr( $key ) . '" value="1" checked> ' . esc_html( $label ) . '</label> ';
 		}
-		echo '</fieldset>';
-		echo '<p><button type="submit" class="button button-primary">' . esc_html__( 'Upload and check', 'cradle-migration' ) . '</button></p>';
-		echo '<div class="cradle-migration-upload-status" hidden><progress max="100" value="0"></progress><p aria-live="polite"></p></div>';
-		echo '<noscript><p>' . esc_html__( 'Uploading needs JavaScript. Without it, copy the archive to the server and run: php wp-content/plugins/cradle-migration/bin/cradle-migrate.php --path=<site> import --archive=<manifest>', 'cradle-migration' ) . '</p></noscript>';
+		echo '</fieldset></details>';
+		echo '<noscript><p>' . esc_html__( 'Importing needs JavaScript. Without it, copy the .cradle file to the server and use the command line below.', 'cradle-migration' ) . '</p></noscript>';
 		echo '</form>';
-		echo '<h3>' . esc_html__( 'Command-line alternative', 'cradle-migration' ) . '</h3>';
-		echo '<pre class="cradle-migration-cli">php ' . esc_html( wp_normalize_path( CRADLE_MIGRATION_DIR . 'bin/cradle-migrate.php' ) ) . ' --path=' . esc_html( untrailingslashit( wp_normalize_path( ABSPATH ) ) ) . " import --archive=/path/to/&lt;id&gt;.manifest.json --yes</pre>";
+		echo '<details><summary>' . esc_html__( 'Command-line alternative', 'cradle-migration' ) . '</summary>';
+		echo '<pre class="cradle-migration-cli">php ' . esc_html( wp_normalize_path( CRADLE_MIGRATION_DIR . 'bin/cradle-migrate.php' ) ) . ' --path=' . esc_html( untrailingslashit( wp_normalize_path( ABSPATH ) ) ) . ' import --archive=/path/to/site.cradle --yes</pre></details>';
 	}
 
 	private function render_import_job( array $job ) {
 		$dir   = Workspace::job_dir( $job['uuid'] );
 		$state = $job['state'];
-		echo '<p>' . esc_html( sprintf( /* translators: 1: job id 2: state 3: phase */ __( 'Import %1$s — %2$s (%3$s)', 'cradle-migration' ), $job['uuid'], $state, $job['phase'] ) ) . '</p>';
+		$auto  = ! empty( $job['payload']['auto'] );
+		if ( ! $auto ) {
+			echo '<p>' . esc_html( sprintf( /* translators: 1: job id 2: state 3: phase */ __( 'Import %1$s — %2$s (%3$s)', 'cradle-migration' ), $job['uuid'], $state, $job['phase'] ) ) . '</p>';
+		}
 		if ( in_array( $state, array( 'created', 'preflight', 'running' ), true ) && ! in_array( $job['phase'], \Cradle\Migration\Ajax::POST_CUTOVER, true ) ) {
+			if ( $auto ) {
+				// Driven by migration.js: steps, then (for the browser that started it) the switch-over.
+				echo '<div class="cradle-migration-auto" data-job="' . esc_attr( $job['uuid'] ) . '">';
+				echo '<p><strong>' . esc_html__( 'Importing… Keep this page open.', 'cradle-migration' ) . '</strong> ' . esc_html__( 'The site keeps working normally until the final switch, which takes a few seconds. Then you are taken to the login page.', 'cradle-migration' ) . '</p>';
+				echo '<progress class="cradle-progress" max="100" value="0"></progress><p aria-live="polite"></p><ul class="cradle-migration-checks"></ul></div>';
+				$this->form_open( 'discard', __( 'Cancel this import? The live site was not changed.', 'cradle-migration' ) );
+				echo '<input type="hidden" name="job" value="' . esc_attr( $job['uuid'] ) . '">';
+				submit_button( __( 'Cancel import', 'cradle-migration' ), 'secondary', 'submit', false );
+				echo '</form>';
+				return;
+			}
 			echo '<p>' . esc_html__( 'Checking or staging the archive. The live site is not changed in this phase.', 'cradle-migration' ) . '</p>';
 			$this->job_box( $job );
 			return;
@@ -415,7 +454,8 @@ final class Page {
 			echo '<li>' . esc_html__( 'Visitors see a maintenance page for the few seconds the switch takes; email, WP-Cron and outbound HTTP stay paused afterwards until you release the safety hold.', 'cradle-migration' ) . '</li>';
 			echo '<li>' . esc_html( sprintf( /* translators: %s: logins */ __( 'Your current login stops working at cutover. Afterwards sign in as a source administrator: %s (source password).', 'cradle-migration' ), $admins ? implode( ', ', $admins ) : '—' ) ) . '</li>';
 			echo '<li>' . esc_html__( 'Keep this tab open until it reports completion: it holds a one-time recovery token that lets it finish without a session. If the tab closes, finish with the CLI command below.', 'cradle-migration' ) . '</li></ul></div>';
-			echo '<div class="cradle-migration-cutover" data-job="' . esc_attr( $job['uuid'] ) . '"><p><button type="button" class="button button-primary cradle-migration-cutover-button">' . esc_html__( 'Switch the site over now', 'cradle-migration' ) . '</button></p>';
+			// data-auto: the browser that started a one-step import switches over without another click.
+			echo '<div class="cradle-migration-cutover" data-job="' . esc_attr( $job['uuid'] ) . '"' . ( $auto ? ' data-auto="1"' : '' ) . '><p><button type="button" class="button button-primary cradle-migration-cutover-button">' . esc_html__( 'Switch the site over now', 'cradle-migration' ) . '</button></p>';
 			echo '<div class="cradle-migration-cutover-status" hidden><progress max="100" value="0"></progress><p aria-live="polite"></p><ul class="cradle-migration-checks"></ul></div></div>';
 			$this->form_open( 'discard', __( 'Discard this import?', 'cradle-migration' ) );
 			echo '<input type="hidden" name="job" value="' . esc_attr( $job['uuid'] ) . '">';
@@ -431,6 +471,10 @@ final class Page {
 	private function render_outcome( array $job, $dir ) {
 		if ( is_wp_error( $dir ) ) {
 			return;
+		}
+		if ( 'completed' === $job['state'] ) {
+			echo '<div class="notice notice-success inline"><p><strong>' . esc_html__( 'The site was imported.', 'cradle-migration' ) . '</strong> ' . esc_html__( 'Check the site, then release the safety hold under Jobs & recovery so that email, scheduled tasks and connections to other services work again. The replaced site is kept as a backup until you purge it there.', 'cradle-migration' ) . '</p>';
+			echo '<p><a class="button" href="' . esc_url( $this->url( array( 'tab' => 'jobs' ) ) ) . '">' . esc_html__( 'Jobs & recovery', 'cradle-migration' ) . '</a> <a class="button" href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'View site', 'cradle-migration' ) . '</a></p></div>';
 		}
 		if ( 'failed' === $job['state'] ) {
 			echo '<div class="notice notice-error inline"><p>' . esc_html( (string) $job['error_message'] ) . '</p></div>';

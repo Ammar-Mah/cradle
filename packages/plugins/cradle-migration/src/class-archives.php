@@ -33,6 +33,10 @@ final class Archives {
 			if ( ! preg_match( Manifest::ID_PATTERN, $id ) || basename( dirname( (string) $path ) ) !== $id ) {
 				continue;
 			}
+			// Still being bundled into its .cradle file by a running export.
+			if ( is_file( dirname( (string) $path ) . '/' . Container::file_name( $id ) . '.partial' ) ) {
+				continue;
+			}
 			$summary = self::summary( dirname( (string) $path ), $id );
 			if ( $summary ) {
 				$out[] = $summary;
@@ -42,12 +46,24 @@ final class Archives {
 		return $out;
 	}
 
+	/**
+	 * Summary of one archive. `file`/`fileBytes` describe its `.cradle` file ('' for an archive
+	 * exported before 0.2.0, which only has the manifest and separate parts).
+	 */
 	public static function summary( string $dir, string $id ) {
-		$cache = $dir . '/summary.json';
+		$container = $dir . '/' . Container::file_name( $id );
+		$file      = is_file( $container ) ? array(
+			'file'      => Container::file_name( $id ),
+			'fileBytes' => (int) filesize( $container ),
+		) : array(
+			'file'      => '',
+			'fileBytes' => 0,
+		);
+		$cache     = $dir . '/summary.json';
 		if ( is_file( $cache ) ) {
 			$s = json_decode( (string) file_get_contents( $cache ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 			if ( is_array( $s ) ) {
-				return $s;
+				return $file + $s;
 			}
 		}
 		$m = Workspace::read_json( $dir . '/' . Manifest::manifest_name( $id ) );
@@ -69,7 +85,18 @@ final class Archives {
 			'owner'       => self::owner( $id ),
 		);
 		Workspace::write_json( $cache, $s );
-		return $s;
+		return $file + $s;
+	}
+
+	/**
+	 * Download name of a `.cradle` file: the site address plus the export time, e.g.
+	 * `example-com-20260929T101500Z-3f9c2a1b.cradle` (the importer ignores the name).
+	 */
+	public static function download_name( array $summary ): string {
+		$host = (string) wp_parse_url( (string) ( $summary['source'] ?? '' ), PHP_URL_HOST ) . (string) wp_parse_url( (string) ( $summary['source'] ?? '' ), PHP_URL_PATH );
+		$slug = trim( (string) preg_replace( '/[^a-z0-9]+/', '-', strtolower( $host ) ), '-' );
+		$slug = '' !== $slug ? substr( $slug, 0, 40 ) : 'site';
+		return $slug . '-' . preg_replace( '/^cradle-/', '', (string) $summary['id'] ) . Container::EXT;
 	}
 
 	/**
@@ -133,7 +160,7 @@ final class Archives {
 			wp_die( esc_html__( 'Archive not found.', 'cradle-migration' ), 404 );
 		}
 		$summary = self::summary( $dir, $id );
-		$allowed = array( Manifest::manifest_name( $id ) );
+		$allowed = array( Manifest::manifest_name( $id ), Container::file_name( $id ) );
 		foreach ( (array) ( $summary['parts'] ?? array() ) as $part ) {
 			$allowed[] = $part['name'];
 		}
@@ -145,9 +172,11 @@ final class Archives {
 		while ( ob_get_level() ) {
 			ob_end_clean();
 		}
+		$is_container = Container::file_name( $id ) === $file;
 		nocache_headers();
-		header( 'Content-Type: ' . ( str_ends_with( $file, '.json' ) ? 'application/json' : 'application/zip' ) );
-		header( 'Content-Disposition: attachment; filename="' . $file . '"' );
+		// A .cradle file is sent as a generic binary so browsers keep its extension.
+		header( 'Content-Type: ' . ( $is_container ? 'application/octet-stream' : ( str_ends_with( $file, '.json' ) ? 'application/json' : 'application/zip' ) ) );
+		header( 'Content-Disposition: attachment; filename="' . ( $is_container && is_array( $summary ) ? self::download_name( $summary ) : $file ) . '"' );
 		header( 'Content-Length: ' . (string) filesize( $path ) );
 		header( 'X-Content-Type-Options: nosniff' );
 		header( 'Cache-Control: no-store, private' );

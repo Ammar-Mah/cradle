@@ -3,7 +3,10 @@
  * Import/restore job (`migration/import`).
  *
  * Preflight (state `preflight`, nothing on the destination changes):
- *   verify_manifest → hash_parts → inspect_parts → scan_db → report → paused/review
+ *   [unpack →] verify_manifest → hash_parts → inspect_parts → scan_db → report → paused/review
+ * `unpack` runs for a `.cradle` container and extracts its manifest and parts into the
+ * job's location. A one-step import (payload `auto`) continues from a report without
+ * blocking problems straight into staging; blocking problems still fail the job.
  * Staging (state `running`, live site untouched; imported PHP is never loaded):
  *   stage_files → load_db → validate_staged → safety → checkpoint → awaiting_cutover
  * Critical phase (write-quiescence window, journaled):
@@ -39,12 +42,13 @@ final class Importer {
 
 	public static function default_options(): array {
 		return array(
-			'database' => true,
-			'uploads'  => true,
-			'themes'   => true,
-			'plugins'  => true,
-			'root'     => false,
-			'opaque'   => array(),
+			'database'  => true,
+			'uploads'   => true,
+			'themes'    => true,
+			'plugins'   => true,
+			'languages' => true,
+			'root'      => false,
+			'opaque'    => array(),
 			'limits'   => array(),
 		);
 	}
@@ -63,6 +67,8 @@ final class Importer {
 			'uploadsUrl' => untrailingslashit( (string) $uploads['baseurl'] ),
 			'pluginsDir' => untrailingslashit( wp_normalize_path( WP_PLUGIN_DIR ) ),
 			'themesDir'  => untrailingslashit( wp_normalize_path( get_theme_root() ) ),
+			'languagesDir'    => untrailingslashit( wp_normalize_path( WP_LANG_DIR ) ),
+			'translationsDir' => self::translations_dir(),
 			'wordpress'  => (string) $wp_version,
 			'dbVersion'  => (int) get_option( 'db_version' ),
 		);
@@ -71,7 +77,37 @@ final class Importer {
 	}
 
 	/**
-	 * @param array $args location (incoming/<id> | archives/<id>), manifest (file name), options.
+	 * Cradle Translations data folder in this site's private storage ('' when storage is unavailable).
+	 */
+	public static function translations_dir(): string {
+		$private = function_exists( 'cradle' ) && cradle() ? cradle()->storage()->private_root() : null;
+		return is_array( $private ) ? untrailingslashit( wp_normalize_path( (string) $private['path'] ) ) . '/translations' : '';
+	}
+
+	/**
+	 * Resolves a container reference `archives|incoming/<dir>/<file>.cradle` inside private storage.
+	 *
+	 * @return string|\WP_Error Absolute path.
+	 */
+	public static function container_path( string $rel ) {
+		if ( ! preg_match( '#^((?:archives|incoming)/[A-Za-z0-9][A-Za-z0-9-]{3,79})/([A-Za-z0-9][A-Za-z0-9-]{0,79}\.cradle)$#', $rel, $m ) ) {
+			return new \WP_Error( 'cradle_migration_container', 'Invalid .cradle file location.' );
+		}
+		$dir = Workspace::resolve_rel( $m[1] );
+		if ( is_wp_error( $dir ) ) {
+			return $dir;
+		}
+		$path = $dir . '/' . $m[2];
+		if ( ! is_file( $path ) || is_link( $path ) ) {
+			return new \WP_Error( 'cradle_migration_container', 'The .cradle file was not found.' );
+		}
+		return $path;
+	}
+
+	/**
+	 * @param array $args location (incoming/<id> | archives/<id>) and manifest (file name) of an unpacked
+	 *                    archive, or container (see container_path(); location then defaults to a new
+	 *                    incoming folder); options; auto (one-step import without the review stop).
 	 * @return array|\WP_Error
 	 */
 	public static function create( array $args, bool $system = false ) {
@@ -88,16 +124,37 @@ final class Importer {
 		if ( is_wp_error( $protected ) ) {
 			return $protected;
 		}
-		$dir = Workspace::resolve_rel( (string) ( $args['location'] ?? '' ) );
-		if ( is_wp_error( $dir ) ) {
-			return $dir;
-		}
-		$manifest = (string) ( $args['manifest'] ?? '' );
-		if ( ! preg_match( '/^[A-Za-z0-9][A-Za-z0-9-]{7,63}\.manifest\.json$/', $manifest ) || ! is_file( $dir . '/' . $manifest ) ) {
-			return new \WP_Error( 'cradle_migration_manifest', 'The archive manifest was not found.' );
+		$container = (string) ( $args['container'] ?? '' );
+		$location  = (string) ( $args['location'] ?? '' );
+		$manifest  = '';
+		$new_dir   = '';
+		if ( '' !== $container ) {
+			$path = self::container_path( $container );
+			if ( is_wp_error( $path ) ) {
+				return $path;
+			}
+			if ( '' === $location ) {
+				// The unpack folder is created only once the job can actually start (below).
+				$location = 'incoming/unpack-' . strtolower( wp_generate_password( 20, false, false ) );
+				$new_dir  = $location;
+			} else {
+				$dir = Workspace::resolve_rel( $location );
+				if ( is_wp_error( $dir ) || ! is_dir( $dir ) || 0 !== strpos( $location, 'incoming/' ) ) {
+					return new \WP_Error( 'cradle_migration_location', 'Invalid archive location.' );
+				}
+			}
+		} else {
+			$dir = Workspace::resolve_rel( $location );
+			if ( is_wp_error( $dir ) ) {
+				return $dir;
+			}
+			$manifest = (string) ( $args['manifest'] ?? '' );
+			if ( ! preg_match( '/^[A-Za-z0-9][A-Za-z0-9-]{7,63}\.manifest\.json$/', $manifest ) || ! is_file( $dir . '/' . $manifest ) ) {
+				return new \WP_Error( 'cradle_migration_manifest', 'The archive manifest was not found.' );
+			}
 		}
 		$options = wp_parse_args( (array) ( $args['options'] ?? array() ), self::default_options() );
-		foreach ( array( 'database', 'uploads', 'themes', 'plugins', 'root' ) as $k ) {
+		foreach ( array( 'database', 'uploads', 'themes', 'plugins', 'languages', 'root' ) as $k ) {
 			$options[ $k ] = ! empty( $options[ $k ] );
 		}
 		$options['opaque'] = array_values( array_filter( array_map( 'strval', (array) $options['opaque'] ), static fn( $p ) => (bool) preg_match( '/^[A-Za-z0-9_\-]{1,120}\*?$/', $p ) ) );
@@ -116,24 +173,68 @@ final class Importer {
 			$locks->release( 'migration:create', $lock );
 			return new \WP_Error( 'cradle_migration_conflict', sprintf( 'Another migration job (%1$s, %2$s) is not finished. Finish, cancel or recover it first.', $active[0]['type'], $active[0]['state'] ) );
 		}
+		if ( '' !== $new_dir ) {
+			$made = Workspace::resolve_rel( $new_dir );
+			if ( is_wp_error( $made ) || ! wp_mkdir_p( $made ) ) {
+				$locks->release( 'migration:create', $lock );
+				return new \WP_Error( 'cradle_migration_mkdir', 'Could not create a private working directory.' );
+			}
+		}
 		$job = cradle()->jobs()->create(
 			self::TYPE,
 			array(
-				'location'    => (string) $args['location'],
+				'location'    => $location,
 				'manifest'    => $manifest,
+				'container'   => $container,
+				'auto'        => ! empty( $args['auto'] ),
 				'options'     => $options,
 				'destination' => self::destination(),
 			),
 			array(
-				'phase'  => 'verify_manifest',
+				'phase'  => '' !== $container ? 'unpack' : 'verify_manifest',
 				'system' => $system,
 			)
 		);
 		$locks->release( 'migration:create', $lock );
-		if ( ! is_wp_error( $job ) ) {
-			cradle_log_activity( 'migration', 'import_started', 'Site import preflight started.', array( 'job' => $job['uuid'] ) );
+		if ( is_wp_error( $job ) ) {
+			if ( '' !== $new_dir && isset( $made ) && is_string( $made ) ) {
+				Workspace::remove_tree( $made );
+			}
+			return $job;
 		}
+		cradle_log_activity( 'migration', 'import_started', empty( $args['auto'] ) ? 'Site import preflight started.' : 'One-step site import started.', array( 'job' => $job['uuid'] ) );
 		return $job;
+	}
+
+	/**
+	 * One-step import of an archive stored on this site: its `.cradle` file, or the manifest and
+	 * parts of an archive exported before 0.2.0.
+	 *
+	 * @return array|\WP_Error
+	 */
+	public static function create_from_archive( string $id ) {
+		if ( ! preg_match( Manifest::ID_PATTERN, $id ) ) {
+			return new \WP_Error( 'cradle_migration_missing', __( 'Choose an archive.', 'cradle-migration' ) );
+		}
+		$dir = Workspace::subdir( 'archives', $id, false );
+		if ( is_wp_error( $dir ) || ! is_dir( $dir ) ) {
+			return new \WP_Error( 'cradle_migration_missing', 'Archive not found.' );
+		}
+		if ( is_file( $dir . '/' . Container::file_name( $id ) ) ) {
+			return self::create(
+				array(
+					'container' => 'archives/' . $id . '/' . Container::file_name( $id ),
+					'auto'      => true,
+				)
+			);
+		}
+		return self::create(
+			array(
+				'location' => 'archives/' . $id,
+				'manifest' => Manifest::manifest_name( $id ),
+				'auto'     => true,
+			)
+		);
 	}
 
 	/**
@@ -267,6 +368,8 @@ final class Importer {
 			Guard::start_quiesce( $job['uuid'], 'import', 1800 );
 		}
 		switch ( $phase ) {
+			case 'unpack':
+				return self::unpack( $job, $dir );
 			case 'verify_manifest':
 				return self::verify_manifest( $job, $dir );
 			case 'hash_parts':
@@ -359,6 +462,107 @@ final class Importer {
 	/* Preflight                                                          */
 	/* ------------------------------------------------------------------ */
 
+	/**
+	 * Extracts the manifest and parts of a `.cradle` container into the job's location, whole
+	 * entries per step. An uploaded container is deleted afterwards; one in Archives is kept.
+	 */
+	private static function unpack( array $job, string $dir ) {
+		$protected = Workspace::ensure_protected();
+		if ( is_wp_error( $protected ) ) {
+			return new \WP_Error( $protected->get_error_code(), $protected->get_error_message(), 'fatal' );
+		}
+		$target = self::archive_dir( $job );
+		if ( is_wp_error( $target ) || ! is_dir( $target ) ) {
+			return new \WP_Error( 'cradle_migration_location', 'The import working folder is missing.', 'fatal' );
+		}
+		$c    = (array) $job['cursor_data'];
+		$path = self::container_path( (string) ( $job['payload']['container'] ?? '' ) );
+		if ( is_wp_error( $path ) ) {
+			return self::unpack_failed( $job, $dir, $path->get_error_message() );
+		}
+		$limits = self::limits( $job );
+		if ( empty( $c['entries'] ) ) {
+			$info = Container::inspect( $path, $limits );
+			if ( is_wp_error( $info ) ) {
+				return self::unpack_failed( $job, $dir, $info->get_error_message() );
+			}
+			$free  = Workspace::free_space( $target );
+			$quota = (int) $limits['diskQuota'];
+			if ( ( null !== $free && $info['bytes'] > $free * 0.9 ) || ( $quota > 0 && $info['bytes'] > $quota ) ) {
+				return self::unpack_failed( $job, $dir, 'Insufficient disk space to unpack the .cradle file.' );
+			}
+			$c = array(
+				'entries'  => $info['entries'],
+				'manifest' => $info['manifest'],
+				'next'     => 0,
+			);
+		}
+		$deadline = microtime( true ) + self::budget();
+		$units    = 0;
+		while ( $c['next'] < count( $c['entries'] ) && self::within( $deadline, $units ) ) {
+			$entry = $c['entries'][ $c['next'] ];
+			$ok    = Container::extract( $path, $entry, $target . '/' . $entry['name'] );
+			if ( is_wp_error( $ok ) ) {
+				return 'cradle_migration_container' === $ok->get_error_code() ? self::unpack_failed( $job, $dir, $ok->get_error_message() ) : $ok;
+			}
+			++$c['next'];
+		}
+		if ( $c['next'] < count( $c['entries'] ) ) {
+			return array(
+				'state'          => 'preflight',
+				'cursor_data'    => $c,
+				'progress_done'  => $c['next'],
+				'progress_total' => count( $c['entries'] ),
+			);
+		}
+		// The uploaded container is deleted by verify_manifest, i.e. only after this step was committed.
+		$payload             = $job['payload'];
+		$payload['manifest'] = (string) $c['manifest'];
+		return array(
+			'state'       => 'preflight',
+			'phase'       => 'verify_manifest',
+			'payload'     => $payload,
+			'cursor_data' => array(),
+		);
+	}
+
+	/**
+	 * Deletes an uploaded `.cradle` file once it was unpacked (a container in Archives is kept).
+	 * Idempotent: repeated attempts find nothing to delete.
+	 */
+	private static function drop_uploaded_container( array $job ) {
+		$rel = (string) ( $job['payload']['container'] ?? '' );
+		if ( '' === $rel || 0 !== strpos( $rel, (string) $job['payload']['location'] . '/' ) ) {
+			return;
+		}
+		$path = self::container_path( $rel );
+		if ( ! is_wp_error( $path ) ) {
+			wp_delete_file( $path );
+		}
+	}
+
+	/**
+	 * Ends an import whose container cannot be used, with a report that names the problem.
+	 */
+	private static function unpack_failed( array $job, string $dir, string $message ): array {
+		Workspace::write_json(
+			$dir . '/report.json',
+			array(
+				'checks'   => array(),
+				'blocking' => array( $message ),
+				'warnings' => array(),
+				'admin'    => array(),
+			)
+		);
+		cradle_log_activity( 'migration', 'import_preflight_failed', 'Import preflight failed.', array( 'job' => $job['uuid'] ) );
+		return array(
+			'state'         => 'failed',
+			'phase'         => 'preflight_failed',
+			'error_code'    => 'preflight_failed',
+			'error_message' => 'Preflight failed: ' . $message,
+		);
+	}
+
 	private static function verify_manifest( array $job, string $dir ) {
 		$protected = Workspace::ensure_protected();
 		if ( is_wp_error( $protected ) ) {
@@ -368,6 +572,7 @@ final class Importer {
 		if ( is_wp_error( $archive_dir ) ) {
 			return new \WP_Error( 'cradle_migration_location', $archive_dir->get_error_message(), 'fatal' );
 		}
+		self::drop_uploaded_container( $job );
 		$limits   = self::limits( $job );
 		$name     = (string) $job['payload']['manifest'];
 		$expected = substr( $name, 0, -strlen( '.manifest.json' ) );
@@ -913,7 +1118,7 @@ final class Importer {
 			}
 			$counts = array();
 			foreach ( $m['files'] as $f ) {
-				$key = $f['category'] . ( 'uploads' === $f['category'] || 'root' === $f['category'] ? '' : ':' . strtok( $f['path'], '/' ) );
+				$key = $f['category'] . ( in_array( $f['category'], array( 'uploads', 'root', 'languages', 'translations' ), true ) ? '' : ':' . strtok( $f['path'], '/' ) );
 				if ( ! isset( $counts[ $key ] ) ) {
 					$counts[ $key ] = array( 0, 0, 0 );
 				}
@@ -925,13 +1130,17 @@ final class Importer {
 			}
 			foreach ( $counts as $key => $n ) {
 				list( $cat, $slug ) = array_pad( explode( ':', $key, 2 ), 2, '' );
-				$enabled             = ! empty( $opts[ $cat ] );
+				$enabled             = ! empty( $opts[ 'translations' === $cat ? 'database' : $cat ] );
 				if ( 'plugins' === $cat && in_array( $slug, self::ENGINE_SLUGS, true ) ) {
 					$action = 'preserved: the running migration engine/core on this site is kept';
 				} elseif ( ! $enabled ) {
-					$action = 'skipped (not selected)';
+					$action = 'translations' === $cat ? 'skipped (restored only together with the database)' : 'skipped (not selected)';
 				} elseif ( 'uploads' === $cat ) {
 					$action = 'destination uploads replaced (Cradle private storage kept); old files moved to backup';
+				} elseif ( 'languages' === $cat ) {
+					$action = 'language files installed (files and plugins/, themes/ folders of the same name moved to backup); keeps the site language and its text direction';
+				} elseif ( 'translations' === $cat ) {
+					$action = 'Cradle Translations catalogs replaced (old ones moved to backup)';
 				} else {
 					$live   = 'themes' === $cat ? $dest['themesDir'] . '/' . $slug : ( 'plugins' === $cat ? $dest['pluginsDir'] . '/' . $slug : $dest['abspath'] );
 					$action = file_exists( $live ) ? 'replaced (old copy moved to backup) — privileged code deployment' : 'installed — privileged code deployment';
@@ -997,6 +1206,24 @@ final class Importer {
 				'error_message' => 'Preflight failed: ' . implode( ' | ', array_slice( $report['blocking'], 0, 5 ) ),
 			);
 		}
+		if ( ! empty( $job['payload']['auto'] ) ) {
+			// One-step import: the operator confirmed the whole import when starting it. The report
+			// stays available on the job; staging still leaves the live site untouched.
+			$payload                 = $job['payload'];
+			$payload['approvedBy']   = (int) $job['owner_id'];
+			$payload['approvedAt']   = time();
+			$payload['autoApproved'] = true;
+			cradle_log_activity( 'migration', 'import_approved', 'Import preflight passed; staging started (one-step import).', array( 'job' => $job['uuid'] ) );
+			return array(
+				'state'       => 'running',
+				'phase'       => 'stage_files',
+				'payload'     => $payload,
+				'cursor_data' => array(
+					'file' => 0,
+					'seg'  => 0,
+				),
+			);
+		}
 		return array(
 			'state' => 'paused',
 			'phase' => 'review',
@@ -1013,6 +1240,10 @@ final class Importer {
 		}
 		if ( 'plugins' === $f['category'] && in_array( strtok( $f['path'], '/' ), self::ENGINE_SLUGS, true ) ) {
 			return false;
+		}
+		// Cradle Translations data is indexed by options in the database: restore both or neither.
+		if ( 'translations' === $f['category'] ) {
+			return ! empty( $opts['database'] );
 		}
 		return ! empty( $opts[ $f['category'] ] );
 	}
@@ -1438,15 +1669,28 @@ final class Importer {
 		$backup = $dir . '/backup';
 		$ops    = array();
 		$roots  = array(
-			'uploads' => $dest['uploadsDir'],
-			'themes'  => $dest['themesDir'],
-			'plugins' => $dest['pluginsDir'],
-			'root'    => untrailingslashit( $dest['abspath'] ),
+			'uploads'      => $dest['uploadsDir'],
+			'themes'       => $dest['themesDir'],
+			'plugins'      => $dest['pluginsDir'],
+			'root'         => untrailingslashit( $dest['abspath'] ),
+			// Jobs created before 0.3.0 did not record these two destination folders.
+			'languages'    => (string) ( $dest['languagesDir'] ?? untrailingslashit( wp_normalize_path( WP_LANG_DIR ) ) ),
+			'translations' => (string) ( $dest['translationsDir'] ?? self::translations_dir() ),
 		);
+		// An unknown folder is never an allowed root (the containment check below relies on this).
+		$roots   = array_filter( $roots, static fn( $r ) => '' !== (string) $r );
 		$private = function_exists( 'cradle' ) && cradle() ? cradle()->storage()->private_root() : null;
 		foreach ( $roots as $cat => $live_root ) {
 			if ( ! is_dir( $tree . '/' . $cat ) ) {
 				continue;
+			}
+			// Language files and Cradle Translations data replace entry by entry (a language file, or a
+			// whole plugins/, themes/, catalogs/… folder); their folder may not exist yet on this site.
+			if ( in_array( $cat, array( 'languages', 'translations' ), true ) ) {
+				$made = '' !== $live_root && ( 'translations' === $cat ? ! is_wp_error( cradle()->storage()->module_dir( 'translations' ) ) : wp_mkdir_p( $live_root ) );
+				if ( ! $made || ! is_dir( $live_root ) || is_link( $live_root ) ) {
+					return new \WP_Error( 'cradle_migration_write', 'Could not prepare the destination folder for ' . $cat . '.', 'fatal' );
+				}
 			}
 			if ( 'uploads' === $cat ) {
 				foreach ( (array) scandir( $live_root ) as $name ) {

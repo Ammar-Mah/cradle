@@ -16,6 +16,33 @@ defined( 'ABSPATH' ) || exit;
 final class Verifier {
 
 	/**
+	 * Text direction a page is served in: 'rtl' when its <html> tag has dir="rtl", 'ltr' when it
+	 * has none (WordPress only prints dir for right-to-left), '' when the page cannot be read.
+	 */
+	public static function page_direction( string $url ): string {
+		$r = wp_remote_get(
+			$url,
+			array(
+				'timeout'     => 20,
+				'redirection' => 3,
+				'sslverify'   => false,
+				'headers'     => array( 'Cache-Control' => 'no-cache' ),
+			)
+		);
+		if ( is_wp_error( $r ) || 200 !== (int) wp_remote_retrieve_response_code( $r ) ) {
+			return '';
+		}
+		return self::html_direction( (string) wp_remote_retrieve_body( $r ) );
+	}
+
+	public static function html_direction( string $html ): string {
+		if ( ! preg_match( '/<html\b[^>]*>/i', $html, $tag ) ) {
+			return '';
+		}
+		return preg_match( '/\bdir\s*=\s*["\']?rtl\b/i', $tag[0] ) ? 'rtl' : 'ltr';
+	}
+
+	/**
 	 * @return array{passed:bool,checks:array,failures:string[],admins:string[]}
 	 */
 	public static function run( array $job, array $m, string $dir ): array {
@@ -55,7 +82,8 @@ final class Verifier {
 		};
 
 		// Front page.
-		$r = $get( $home . '/' );
+		$r         = $get( $home . '/' );
+		$front_dir = 200 === $code( $r ) ? self::html_direction( (string) wp_remote_retrieve_body( $r ) ) : '';
 		$add( 'front', 'Front page', 200 === $code( $r ) ? 'pass' : 'fail', $why( $r ) );
 
 		$posts = $wpdb->posts;
@@ -189,7 +217,39 @@ final class Verifier {
 			}
 		}
 		$add( 'fonts', 'Font Library files', 0 === $missing ? 'pass' : 'fail', $fonts . ' font face(s), ' . $missing . ' missing file(s)', false );
-		$add( 'translations', 'Translation catalogs', 'skip', 'Language files are part of wp-content/languages, which Cradle does not transplant; the Cradle translation catalogs are database content and were restored with it.', false );
+		// Site language, its translation files and the text direction visitors get.
+		$opts     = (array) ( $job['payload']['options'] ?? array() );
+		$locale   = (string) get_option( 'WPLANG', '' );
+		$locale   = '' === $locale ? 'en_US' : $locale;
+		$lang_ok  = 'en_US' === $locale || in_array( $locale, get_available_languages(), true );
+		$lang_fix = sprintf( 'No translation files for the site language %s are installed here: release the safety hold, then choose the language again under Settings → General so WordPress downloads them.', $locale );
+		$add( 'languages', 'Language files', $lang_ok ? 'pass' : 'warn', $lang_ok ? 'Site language ' . $locale . ( 'en_US' === $locale ? ' (built in).' : ': translation files installed.' ) : $lang_fix, false );
+		$src_dir = (string) ( $m['source']['textDirection'] ?? '' );
+		if ( '' === $src_dir || '' === $front_dir ) {
+			$add( 'direction', 'Text direction', 'skip', '' === $src_dir ? 'The archive does not record the source site\'s direction (exported before Cradle Migration 0.3.0).' : 'The front page could not be read.', false );
+		} else {
+			$name = static fn( string $d ): string => 'rtl' === $d ? 'right-to-left' : 'left-to-right';
+			$add(
+				'direction',
+				'Text direction',
+				$src_dir === $front_dir ? 'pass' : 'warn',
+				$src_dir === $front_dir ? ucfirst( $name( $front_dir ) ) . ', as on the source site.' : sprintf( 'The source site was %1$s but this site shows %2$s. %3$s', $name( $src_dir ), $name( $front_dir ), $lang_ok ? 'Check the site language under Settings → General.' : $lang_fix ),
+				false
+			);
+		}
+		$restored = array_values( array_filter( (array) ( $m['files'] ?? array() ), static fn( $f ) => 'translations' === ( $f['category'] ?? '' ) ) );
+		$private  = function_exists( 'cradle' ) && cradle() ? cradle()->storage()->private_root() : null;
+		if ( ! $restored || empty( $opts['database'] ) || ! is_array( $private ) ) {
+			$add( 'translations', 'Cradle Translations catalogs', 'skip', $restored ? 'Not restored (the database was not selected).' : 'The archive contains no Cradle Translations data.', false );
+		} else {
+			$missing = 0;
+			foreach ( $restored as $f ) {
+				if ( ! is_file( untrailingslashit( wp_normalize_path( (string) $private['path'] ) ) . '/translations/' . $f['path'] ) ) {
+					++$missing;
+				}
+			}
+			$add( 'translations', 'Cradle Translations catalogs', 0 === $missing ? 'pass' : 'fail', sprintf( '%1$d file(s) restored, %2$d missing.', count( $restored ) - $missing, $missing ), false );
+		}
 
 		return array(
 			'passed'   => ! $failures,

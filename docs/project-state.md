@@ -7,7 +7,7 @@
 | Last inspected | 2026-09-24 (working tree) |
 | Repository | git, `main` branch, private GitHub `Ammar-Mah/cradle` (initial commit 2026-09-25); `wp/`, `wp-target/`, `dist/` are not versioned |
 | Active theme (sandbox) | `cradle-site` child of `cradle` — runtime-verified |
-| Active packages | theme `cradle`, core, blocks, content, translations and admin 0.1.1, other add-ons 0.1.0 (9 add-ons; Cradle Hero and Cradle Fonts retired); websites have no site plugin — the sandbox child `cradle-site` holds everything site-specific and Projects are Cradle Content definitions; every module `ready` — runtime-verified |
+| Active packages | theme `cradle`, core, blocks, content, translations and admin 0.1.1, migration 0.3.0, other add-ons 0.1.0 (9 add-ons; Cradle Hero and Cradle Fonts retired); websites have no site plugin — the sandbox child `cradle-site` holds everything site-specific and Projects are Cradle Content definitions; every module `ready` — runtime-verified |
 
 ## Status by phase (northstar §24)
 
@@ -20,7 +20,7 @@
 | 4 Routine feature plugins | Done — admin, content, duplicate, dummy content, social (suites pass; see gaps). Cradle Fonts was retired by the owner (the WordPress Font Library covers it). The hero slider (§17) is a Cradle Blocks component by owner decision. |
 | 5 Translations, login | Done — suites pass (28 and 18 tests). |
 | 6 Commerce | **Not started** — WooCommerce is not installed; requires an explicit decision to install it. |
-| 7 Migration | Done on this environment — independent restore into `wp-target/` with URL, path and prefix change; §15.10 cases passed except HPOS (no WooCommerce) and a real disk-full write. |
+| 7 Migration | Done on this environment — independent restore into `wp-target/` with URL, path and prefix change; §15.10 cases passed except HPOS (no WooCommerce) and a real disk-full write. 0.2.0 (2026-09-29): export is one `.cradle` file (stored ZIP64 container of the format-1 manifest and parts), one-step browser import (upload → unpack → checks → staging → switch-over → login page). |
 | 8 Release | Done for local packaging — `dist/` ZIPs + manifest + SHA256SUMS, docs, provenance. Not published anywhere. |
 
 ## Acceptance matrix (§25.2)
@@ -44,7 +44,7 @@
 | CR-15 | Pass | content suite 19/19 |
 | CR-16 | Pass | duplicate suite 12/12 |
 | CR-17 | Pass | translations suite (test locales de_CH, fr_FR, ar_EG) plus built-in German and Arabic example languages covering every framework string |
-| CR-18 | Pass (this environment) | migration suite; HPOS store not run |
+| CR-18 | Pass (this environment) | migration suite (21 passed on 2026-09-29, `.cradle` export/upload/one-step import included); HPOS store not run |
 | CR-19 | Pass | dummy-content suite 12/12 |
 | CR-20 | Pass (as changed by the owner) | hero suite 11/11 (Cradle Blocks `cradle/hero-slider`, posts as slides, block-level style); editor picker checked in the browser; screen reader not tested |
 | CR-21 | Retired | Cradle Fonts removed by owner decision; custom fonts use the WordPress Font Library |
@@ -61,6 +61,10 @@
 | CR-32 | Pass | this document reports gaps explicitly |
 
 ## Last verification
+
+2026-09-29 (Cradle Migration 0.3.0, language files + Cradle Translations data in the `.cradle` file, text-direction check): full run 196 passed / 0 failed / 3 skipped (WooCommerce ×2, real disk-full); `--suite=migration` 22/0/2 — the restored target serves `<html dir="rtl">` with the source's site language (fixture `he_IL`), language files and byte-identical Cradle Translations files, and the new verification checks pass; `.l10n.php` never travels; hostile language/translation paths are refused; translations 29/29. dist rebuilt (`cradle-migration-plugin-0.3.0.zip`). No browser run for 0.3.0 (the restore flow itself is unchanged since the 0.2.0 browser check).
+
+2026-09-29 (Cradle Migration 0.2.0, `.cradle` single file + one-step import): full run 195 passed / 0 failed / 3 skipped (WooCommerce ×2, real disk-full) before the final unpack fix; after it `--suite=migration` 22 passed / 0 failed / 2 skipped, translations 29/29 (earlier the same day), child-theme 6/6. Browser check on `wp-target` (built-in browser pane): Export site → export finished and its download request was sent automatically; Import of that `.cradle` file → one confirmation → upload, checks, staging and switch-over without further clicks → `wp-login.php` with `redirect_to` = the import's outcome; after signing in, "The site was imported." and every post-restore check passed. The `.cradle` file also opened with Info-ZIP `unzip -t` and .NET `Expand-Archive`. dist rebuilt (16 artifacts, `cradle-migration-plugin-0.2.0.zip`).
 
 2026-09-25: full run (lifecycle included) 194 passed / 0 failed / 3 skipped (WooCommerce ×2, real disk-full); debug.log empty; copy-in kit verified end to end on a disposable WordPress (install, activation, update without touching the child); dist rebuilt (16 artifacts). Details: `docs/verification-2026-09-24.md`.
 
