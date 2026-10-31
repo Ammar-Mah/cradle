@@ -1,0 +1,73 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle-forms/field-checkboxes",
+	"version": "1.0.0",
+	"title": "Checkboxes field",
+	"category": "cradle-forms",
+	"icon": "yes-alt",
+	"description": "Any number of choices from a list.",
+	"keywords": [
+		"form",
+		"field",
+		"checkboxes"
+	],
+	"textdomain": "cradle-forms",
+	"attributes": {
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"help": {
+			"type": "string",
+			"default": ""
+		},
+		"required": {
+			"type": "boolean",
+			"default": false
+		},
+		"width": {
+			"type": "string",
+			"enum": [
+				"full",
+				"half"
+			],
+			"default": "full"
+		},
+		"choices": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"label": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"minChoices": {
+			"type": "integer",
+			"default": 0
+		},
+		"maxChoices": {
+			"type": "integer",
+			"default": 0
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"className": false,
+		"customClassName": false
+	},
+	"editorScript": "cradle-forms-fields",
+	"editorStyle": "cradle-forms-editor"
+}

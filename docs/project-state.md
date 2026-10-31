@@ -3,11 +3,11 @@
 | Field | Value |
 | --- | --- |
 | Mode | framework |
-| Environment | Windows, WAMP: Apache 2.4.65, PHP 8.4.15, MySQL 8.4.7; sandbox WordPress 7.1.2 at `wp/` (`cw_` prefix, subdirectory `/cradle/wp`); migration target `wp-target/` (`ct_` prefix) |
-| Last inspected | 2026-09-24 (working tree) |
-| Repository | git, `main` branch, private GitHub `Ammar-Mah/cradle` (initial commit 2026-09-25); `wp/`, `wp-target/`, `dist/` are not versioned |
+| Environment | Windows, WAMP on `D:`: Apache 2.4.62, PHP 8.3.14, MySQL 9.1; sandbox WordPress 7.1.4 at `wp/` (`cw_` prefix, subdirectory `/cradle/wp`, recreated 2026-10-31); migration target `wp-target/` not set up on this drive |
+| Last inspected | 2026-10-31 (working tree, branch `feature/languages-forms`) |
+| Repository | git, GitHub `Ammar-Mah/cradle` (public since 2026-10-31; initial commit 2026-09-25); Cradle Languages and Cradle Forms on branch `feature/languages-forms` (pushed 2026-11-01, not merged into `main`); `wp/`, `wp-target/`, `dist/` are not versioned |
 | Active theme (sandbox) | `cradle-site` child of `cradle` — runtime-verified |
-| Active packages | theme `cradle`, core, blocks, content, translations and admin 0.1.1, migration 0.3.0, other add-ons 0.1.0 (9 add-ons; Cradle Hero and Cradle Fonts retired); websites have no site plugin — the sandbox child `cradle-site` holds everything site-specific and Projects are Cradle Content definitions; every module `ready` — runtime-verified |
+| Active packages | theme `cradle`, core, blocks, content, translations and admin 0.1.1, migration 0.3.0, other add-ons 0.1.0 (11 add-ons, including Cradle Languages and Cradle Forms 0.1.0 added 2026-10-31; Cradle Hero and Cradle Fonts retired); websites have no site plugin — the sandbox child `cradle-site` holds everything site-specific and Projects are Cradle Content definitions; every module `ready` — runtime-verified |
 
 ## Status by phase (northstar §24)
 
@@ -18,7 +18,7 @@
 | 2 Components | Done — registry/validator, Gutenberg + shortcode adapters, feature-card/post-cards/hero-slider, editor save/reopen verified in a real editor. |
 | 3 Reference-to-website | Done for the Harbor & Pine fixture (sites/sandbox) — measured comparison, 237 blocks valid in the editor, admin edits, idempotent provisioning. |
 | 4 Routine feature plugins | Done — admin, content, duplicate, dummy content, social (suites pass; see gaps). Cradle Fonts was retired by the owner (the WordPress Font Library covers it). The hero slider (§17) is a Cradle Blocks component by owner decision. |
-| 5 Translations, login | Done — suites pass (28 and 18 tests). |
+| 5 Translations, login | Done — suites pass (28 and 18 tests). Added 2026-10-31: Cradle Languages (multilingual content and routing, §14.1 boundary kept) and Cradle Forms — languages suite 35/35, forms suite 39/39; both ship their own German and Arabic translations. |
 | 6 Commerce | **Not started** — WooCommerce is not installed; requires an explicit decision to install it. |
 | 7 Migration | Done on this environment — independent restore into `wp-target/` with URL, path and prefix change; §15.10 cases passed except HPOS (no WooCommerce) and a real disk-full write. 0.2.0 (2026-09-29): export is one `.cradle` file (stored ZIP64 container of the format-1 manifest and parts), one-step browser import (upload → unpack → checks → staging → switch-over → login page). |
 | 8 Release | Done for local packaging — `dist/` ZIPs + manifest + SHA256SUMS, docs, provenance. Not published anywhere. |
@@ -62,6 +62,8 @@
 
 ## Last verification
 
+2026-10-31 (new add-ons Cradle Languages 0.1.0 and Cradle Forms 0.1.0, self-contained; sandbox recreated on `D:`): full run **253 passed / 3 failed / 17 skipped** — the same 3 failures and 17 skips as the pre-change baseline (179 / 3 / 17): migration ×2 (no `wp-target` and no WordPress 7.1.2 zip on this drive) and lifecycle "theme switch keeps Projects reachable" (pre-existing). Suites: languages 35/35, forms 39/39, translations 29/29 (examples unchanged; the add-ons ship their own `languages/`); `bin/build-languages.php --check` matches for both. No new debug.log lines. Real-site check on WND (Polylang import, theme switch, four forms incl. CV upload, no-JS and JS submissions, 81 URLs 200): see that site's docs/project-state.md. Browser checks: Languages editor panel "Add translation" on a page; Forms submission, error summary, editor blocks; WND forms and pop-up. Not checked: the slug picker UI in a browser, RTL editor UI.
+
 2026-10-06 (repository portable across drives, e.g. WAMP on `D:`): the Claude Code sync hook uses `$CLAUDE_PROJECT_DIR`, the migration suite derives `wp-target` paths from `ABSPATH`, and `target.php` falls back to `wordpress-7.1.2.zip` in the system temp folder. Hook command checked with backslash and slash project paths; `--suite=migration` 22 passed / 0 failed / 2 skipped (HPOS, real disk-full) on `C:`. Not yet run on a `D:` install.
 
 2026-09-29 (Cradle Migration 0.3.0, language files + Cradle Translations data in the `.cradle` file, text-direction check): full run 196 passed / 0 failed / 3 skipped (WooCommerce ×2, real disk-full); `--suite=migration` 22/0/2 — the restored target serves `<html dir="rtl">` with the source's site language (fixture `he_IL`), language files and byte-identical Cradle Translations files, and the new verification checks pass; `.l10n.php` never travels; hostile language/translation paths are refused; translations 29/29. dist rebuilt (`cradle-migration-plugin-0.3.0.zip`). No browser run for 0.3.0 (the restore flow itself is unchanged since the 0.2.0 browser check).
@@ -72,6 +74,9 @@
 
 ## Known gaps
 
+- Migration target (`wp-target/`, WordPress 7.1.2 zip) not set up on `D:`; lifecycle "theme switch keeps Projects reachable" fails on this sandbox (pre-existing, not investigated).
+- Cradle Languages: plain/`index.php` permalinks, feeds and classic menu locations over HTTP not tested; no "link an existing entry" control in the editor panel (REST route exists). Cradle Forms: the editor UI in RTL and forms set to "shared" not verified; rate limit not atomic (transients); no CAPTCHA by design.
+- Sites with Cradle Languages but neither a WordPress language pack nor Cradle Translations for a locale: `switch_to_locale()` is refused, so Cradle Forms messages after an admin-post/REST submission stay in the site language (page rendering is not affected). Open decision: let Cradle Languages add its configured locales to `get_available_languages` (side effect: they appear in WordPress' language menus).
 - WooCommerce (Phase 6, CR-23, HPOS cases) not installed or tested.
 - No automated browser/a11y tooling (Playwright, axe, Lighthouse); no screen-reader or RTL visual pass.
 - WP-CLI absent: CLI paths use repository PHP scripts; the migration WP-CLI command was not run.

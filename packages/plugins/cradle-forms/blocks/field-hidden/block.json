@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle-forms/field-hidden",
+	"version": "1.0.0",
+	"title": "Hidden field",
+	"category": "cradle-forms",
+	"icon": "hidden",
+	"description": "A fixed value stored with every entry, or a value taken from a query parameter.",
+	"keywords": [
+		"form",
+		"field",
+		"hidden"
+	],
+	"textdomain": "cradle-forms",
+	"attributes": {
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"defaultValue": {
+			"type": "string",
+			"default": ""
+		},
+		"fromQuery": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"className": false,
+		"customClassName": false
+	},
+	"editorScript": "cradle-forms-fields",
+	"editorStyle": "cradle-forms-editor"
+}

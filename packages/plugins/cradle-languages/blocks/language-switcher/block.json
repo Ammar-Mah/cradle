@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle/language-switcher",
+	"version": "1.0.0",
+	"title": "Language switcher",
+	"category": "cradle",
+	"icon": "translation",
+	"description": "Links to this page in the other languages, or to their home pages when a translation is missing.",
+	"keywords": [ "language", "languages", "translation", "multilingual" ],
+	"textdomain": "cradle-languages",
+	"attributes": {
+		"layout": { "type": "string", "enum": [ "list", "dropdown" ], "default": "list" },
+		"display": { "type": "string", "enum": [ "native", "name", "slug", "native_slug" ], "default": "native" },
+		"hideMissing": { "type": "boolean", "default": false },
+		"hideCurrent": { "type": "boolean", "default": false },
+		"label": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"color": { "text": true, "background": true, "link": true },
+		"typography": { "fontSize": true },
+		"spacing": { "margin": true, "padding": true }
+	},
+	"editorScript": "file:./editor.js",
+	"style": "cradle-languages"
+}

@@ -1,0 +1,26 @@
+{
+	"schemaVersion": 1,
+	"id": "cradle/language-section",
+	"version": "1.0.0",
+	"owner": "cradle-languages",
+	"title": "Language section",
+	"description": "Shows its inner blocks only in the selected languages, so one template part or synced pattern can carry text for each language.",
+	"category": "design",
+	"properties": {
+		"languages": { "type": "array", "items": { "type": "string", "format": "slug", "maxLength": 6 }, "maxItems": 10, "default": [] }
+	},
+	"slots": [
+		{ "name": "content", "description": "Blocks shown in the selected languages." }
+	],
+	"adapters": {
+		"gutenberg": { "blockName": "cradle/language-section" },
+		"shortcode": false
+	},
+	"assets": {
+		"styleHandles": [],
+		"viewScriptHandles": []
+	},
+	"renderContract": "language-section-v1",
+	"fallbackPolicy": "saved-semantic-html",
+	"cache": "none"
+}

@@ -14,6 +14,8 @@
     { "name": "cradle-migration", "type": "plugin", "source": "packages/plugins/cradle-migration", "skills": ["cradle-project", "cradle-migration", "cradle-security"], "kind": "framework" },
     { "name": "cradle-dummy-content", "type": "plugin", "source": "packages/plugins/cradle-dummy-content", "skills": ["cradle-project", "cradle-content-operations", "cradle-security"], "kind": "framework" },
     { "name": "cradle-social", "type": "plugin", "source": "packages/plugins/cradle-social", "skills": ["cradle-project", "cradle-components", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-languages", "type": "plugin", "source": "packages/plugins/cradle-languages", "skills": ["cradle-project", "cradle-languages", "cradle-translations", "cradle-gutenberg", "cradle-components", "cradle-security"], "kind": "framework" },
+    { "name": "cradle-forms", "type": "plugin", "source": "packages/plugins/cradle-forms", "skills": ["cradle-project", "cradle-forms", "cradle-gutenberg", "cradle-components", "cradle-security"], "kind": "framework" },
     { "name": "cradle-site", "type": "theme", "source": "sites/sandbox/themes/cradle-site", "kind": "site" }
   ],
   "exclude": [".git", ".svn", "node_modules", ".DS_Store", "Thumbs.db", "*.log", ".idea", ".vscode"]

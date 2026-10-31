@@ -1,0 +1,77 @@
+/* Cradle Forms — admin screens. Logical properties only. */
+
+.cradle-forms-admin .nav-tab-wrapper {
+	margin-block-end: 1rem;
+}
+
+.cradle-forms-table td,
+.cradle-forms-table th {
+	vertical-align: top;
+}
+
+.cradle-forms-badge {
+	display: inline-block;
+	min-inline-size: 1.5em;
+	padding-inline: 0.45em;
+	border-radius: 1em;
+	background: #d63638;
+	color: #fff;
+	font-weight: 600;
+	text-align: center;
+}
+
+.cradle-forms-problem {
+	color: #b32d2e;
+}
+
+.cradle-forms-new td,
+.cradle-forms-new th {
+	font-weight: 600;
+}
+
+.cradle-forms-filters,
+.cradle-forms-export {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin-block: 0.5rem;
+	margin-inline-end: 1rem;
+}
+
+.cradle-forms-meta th,
+.cradle-forms-values th {
+	inline-size: 16rem;
+}
+
+.cradle-forms-value {
+	white-space: normal;
+	overflow-wrap: anywhere;
+}
+
+.cradle-forms-files {
+	margin: 0;
+}
+
+.cradle-forms-consent code {
+	overflow-wrap: anywhere;
+	font-size: 11px;
+}
+
+.cradle-forms-entry-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-block-start: 1.5rem;
+}
+
+.cradle-forms-entry-actions .button.delete {
+	color: #b32d2e;
+	border-color: #b32d2e;
+}
+
+.cradle-forms-admin a:focus-visible,
+.cradle-forms-admin .button:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}

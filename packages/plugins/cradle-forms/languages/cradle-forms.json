@@ -1,0 +1,4758 @@
+{
+    "de_DE": {
+        "format": "cradle-translations-examples",
+        "locale": "de_DE",
+        "language": "Deutsch",
+        "note": "Cradle Forms translations (source of the shipped files in languages/). After editing, run php bin/build-languages.php in the plugin folder.",
+        "entries": [
+            {
+                "domain": "cradle-forms",
+                "msgid": "Forms",
+                "forms": [
+                    "Formulare"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to do this.",
+                "forms": [
+                    "Sie dürfen das nicht tun."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This action requires a POST request.",
+                "forms": [
+                    "Diese Aktion erfordert eine POST-Anfrage."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form does not exist.",
+                "forms": [
+                    "Dieses Formular existiert nicht."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Unknown action.",
+                "forms": [
+                    "Unbekannte Aktion."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to delete entries.",
+                "forms": [
+                    "Sie dürfen keine Einträge löschen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to change entries.",
+                "forms": [
+                    "Sie dürfen keine Einträge ändern."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to export entries.",
+                "forms": [
+                    "Sie dürfen keine Einträge exportieren."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to download files.",
+                "forms": [
+                    "Sie dürfen keine Dateien herunterladen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The file is no longer available.",
+                "forms": [
+                    "Die Datei ist nicht mehr verfügbar."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d entry deleted.",
+                "msgidPlural": "%d entries deleted.",
+                "forms": [
+                    "%d Eintrag gelöscht.",
+                    "%d Einträge gelöscht."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d entry updated.",
+                "msgidPlural": "%d entries updated.",
+                "forms": [
+                    "%d Eintrag aktualisiert.",
+                    "%d Einträge aktualisiert."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Forms sections",
+                "forms": [
+                    "Bereiche der Formulare"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Settings",
+                "forms": [
+                    "Einstellungen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "File uploads are refused: the private storage of this site is not protected from direct web access. Define CRADLE_PRIVATE_DIR outside the web root in wp-config.php, or make the server deny access to the private uploads folder.",
+                "forms": [
+                    "Datei-Uploads werden abgelehnt: Der private Speicher dieser Website ist nicht vor direktem Webzugriff geschützt. Definieren Sie CRADLE_PRIVATE_DIR außerhalb des Web-Stammverzeichnisses in wp-config.php oder lassen Sie den Server den Zugriff auf den privaten Upload-Ordner verweigern."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add form",
+                "forms": [
+                    "Formular hinzufügen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Build a form with field blocks, publish it, then add the Form block to any page.",
+                "forms": [
+                    "Erstellen Sie ein Formular aus Feldblöcken, veröffentlichen Sie es und fügen Sie dann den Block „Formular“ auf einer beliebigen Seite ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d form in the trash",
+                "msgidPlural": "%d forms in the trash",
+                "forms": [
+                    "%d Formular im Papierkorb",
+                    "%d Formulare im Papierkorb"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No forms yet.",
+                "forms": [
+                    "Noch keine Formulare."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form",
+                "forms": [
+                    "Formular"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Status",
+                "forms": [
+                    "Status"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Fields",
+                "forms": [
+                    "Felder"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "New entries",
+                "forms": [
+                    "Neue Einträge"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entries",
+                "forms": [
+                    "Einträge"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Language",
+                "forms": [
+                    "Sprache"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "(no title)",
+                "forms": [
+                    "(kein Titel)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Has problems: visitors see the last valid version.",
+                "forms": [
+                    "Hat Probleme: Besucher sehen die letzte gültige Version."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Edit",
+                "forms": [
+                    "Bearbeiten"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to view entries.",
+                "forms": [
+                    "Sie dürfen keine Einträge ansehen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entries: %s",
+                "forms": [
+                    "Einträge: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "← All forms",
+                "forms": [
+                    "← Alle Formulare"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "All except spam",
+                "forms": [
+                    "Alle außer Spam"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "New",
+                "forms": [
+                    "Neu"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Read",
+                "forms": [
+                    "Gelesen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Spam",
+                "forms": [
+                    "Spam"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "All",
+                "forms": [
+                    "Alle"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "From",
+                "forms": [
+                    "Von"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "To",
+                "forms": [
+                    "Bis"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Filter",
+                "forms": [
+                    "Filtern"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Export CSV",
+                "forms": [
+                    "CSV exportieren"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d entry",
+                "msgidPlural": "%d entries",
+                "forms": [
+                    "%d Eintrag",
+                    "%d Einträge"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No entries match.",
+                "forms": [
+                    "Keine passenden Einträge."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Apply this action to the selected entries? Deleting cannot be undone.",
+                "forms": [
+                    "Diese Aktion auf die ausgewählten Einträge anwenden? Löschen kann nicht rückgängig gemacht werden."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Bulk action",
+                "forms": [
+                    "Massenaktion"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Mark as read",
+                "forms": [
+                    "Als gelesen markieren"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Mark as new",
+                "forms": [
+                    "Als neu markieren"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Mark as spam",
+                "forms": [
+                    "Als Spam markieren"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Delete permanently",
+                "forms": [
+                    "Endgültig löschen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Apply",
+                "forms": [
+                    "Anwenden"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Select all",
+                "forms": [
+                    "Alle auswählen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Submitted",
+                "forms": [
+                    "Gesendet"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Summary",
+                "forms": [
+                    "Zusammenfassung"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sent from",
+                "forms": [
+                    "Gesendet über"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Select entry %d",
+                "forms": [
+                    "Eintrag %d auswählen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entry pages",
+                "forms": [
+                    "Seiten der Einträge"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "‹ Previous",
+                "forms": [
+                    "‹ Zurück"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Next ›",
+                "forms": [
+                    "Weiter ›"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This entry does not exist.",
+                "forms": [
+                    "Dieser Eintrag existiert nicht."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entry %d",
+                "forms": [
+                    "Eintrag %d"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "← Entries of this form",
+                "forms": [
+                    "← Einträge dieses Formulars"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Values",
+                "forms": [
+                    "Werte"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Consent records",
+                "forms": [
+                    "Einwilligungsnachweise"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Text shown",
+                "forms": [
+                    "Angezeigter Text"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Text version (SHA-256)",
+                "forms": [
+                    "Textversion (SHA-256)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Given at (UTC)",
+                "forms": [
+                    "Erteilt am (UTC)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Delete this entry and its files permanently?",
+                "forms": [
+                    "Diesen Eintrag und seine Dateien endgültig löschen?"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Private file storage is protected: uploaded files cannot be opened by their address.",
+                "forms": [
+                    "Der private Dateispeicher ist geschützt: Hochgeladene Dateien können nicht über ihre Adresse geöffnet werden."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Private file storage is not proven protected, so file uploads are refused. Define CRADLE_PRIVATE_DIR outside the web root in wp-config.php, or make the server deny access to the private uploads folder.",
+                "forms": [
+                    "Es ist nicht nachgewiesen, dass der private Dateispeicher geschützt ist, daher werden Datei-Uploads abgelehnt. Definieren Sie CRADLE_PRIVATE_DIR außerhalb des Web-Stammverzeichnisses in wp-config.php oder lassen Sie den Server den Zugriff auf den privaten Upload-Ordner verweigern."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entry",
+                "forms": [
+                    "Eintrag"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Source ID",
+                "forms": [
+                    "Quell-ID"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add at least one choice.",
+                "forms": [
+                    "Fügen Sie mindestens eine Auswahl hinzu."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Choice %d",
+                "forms": [
+                    "Auswahl %d"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Label",
+                "forms": [
+                    "Beschriftung"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Stored value",
+                "forms": [
+                    "Gespeicherter Wert"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Optional. Used in entries, exports and routing rules. Empty: the label.",
+                "forms": [
+                    "Optional. Wird in Einträgen, Exporten und Weiterleitungsregeln verwendet. Leer: die Beschriftung."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Move up",
+                "forms": [
+                    "Nach oben"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Move down",
+                "forms": [
+                    "Nach unten"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Remove",
+                "forms": [
+                    "Entfernen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add choice",
+                "forms": [
+                    "Auswahl hinzufügen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Select an option",
+                "forms": [
+                    "Option auswählen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed: %1$s. Up to %2$s MB.",
+                "forms": [
+                    "Erlaubt: %1$s. Bis zu %2$s MB."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The name must start with a letter and use only lowercase letters, digits and underscores.",
+                "forms": [
+                    "Der Name muss mit einem Buchstaben beginnen und darf nur Kleinbuchstaben, Ziffern und Unterstriche enthalten."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Another field already uses this name. Each field needs its own name.",
+                "forms": [
+                    "Ein anderes Feld verwendet diesen Namen bereits. Jedes Feld braucht einen eigenen Namen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Name",
+                "forms": [
+                    "Name"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Key used in entries, exports and routing rules. Lowercase letters, digits and underscores; unique in the form.",
+                "forms": [
+                    "Schlüssel für Einträge, Exporte und Weiterleitungsregeln. Kleinbuchstaben, Ziffern und Unterstriche; im Formular eindeutig."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Help text",
+                "forms": [
+                    "Hilfetext"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Placeholder",
+                "forms": [
+                    "Platzhalter"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Example shown inside the empty field. Not a replacement for the label.",
+                "forms": [
+                    "Beispiel, das im leeren Feld angezeigt wird. Kein Ersatz für die Beschriftung."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Required",
+                "forms": [
+                    "Pflichtfeld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Width",
+                "forms": [
+                    "Breite"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Full width",
+                "forms": [
+                    "Volle Breite"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Half width",
+                "forms": [
+                    "Halbe Breite"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum length",
+                "forms": [
+                    "Maximale Länge"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Autocomplete",
+                "forms": [
+                    "Automatisches Ausfüllen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Lets browsers fill in known personal data, which helps many visitors.",
+                "forms": [
+                    "Lässt Browser bekannte persönliche Daten ausfüllen, was vielen Besuchern hilft."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "None",
+                "forms": [
+                    "Keine"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This is the submitter’s own email address",
+                "forms": [
+                    "Dies ist die eigene E-Mail-Adresse der absendenden Person"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Used by the privacy export and erase tools and for the copy sent to the submitter. Mark at most one email field.",
+                "forms": [
+                    "Wird von den Datenschutz-Werkzeugen für Export und Löschung sowie für die Kopie an die absendende Person verwendet. Markieren Sie höchstens ein E-Mail-Feld."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Minimum",
+                "forms": [
+                    "Minimum"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum",
+                "forms": [
+                    "Maximum"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Step",
+                "forms": [
+                    "Schrittweite"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "1 for whole numbers, 0.01 for two decimals. Empty: any value.",
+                "forms": [
+                    "1 für ganze Zahlen, 0,01 für zwei Dezimalstellen. Leer: beliebiger Wert."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Rows",
+                "forms": [
+                    "Zeilen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Earliest date",
+                "forms": [
+                    "Frühestes Datum"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Latest date",
+                "forms": [
+                    "Spätestes Datum"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Minimum selections",
+                "forms": [
+                    "Mindestanzahl an Auswahlen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum selections",
+                "forms": [
+                    "Höchstanzahl an Auswahlen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed file types",
+                "forms": [
+                    "Erlaubte Dateitypen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Comma-separated extensions. This site allows: %s.",
+                "forms": [
+                    "Durch Kommas getrennte Dateiendungen. Diese Website erlaubt: %s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum size per file (MB)",
+                "forms": [
+                    "Maximale Größe pro Datei (MB)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "At most %s MB on this site.",
+                "forms": [
+                    "Höchstens %s MB auf dieser Website."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum number of files",
+                "forms": [
+                    "Maximale Anzahl an Dateien"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Query parameter",
+                "forms": [
+                    "Abfrageparameter"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Optional. Take the value from this parameter of the page address, for example \"position\" in ?position=coordinator. Empty: always store the value below.",
+                "forms": [
+                    "Optional. Übernimmt den Wert aus diesem Parameter der Seitenadresse, zum Beispiel „position“ in ?position=coordinator. Leer: immer den Wert unten speichern."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Selected by default",
+                "forms": [
+                    "Standardmäßig ausgewählt"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Value",
+                "forms": [
+                    "Wert"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Default value",
+                "forms": [
+                    "Standardwert"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field",
+                "forms": [
+                    "Feld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Options",
+                "forms": [
+                    "Optionen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Hidden field “%1$s”: %2$s",
+                "forms": [
+                    "Verborgenes Feld „%1$s“: %2$s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "value from ?%s=",
+                "forms": [
+                    "Wert aus ?%s="
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "I agree that my details are stored to answer my request.",
+                "forms": [
+                    "Ich bin damit einverstanden, dass meine Angaben zur Beantwortung meiner Anfrage gespeichert werden."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field label",
+                "forms": [
+                    "Feldbeschriftung"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "— Select a page —",
+                "forms": [
+                    "— Seite auswählen —"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form settings",
+                "forms": [
+                    "Formulareinstellungen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Submit button label",
+                "forms": [
+                    "Beschriftung der Senden-Schaltfläche"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Submit",
+                "forms": [
+                    "Senden"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "After submitting",
+                "forms": [
+                    "Nach dem Absenden"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Show a message",
+                "forms": [
+                    "Eine Nachricht anzeigen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Go to a page",
+                "forms": [
+                    "Zu einer Seite wechseln"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Confirmation page",
+                "forms": [
+                    "Bestätigungsseite"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Confirmation message",
+                "forms": [
+                    "Bestätigungsnachricht"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed HTML: p, br, strong, em, a, ul, ol, li. Empty: a short default thank-you message.",
+                "forms": [
+                    "Erlaubtes HTML: p, br, strong, em, a, ul, ol, li. Leer: eine kurze Standard-Dankesnachricht."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Store entries",
+                "forms": [
+                    "Einträge speichern"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Always on: forms with consent or file fields store their entries.",
+                "forms": [
+                    "Immer aktiv: Formulare mit Einwilligungs- oder Dateifeldern speichern ihre Einträge."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Off: entries are only sent as notifications.",
+                "forms": [
+                    "Aus: Einträge werden nur als Benachrichtigungen gesendet."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Delete entries after (days)",
+                "forms": [
+                    "Einträge löschen nach (Tagen)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "0 keeps entries until you delete them. Older entries and their files are deleted daily.",
+                "forms": [
+                    "0 behält Einträge, bis Sie sie löschen. Ältere Einträge und ihre Dateien werden täglich gelöscht."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "View entries",
+                "forms": [
+                    "Einträge ansehen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Spam protection",
+                "forms": [
+                    "Spamschutz"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Every form has a hidden honeypot field that people never see.",
+                "forms": [
+                    "Jedes Formular hat ein verborgenes Honeypot-Feld, das Menschen nie sehen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Minimum time to fill in (seconds)",
+                "forms": [
+                    "Mindestzeit zum Ausfüllen (Sekunden)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Faster submissions are refused, because people need a few seconds. 0 turns this off.",
+                "forms": [
+                    "Schnellere Absendungen werden abgelehnt, weil Menschen ein paar Sekunden brauchen. 0 schaltet das aus."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Submissions per hour from one network",
+                "forms": [
+                    "Absendungen pro Stunde aus einem Netzwerk"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "0 turns the limit off.",
+                "forms": [
+                    "0 schaltet die Begrenzung aus."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "equals",
+                "forms": [
+                    "ist gleich"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "— Select —",
+                "forms": [
+                    "— Auswählen —"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Rule %d",
+                "forms": [
+                    "Regel %d"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "If field",
+                "forms": [
+                    "Wenn Feld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "send to",
+                "forms": [
+                    "senden an"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "One or more addresses, separated by commas.",
+                "forms": [
+                    "Eine oder mehrere Adressen, durch Kommas getrennt."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Remove rule",
+                "forms": [
+                    "Regel entfernen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Notifications",
+                "forms": [
+                    "Benachrichtigungen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No email is sent for new entries.",
+                "forms": [
+                    "Für neue Einträge wird keine E-Mail gesendet."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Notification %d",
+                "forms": [
+                    "Benachrichtigung %d"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Send this notification",
+                "forms": [
+                    "Diese Benachrichtigung senden"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Send to",
+                "forms": [
+                    "Senden an"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Addresses separated by commas. Routing rules below add more. If nobody matches, the fallback recipient from Cradle → Forms → Settings receives it.",
+                "forms": [
+                    "Adressen durch Kommas getrennt. Weiterleitungsregeln unten fügen weitere hinzu. Wenn niemand passt, erhält sie der Ersatzempfänger aus Cradle → Formulare → Einstellungen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add routing rule",
+                "forms": [
+                    "Weiterleitungsregel hinzufügen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Subject",
+                "forms": [
+                    "Betreff"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Placeholders: {form}, {site}, {source} (title of the page the form was sent from) and {field_name} for a field value. Empty: “New entry: form title”.",
+                "forms": [
+                    "Platzhalter: {form}, {site}, {source} (Titel der Seite, von der das Formular gesendet wurde) und {field_name} für einen Feldwert. Leer: „Neuer Eintrag: Formulartitel“."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Reply-to address from",
+                "forms": [
+                    "Antwortadresse aus"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Include the submitted values",
+                "forms": [
+                    "Gesendete Werte einfügen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Files are never attached; the email links to the entry instead.",
+                "forms": [
+                    "Dateien werden nie angehängt; die E-Mail verlinkt stattdessen auf den Eintrag."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Send a copy to the submitter",
+                "forms": [
+                    "Eine Kopie an die absendende Person senden"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Uses the email field marked as the submitter’s own address. Anyone can type any address, so keep it off unless you need it.",
+                "forms": [
+                    "Verwendet das E-Mail-Feld, das als eigene Adresse der absendenden Person markiert ist. Jeder kann eine beliebige Adresse eingeben, lassen Sie es daher aus, wenn Sie es nicht brauchen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Remove notification",
+                "forms": [
+                    "Benachrichtigung entfernen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add notification",
+                "forms": [
+                    "Benachrichtigung hinzufügen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The form was saved, but visitors still see the previous version of its fields until these problems are fixed:",
+                "forms": [
+                    "Das Formular wurde gespeichert, aber Besucher sehen die vorherige Version seiner Felder, bis diese Probleme behoben sind:"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The form was saved, but visitors cannot use it until these problems are fixed:",
+                "forms": [
+                    "Das Formular wurde gespeichert, aber Besucher können es erst nutzen, wenn diese Probleme behoben sind:"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "File uploads are refused: the private storage of this site is not protected from direct web access. Define CRADLE_PRIVATE_DIR outside the web root or add server deny rules.",
+                "forms": [
+                    "Datei-Uploads werden abgelehnt: Der private Speicher dieser Website ist nicht vor direktem Webzugriff geschützt. Definieren Sie CRADLE_PRIVATE_DIR außerhalb des Web-Stammverzeichnisses oder fügen Sie Sperrregeln auf dem Server hinzu."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "— Select a form —",
+                "forms": [
+                    "— Formular auswählen —"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Edit this form",
+                "forms": [
+                    "Dieses Formular bearbeiten"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Manage forms and entries",
+                "forms": [
+                    "Formulare und Einträge verwalten"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Show the form title",
+                "forms": [
+                    "Formulartitel anzeigen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Choose the form to show here.",
+                "forms": [
+                    "Wählen Sie das Formular, das hier angezeigt werden soll."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "There is no published form yet.",
+                "forms": [
+                    "Es gibt noch kein veröffentlichtes Formular."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Create a form",
+                "forms": [
+                    "Formular erstellen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Cradle Forms needs the Cradle core plugin. Forms are paused (embedded forms show nothing and submissions are not accepted); no entries or files were changed.",
+                "forms": [
+                    "Cradle Forms benötigt das Cradle-Kern-Plugin. Formulare sind pausiert (eingebettete Formulare zeigen nichts an und Absendungen werden nicht angenommen); Einträge und Dateien wurden nicht verändert."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form fields",
+                "forms": [
+                    "Formularfelder"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your submission could not be saved. Please try again later.",
+                "forms": [
+                    "Ihre Angaben konnten nicht gespeichert werden. Bitte versuchen Sie es später erneut."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s”: the name must start with a letter and use only lowercase letters, digits and underscores (at most 41 characters).",
+                "forms": [
+                    "Feld „%s“: Der Name muss mit einem Buchstaben beginnen und darf nur Kleinbuchstaben, Ziffern und Unterstriche enthalten (höchstens 41 Zeichen)."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s” needs a label.",
+                "forms": [
+                    "Feld „%s“ braucht eine Beschriftung."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s”: the minimum is greater than the maximum.",
+                "forms": [
+                    "Feld „%s“: Das Minimum ist größer als das Maximum."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%1$s” has the choice value “%2$s” twice.",
+                "forms": [
+                    "Feld „%1$s“ enthält den Auswahlwert „%2$s“ zweimal."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s” needs at least one choice.",
+                "forms": [
+                    "Feld „%s“ braucht mindestens eine Auswahl."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%1$s”: these file types are not allowed on this site: %2$s.",
+                "forms": [
+                    "Feld „%1$s“: Diese Dateitypen sind auf dieser Website nicht erlaubt: %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s” has no allowed file types. Check Cradle → Forms → Settings.",
+                "forms": [
+                    "Feld „%s“ hat keine erlaubten Dateitypen. Prüfen Sie Cradle → Formulare → Einstellungen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This field is required.",
+                "forms": [
+                    "Dieses Feld ist erforderlich."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This value is not valid.",
+                "forms": [
+                    "Dieser Wert ist ungültig."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please choose from the available options.",
+                "forms": [
+                    "Bitte wählen Sie aus den verfügbaren Optionen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please select at least %d option.",
+                "msgidPlural": "Please select at least %d options.",
+                "forms": [
+                    "Bitte wählen Sie mindestens %d Option.",
+                    "Bitte wählen Sie mindestens %d Optionen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please select no more than %d option.",
+                "msgidPlural": "Please select no more than %d options.",
+                "forms": [
+                    "Bitte wählen Sie höchstens %d Option.",
+                    "Bitte wählen Sie höchstens %d Optionen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter at most %d character.",
+                "msgidPlural": "Please enter at most %d characters.",
+                "forms": [
+                    "Bitte geben Sie höchstens %d Zeichen ein.",
+                    "Bitte geben Sie höchstens %d Zeichen ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid email address.",
+                "forms": [
+                    "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid phone number.",
+                "forms": [
+                    "Bitte geben Sie eine gültige Telefonnummer ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid web address starting with https://.",
+                "forms": [
+                    "Bitte geben Sie eine gültige Webadresse ein, die mit https:// beginnt."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid number.",
+                "forms": [
+                    "Bitte geben Sie eine gültige Zahl ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a value of at least %s.",
+                "forms": [
+                    "Bitte geben Sie einen Wert von mindestens %s ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a value no greater than %s.",
+                "forms": [
+                    "Bitte geben Sie einen Wert von höchstens %s ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a value in steps of %s.",
+                "forms": [
+                    "Bitte geben Sie einen Wert in Schritten von %s ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid date (YYYY-MM-DD).",
+                "forms": [
+                    "Bitte geben Sie ein gültiges Datum ein (JJJJ-MM-TT)."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a date on or after %s.",
+                "forms": [
+                    "Bitte geben Sie ein Datum am oder nach dem %s ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a date on or before %s.",
+                "forms": [
+                    "Bitte geben Sie ein Datum am oder vor dem %s ein."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Yes",
+                "forms": [
+                    "Ja"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No",
+                "forms": [
+                    "Nein"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "(required)",
+                "forms": [
+                    "(erforderlich)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed: %1$s. Up to %2$s per file, at most %3$d files.",
+                "forms": [
+                    "Erlaubt: %1$s. Bis zu %2$s pro Datei, höchstens %3$d Dateien."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed: %1$s. Up to %2$s.",
+                "forms": [
+                    "Erlaubt: %1$s. Bis zu %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The name “%s” is used by more than one field. Each field needs its own name.",
+                "forms": [
+                    "Der Name „%s“ wird von mehr als einem Feld verwendet. Jedes Feld braucht einen eigenen Namen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Only one email field can be marked as the submitter’s own email address.",
+                "forms": [
+                    "Nur ein E-Mail-Feld kann als eigene E-Mail-Adresse der absendenden Person markiert werden."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A form can have at most %d fields.",
+                "forms": [
+                    "Ein Formular kann höchstens %d Felder haben."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Unknown field block %s.",
+                "forms": [
+                    "Unbekannter Feldblock %s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A form cannot contain another form block.",
+                "forms": [
+                    "Ein Formular kann keinen weiteren Formularblock enthalten."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form must be submitted with POST.",
+                "forms": [
+                    "Dieses Formular muss per POST gesendet werden."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your files were too large to upload, so nothing was sent. Please choose smaller files and submit the form again.",
+                "forms": [
+                    "Ihre Dateien waren zu groß zum Hochladen, daher wurde nichts gesendet. Bitte wählen Sie kleinere Dateien und senden Sie das Formular erneut."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form can only be submitted from this website.",
+                "forms": [
+                    "Dieses Formular kann nur von dieser Website gesendet werden."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your session changed since the page was loaded. Please check your entries and submit the form again.",
+                "forms": [
+                    "Ihre Sitzung hat sich seit dem Laden der Seite geändert. Bitte prüfen Sie Ihre Angaben und senden Sie das Formular erneut."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Cradle Forms does not support network activation yet. Activate it on individual sites.",
+                "forms": [
+                    "Cradle Forms unterstützt die Netzwerkaktivierung noch nicht. Aktivieren Sie es auf einzelnen Websites."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Network activation is not supported",
+                "forms": [
+                    "Netzwerkaktivierung wird nicht unterstützt"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "New entry: %s",
+                "forms": [
+                    "Neuer Eintrag: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sent from: %1$s (%2$s)",
+                "forms": [
+                    "Gesendet über: %1$s (%2$s)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sent from: %s",
+                "forms": [
+                    "Gesendet über: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d file was uploaded. Download it from the entry in the admin area.",
+                "msgidPlural": "%d files were uploaded. Download them from the entry in the admin area.",
+                "forms": [
+                    "%d Datei wurde hochgeladen. Laden Sie sie über den Eintrag im Verwaltungsbereich herunter.",
+                    "%d Dateien wurden hochgeladen. Laden Sie sie über den Eintrag im Verwaltungsbereich herunter."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "View the entry: %s",
+                "forms": [
+                    "Eintrag ansehen: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A new entry was submitted with the form “%1$s” on %2$s.",
+                "forms": [
+                    "Über das Formular „%1$s“ wurde auf %2$s ein neuer Eintrag gesendet."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Thank you. This is a copy of what you sent us.",
+                "forms": [
+                    "Vielen Dank. Dies ist eine Kopie Ihrer Angaben an uns."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Copy of your submission: %s",
+                "forms": [
+                    "Kopie Ihrer Angaben: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Edit form",
+                "forms": [
+                    "Formular bearbeiten"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "New form",
+                "forms": [
+                    "Neues Formular"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Search forms",
+                "forms": [
+                    "Formulare durchsuchen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No forms found.",
+                "forms": [
+                    "Keine Formulare gefunden."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No forms found in Trash.",
+                "forms": [
+                    "Keine Formulare im Papierkorb gefunden."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form published.",
+                "forms": [
+                    "Formular veröffentlicht."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form updated.",
+                "forms": [
+                    "Formular aktualisiert."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Email",
+                "forms": [
+                    "E-Mail"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Message",
+                "forms": [
+                    "Nachricht"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form entries",
+                "forms": [
+                    "Formulareinträge"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "When you submit a form, the values you enter, any files you upload, the date, the page language and, for consent checkboxes, the exact consent text you agreed to are stored. Your IP address is not stored; a keyed hash of your network is kept to limit abuse.",
+                "forms": [
+                    "Wenn Sie ein Formular absenden, werden die eingegebenen Werte, hochgeladene Dateien, das Datum, die Sprache der Seite und bei Einwilligungs-Kontrollkästchen der genaue Einwilligungstext, dem Sie zugestimmt haben, gespeichert. Ihre IP-Adresse wird nicht gespeichert; ein mit einem Schlüssel gebildeter Hashwert Ihres Netzwerks wird aufbewahrt, um Missbrauch zu begrenzen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Consent",
+                "forms": [
+                    "Einwilligung"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%1$s (given %2$s)",
+                "forms": [
+                    "%1$s (erteilt am %2$s)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Choose a form in the block settings.",
+                "forms": [
+                    "Wählen Sie in den Blockeinstellungen ein Formular."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form is not published, so visitors do not see it.",
+                "forms": [
+                    "Dieses Formular ist nicht veröffentlicht, daher sehen Besucher es nicht."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form has no valid fields yet, so visitors do not see it.",
+                "forms": [
+                    "Dieses Formular hat noch keine gültigen Felder, daher sehen Besucher es nicht."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "For your security, files are not kept when a form has errors. Please choose your files again.",
+                "forms": [
+                    "Zu Ihrer Sicherheit werden Dateien nicht aufbewahrt, wenn ein Formular Fehler enthält. Bitte wählen Sie Ihre Dateien erneut aus."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "There is a problem",
+                "forms": [
+                    "Es gibt ein Problem"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sending…",
+                "forms": [
+                    "Wird gesendet …"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your submission could not be sent. Please check your connection and try again.",
+                "forms": [
+                    "Ihre Angaben konnten nicht gesendet werden. Bitte prüfen Sie Ihre Verbindung und versuchen Sie es erneut."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Leave this field empty",
+                "forms": [
+                    "Dieses Feld leer lassen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sorry, you are not allowed to view forms.",
+                "forms": [
+                    "Sie dürfen leider keine Formulare ansehen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Limits for every form on this site. A file field can narrow these limits but never widen them.",
+                "forms": [
+                    "Grenzen für alle Formulare dieser Website. Ein Dateifeld kann diese Grenzen einschränken, aber nie erweitern."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Use file extensions separated by commas, for example pdf,docx,jpg.",
+                "forms": [
+                    "Verwenden Sie durch Kommas getrennte Dateiendungen, zum Beispiel pdf,docx,jpg."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Comma-separated file extensions that file fields may accept, for example pdf,docx,jpg. Scripts, programs, HTML and SVG are always refused.",
+                "forms": [
+                    "Durch Kommas getrennte Dateiendungen, die Dateifelder annehmen dürfen, zum Beispiel pdf,docx,jpg. Skripte, Programme, HTML und SVG werden immer abgelehnt."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum file size (MB)",
+                "forms": [
+                    "Maximale Dateigröße (MB)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Largest file a visitor can upload. This server accepts at most %d MB per request, which always applies as well.",
+                "forms": [
+                    "Größte Datei, die Besucher hochladen können. Dieser Server akzeptiert höchstens %d MB pro Anfrage; diese Grenze gilt immer zusätzlich."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Fallback recipient",
+                "forms": [
+                    "Ersatzempfänger"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Receives notifications whose recipients and routing rules give no address. Empty: the site administration email address.",
+                "forms": [
+                    "Erhält Benachrichtigungen, deren Empfänger und Weiterleitungsregeln keine Adresse ergeben. Leer: die E-Mail-Adresse der Website-Verwaltung."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "These file types can never be accepted: %s.",
+                "forms": [
+                    "Diese Dateitypen können nie angenommen werden: %s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your submission could not be accepted. Please wait a few seconds and try again.",
+                "forms": [
+                    "Ihre Angaben konnten nicht angenommen werden. Bitte warten Sie einige Sekunden und versuchen Sie es erneut."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form is not available.",
+                "forms": [
+                    "Dieses Formular ist nicht verfügbar."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Too many submissions came from your network. Please try again later.",
+                "forms": [
+                    "Aus Ihrem Netzwerk kamen zu viele Absendungen. Bitte versuchen Sie es später erneut."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please correct the errors below.",
+                "forms": [
+                    "Bitte korrigieren Sie die Fehler unten."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Thank you. Your submission has been received.",
+                "forms": [
+                    "Vielen Dank. Ihre Angaben sind eingegangen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You can upload at most %d file.",
+                "msgidPlural": "You can upload at most %d files.",
+                "forms": [
+                    "Sie können höchstens %d Datei hochladen.",
+                    "Sie können höchstens %d Dateien hochladen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "File uploads are not available on this site right now. Please try again later or contact us another way.",
+                "forms": [
+                    "Datei-Uploads sind auf dieser Website gerade nicht verfügbar. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns auf anderem Weg."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This text changed after the page was loaded. Please read it again and confirm.",
+                "forms": [
+                    "Dieser Text hat sich nach dem Laden der Seite geändert. Bitte lesen Sie ihn erneut und bestätigen Sie."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "“%1$s” is larger than %2$s.",
+                "forms": [
+                    "„%1$s“ ist größer als %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "“%s” could not be uploaded. Please try again.",
+                "forms": [
+                    "„%s“ konnte nicht hochgeladen werden. Bitte versuchen Sie es erneut."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The file upload was not valid. Please try again.",
+                "forms": [
+                    "Der Datei-Upload war ungültig. Bitte versuchen Sie es erneut."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "“%s” is empty.",
+                "forms": [
+                    "„%s“ ist leer."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "“%1$s” is not an allowed file type. Allowed: %2$s.",
+                "forms": [
+                    "„%1$s“ ist kein erlaubter Dateityp. Erlaubt: %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your file could not be stored. Please try again later.",
+                "forms": [
+                    "Ihre Datei konnte nicht gespeichert werden. Bitte versuchen Sie es später erneut."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Cradle Forms",
+                "context": "module name",
+                "forms": [
+                    "Cradle Forms"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Forms built from blocks with server-side validation, stored entries, private file uploads, consent records, notifications and spam protection.",
+                "context": "module description",
+                "forms": [
+                    "Formulare aus Blöcken mit serverseitiger Prüfung, gespeicherten Einträgen, privaten Datei-Uploads, Einwilligungsnachweisen, Benachrichtigungen und Spamschutz."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Manage forms",
+                "context": "capability label",
+                "forms": [
+                    "Formulare verwalten"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "View form entries",
+                "context": "capability label",
+                "forms": [
+                    "Formulareinträge ansehen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Export form entries",
+                "context": "capability label",
+                "forms": [
+                    "Formulareinträge exportieren"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Delete form entries",
+                "context": "capability label",
+                "forms": [
+                    "Formulareinträge löschen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No published form has the address name “%s”, so visitors see nothing here.",
+                "forms": [
+                    "Kein veröffentlichtes Formular hat den Adressnamen „%s“, daher sehen Besucher hier nichts."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Selected by its address name “%s” (for example in a theme template). Choosing a form here selects it by ID instead.",
+                "forms": [
+                    "Über seinen Adressnamen „%s“ ausgewählt (zum Beispiel in einem Theme-Template). Wenn Sie hier ein Formular wählen, wird es stattdessen über seine ID ausgewählt."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Checkboxes field",
+                "context": "block title",
+                "forms": [
+                    "Kontrollkästchen-Feld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Consent checkbox",
+                "context": "block title",
+                "forms": [
+                    "Einwilligungs-Kontrollkästchen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Date field",
+                "context": "block title",
+                "forms": [
+                    "Datumsfeld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Email field",
+                "context": "block title",
+                "forms": [
+                    "E-Mail-Feld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "File upload field",
+                "context": "block title",
+                "forms": [
+                    "Datei-Upload-Feld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Hidden field",
+                "context": "block title",
+                "forms": [
+                    "Verstecktes Feld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Number field",
+                "context": "block title",
+                "forms": [
+                    "Zahlenfeld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Radio buttons field",
+                "context": "block title",
+                "forms": [
+                    "Optionsfelder"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Dropdown field",
+                "context": "block title",
+                "forms": [
+                    "Auswahllisten-Feld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Phone field",
+                "context": "block title",
+                "forms": [
+                    "Telefonfeld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Text field",
+                "context": "block title",
+                "forms": [
+                    "Textfeld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Paragraph field",
+                "context": "block title",
+                "forms": [
+                    "Absatzfeld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Website field",
+                "context": "block title",
+                "forms": [
+                    "Website-Feld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form",
+                "context": "block title",
+                "forms": [
+                    "Formular"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Any number of choices from a list.",
+                "context": "block description",
+                "forms": [
+                    "Beliebig viele Auswahlmöglichkeiten aus einer Liste."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A checkbox the visitor ticks to agree. The exact text, a hash of it, the language and the time are stored with the entry.",
+                "context": "block description",
+                "forms": [
+                    "Ein Kontrollkästchen, das Besucher zur Zustimmung ankreuzen. Der genaue Text, ein Hash davon, die Sprache und die Uhrzeit werden mit dem Eintrag gespeichert."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A calendar date.",
+                "context": "block description",
+                "forms": [
+                    "Ein Kalenderdatum."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "An email address, validated on the server.",
+                "context": "block description",
+                "forms": [
+                    "Eine E-Mail-Adresse, die auf dem Server geprüft wird."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Files stored privately and downloadable only by entry viewers.",
+                "context": "block description",
+                "forms": [
+                    "Dateien, die privat gespeichert werden und nur von Personen mit Zugriff auf die Einträge heruntergeladen werden können."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A fixed value stored with every entry, or a value taken from a query parameter.",
+                "context": "block description",
+                "forms": [
+                    "Ein fester Wert, der mit jedem Eintrag gespeichert wird, oder ein Wert aus einem Abfrageparameter."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A number with optional minimum, maximum and step.",
+                "context": "block description",
+                "forms": [
+                    "Eine Zahl mit optionalem Minimum, Maximum und Schrittweite."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "One choice from a visible list.",
+                "context": "block description",
+                "forms": [
+                    "Eine Auswahl aus einer sichtbaren Liste."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "One choice from a dropdown list.",
+                "context": "block description",
+                "forms": [
+                    "Eine Auswahl aus einer Ausklappliste."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A phone number.",
+                "context": "block description",
+                "forms": [
+                    "Eine Telefonnummer."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A single line of text.",
+                "context": "block description",
+                "forms": [
+                    "Eine einzelne Textzeile."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Several lines of text.",
+                "context": "block description",
+                "forms": [
+                    "Mehrere Textzeilen."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A web address starting with http:// or https://.",
+                "context": "block description",
+                "forms": [
+                    "Eine Webadresse, die mit http:// oder https:// beginnt."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Show a form built under Cradle → Forms. Submissions are validated on the server, stored as entries and sent as notifications.",
+                "context": "block description",
+                "forms": [
+                    "Zeigt ein unter Cradle → Formulare erstelltes Formular. Einsendungen werden auf dem Server geprüft, als Einträge gespeichert und als Benachrichtigungen versendet."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "form",
+                "context": "block keyword",
+                "forms": [
+                    "formular"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "field",
+                "context": "block keyword",
+                "forms": [
+                    "feld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "checkboxes",
+                "context": "block keyword",
+                "forms": [
+                    "kontrollkästchen"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "consent",
+                "context": "block keyword",
+                "forms": [
+                    "einwilligung"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "date",
+                "context": "block keyword",
+                "forms": [
+                    "datum"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "email",
+                "context": "block keyword",
+                "forms": [
+                    "e-mail"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "file",
+                "context": "block keyword",
+                "forms": [
+                    "datei"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "hidden",
+                "context": "block keyword",
+                "forms": [
+                    "versteckt"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "number",
+                "context": "block keyword",
+                "forms": [
+                    "zahl"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "radio",
+                "context": "block keyword",
+                "forms": [
+                    "optionsfeld"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "select",
+                "context": "block keyword",
+                "forms": [
+                    "auswahlliste"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "tel",
+                "context": "block keyword",
+                "forms": [
+                    "telefon"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "text",
+                "context": "block keyword",
+                "forms": [
+                    "text"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "textarea",
+                "context": "block keyword",
+                "forms": [
+                    "textbereich"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "url",
+                "context": "block keyword",
+                "forms": [
+                    "url"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "contact",
+                "context": "block keyword",
+                "forms": [
+                    "kontakt"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "newsletter",
+                "context": "block keyword",
+                "forms": [
+                    "newsletter"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "application",
+                "context": "block keyword",
+                "forms": [
+                    "bewerbung"
+                ]
+            }
+        ]
+    },
+    "ar": {
+        "format": "cradle-translations-examples",
+        "locale": "ar",
+        "language": "العربية",
+        "note": "Cradle Forms translations (source of the shipped files in languages/). After editing, run php bin/build-languages.php in the plugin folder.",
+        "entries": [
+            {
+                "domain": "cradle-forms",
+                "msgid": "Forms",
+                "forms": [
+                    "النماذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to do this.",
+                "forms": [
+                    "غير مسموح لك بتنفيذ هذا الإجراء."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This action requires a POST request.",
+                "forms": [
+                    "يتطلب هذا الإجراء طلب POST."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form does not exist.",
+                "forms": [
+                    "هذا النموذج غير موجود."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Unknown action.",
+                "forms": [
+                    "إجراء غير معروف."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to delete entries.",
+                "forms": [
+                    "غير مسموح لك بحذف الإدخالات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to change entries.",
+                "forms": [
+                    "غير مسموح لك بتغيير الإدخالات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to export entries.",
+                "forms": [
+                    "غير مسموح لك بتصدير الإدخالات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to download files.",
+                "forms": [
+                    "غير مسموح لك بتنزيل الملفات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The file is no longer available.",
+                "forms": [
+                    "الملف لم يعد متاحًا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d entry deleted.",
+                "msgidPlural": "%d entries deleted.",
+                "forms": [
+                    "لم يُحذف أي إدخال.",
+                    "حُذف إدخال واحد.",
+                    "حُذف إدخالان.",
+                    "حُذفت %d إدخالات.",
+                    "حُذف %d إدخالًا.",
+                    "حُذف %d إدخال."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d entry updated.",
+                "msgidPlural": "%d entries updated.",
+                "forms": [
+                    "لم يُحدَّث أي إدخال.",
+                    "حُدِّث إدخال واحد.",
+                    "حُدِّث إدخالان.",
+                    "حُدِّثت %d إدخالات.",
+                    "حُدِّث %d إدخالًا.",
+                    "حُدِّث %d إدخال."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Forms sections",
+                "forms": [
+                    "أقسام النماذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Settings",
+                "forms": [
+                    "الإعدادات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "File uploads are refused: the private storage of this site is not protected from direct web access. Define CRADLE_PRIVATE_DIR outside the web root in wp-config.php, or make the server deny access to the private uploads folder.",
+                "forms": [
+                    "رفع الملفات مرفوض: التخزين الخاص لهذا الموقع غير محمي من الوصول المباشر عبر الويب. عرّف CRADLE_PRIVATE_DIR خارج الجذر العام للموقع في wp-config.php، أو اجعل الخادم يمنع الوصول إلى مجلد الرفع الخاص."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add form",
+                "forms": [
+                    "إضافة نموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Build a form with field blocks, publish it, then add the Form block to any page.",
+                "forms": [
+                    "أنشئ نموذجًا من كتل الحقول وانشره، ثم أضف كتلة «نموذج» إلى أي صفحة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d form in the trash",
+                "msgidPlural": "%d forms in the trash",
+                "forms": [
+                    "لا توجد نماذج في سلة المهملات",
+                    "نموذج واحد في سلة المهملات",
+                    "نموذجان في سلة المهملات",
+                    "%d نماذج في سلة المهملات",
+                    "%d نموذجًا في سلة المهملات",
+                    "%d نموذج في سلة المهملات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No forms yet.",
+                "forms": [
+                    "لا توجد نماذج بعد."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form",
+                "forms": [
+                    "النموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Status",
+                "forms": [
+                    "الحالة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Fields",
+                "forms": [
+                    "الحقول"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "New entries",
+                "forms": [
+                    "إدخالات جديدة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entries",
+                "forms": [
+                    "الإدخالات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Language",
+                "forms": [
+                    "اللغة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "(no title)",
+                "forms": [
+                    "(بلا عنوان)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Has problems: visitors see the last valid version.",
+                "forms": [
+                    "به مشكلات: يرى الزوار آخر نسخة صالحة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Edit",
+                "forms": [
+                    "تحرير"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You are not allowed to view entries.",
+                "forms": [
+                    "غير مسموح لك بعرض الإدخالات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entries: %s",
+                "forms": [
+                    "الإدخالات: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "← All forms",
+                "forms": [
+                    "→ كل النماذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "All except spam",
+                "forms": [
+                    "الكل باستثناء الرسائل المزعجة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "New",
+                "forms": [
+                    "جديد"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Read",
+                "forms": [
+                    "مقروء"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Spam",
+                "forms": [
+                    "مزعج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "All",
+                "forms": [
+                    "الكل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "From",
+                "forms": [
+                    "من"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "To",
+                "forms": [
+                    "إلى"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Filter",
+                "forms": [
+                    "تصفية"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Export CSV",
+                "forms": [
+                    "تصدير CSV"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d entry",
+                "msgidPlural": "%d entries",
+                "forms": [
+                    "لا توجد إدخالات",
+                    "إدخال واحد",
+                    "إدخالان",
+                    "%d إدخالات",
+                    "%d إدخالًا",
+                    "%d إدخال"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No entries match.",
+                "forms": [
+                    "لا توجد إدخالات مطابقة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Apply this action to the selected entries? Deleting cannot be undone.",
+                "forms": [
+                    "هل تريد تطبيق هذا الإجراء على الإدخالات المحددة؟ لا يمكن التراجع عن الحذف."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Bulk action",
+                "forms": [
+                    "إجراء جماعي"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Mark as read",
+                "forms": [
+                    "وسم كمقروء"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Mark as new",
+                "forms": [
+                    "وسم كجديد"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Mark as spam",
+                "forms": [
+                    "وسم كمزعج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Delete permanently",
+                "forms": [
+                    "حذف نهائي"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Apply",
+                "forms": [
+                    "تطبيق"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Select all",
+                "forms": [
+                    "تحديد الكل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Submitted",
+                "forms": [
+                    "تاريخ الإرسال"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Summary",
+                "forms": [
+                    "الملخص"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sent from",
+                "forms": [
+                    "أُرسل من"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Select entry %d",
+                "forms": [
+                    "تحديد الإدخال %d"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entry pages",
+                "forms": [
+                    "صفحات الإدخالات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "‹ Previous",
+                "forms": [
+                    "› السابق"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Next ›",
+                "forms": [
+                    "التالي ‹"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This entry does not exist.",
+                "forms": [
+                    "هذا الإدخال غير موجود."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entry %d",
+                "forms": [
+                    "الإدخال %d"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "← Entries of this form",
+                "forms": [
+                    "→ إدخالات هذا النموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Values",
+                "forms": [
+                    "القيم"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Consent records",
+                "forms": [
+                    "سجلات الموافقة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Text shown",
+                "forms": [
+                    "النص المعروض"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Text version (SHA-256)",
+                "forms": [
+                    "نسخة النص (SHA-256)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Given at (UTC)",
+                "forms": [
+                    "وقت المنح (UTC)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Delete this entry and its files permanently?",
+                "forms": [
+                    "هل تريد حذف هذا الإدخال وملفاته نهائيًا؟"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Private file storage is protected: uploaded files cannot be opened by their address.",
+                "forms": [
+                    "التخزين الخاص للملفات محمي: لا يمكن فتح الملفات المرفوعة عبر عنوانها."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Private file storage is not proven protected, so file uploads are refused. Define CRADLE_PRIVATE_DIR outside the web root in wp-config.php, or make the server deny access to the private uploads folder.",
+                "forms": [
+                    "لم يثبت أن التخزين الخاص للملفات محمي، لذلك يُرفض رفع الملفات. عرّف CRADLE_PRIVATE_DIR خارج الجذر العام للموقع في wp-config.php، أو اجعل الخادم يمنع الوصول إلى مجلد الرفع الخاص."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Entry",
+                "forms": [
+                    "الإدخال"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Source ID",
+                "forms": [
+                    "معرّف المصدر"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add at least one choice.",
+                "forms": [
+                    "أضف خيارًا واحدًا على الأقل."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Choice %d",
+                "forms": [
+                    "الخيار %d"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Label",
+                "forms": [
+                    "التسمية"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Stored value",
+                "forms": [
+                    "القيمة المخزنة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Optional. Used in entries, exports and routing rules. Empty: the label.",
+                "forms": [
+                    "اختياري. تُستخدم في الإدخالات والتصدير وقواعد التوجيه. إن تُركت فارغة: التسمية."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Move up",
+                "forms": [
+                    "تحريك للأعلى"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Move down",
+                "forms": [
+                    "تحريك للأسفل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Remove",
+                "forms": [
+                    "إزالة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add choice",
+                "forms": [
+                    "إضافة خيار"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Select an option",
+                "forms": [
+                    "اختر خيارًا"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed: %1$s. Up to %2$s MB.",
+                "forms": [
+                    "المسموح: %1$s. حتى %2$s ميغابايت."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The name must start with a letter and use only lowercase letters, digits and underscores.",
+                "forms": [
+                    "يجب أن يبدأ الاسم بحرف وألا يحتوي إلا على أحرف لاتينية صغيرة وأرقام وشرطات سفلية."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Another field already uses this name. Each field needs its own name.",
+                "forms": [
+                    "يستخدم حقل آخر هذا الاسم بالفعل. يحتاج كل حقل إلى اسم خاص به."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Name",
+                "forms": [
+                    "الاسم"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Key used in entries, exports and routing rules. Lowercase letters, digits and underscores; unique in the form.",
+                "forms": [
+                    "مفتاح يُستخدم في الإدخالات والتصدير وقواعد التوجيه. أحرف لاتينية صغيرة وأرقام وشرطات سفلية، وفريد داخل النموذج."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Help text",
+                "forms": [
+                    "نص المساعدة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Placeholder",
+                "forms": [
+                    "النص المؤقت"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Example shown inside the empty field. Not a replacement for the label.",
+                "forms": [
+                    "مثال يظهر داخل الحقل الفارغ. لا يغني عن التسمية."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Required",
+                "forms": [
+                    "مطلوب"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Width",
+                "forms": [
+                    "العرض"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Full width",
+                "forms": [
+                    "عرض كامل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Half width",
+                "forms": [
+                    "نصف العرض"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum length",
+                "forms": [
+                    "الطول الأقصى"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Autocomplete",
+                "forms": [
+                    "الإكمال التلقائي"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Lets browsers fill in known personal data, which helps many visitors.",
+                "forms": [
+                    "يسمح للمتصفحات بملء البيانات الشخصية المعروفة، وهذا يساعد كثيرًا من الزوار."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "None",
+                "forms": [
+                    "لا شيء"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This is the submitter’s own email address",
+                "forms": [
+                    "هذا هو عنوان البريد الإلكتروني الخاص بالمرسِل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Used by the privacy export and erase tools and for the copy sent to the submitter. Mark at most one email field.",
+                "forms": [
+                    "تستخدمه أدوات تصدير البيانات الشخصية ومحوها، والنسخة المرسلة إلى المرسِل. حدّد حقل بريد إلكتروني واحدًا على الأكثر."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Minimum",
+                "forms": [
+                    "الحد الأدنى"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum",
+                "forms": [
+                    "الحد الأقصى"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Step",
+                "forms": [
+                    "الخطوة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "1 for whole numbers, 0.01 for two decimals. Empty: any value.",
+                "forms": [
+                    "1 للأعداد الصحيحة، و0.01 لمنزلتين عشريتين. إن تُركت فارغة: أي قيمة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Rows",
+                "forms": [
+                    "الأسطر"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Earliest date",
+                "forms": [
+                    "أقدم تاريخ"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Latest date",
+                "forms": [
+                    "أحدث تاريخ"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Minimum selections",
+                "forms": [
+                    "الحد الأدنى للاختيارات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum selections",
+                "forms": [
+                    "الحد الأقصى للاختيارات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed file types",
+                "forms": [
+                    "أنواع الملفات المسموح بها"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Comma-separated extensions. This site allows: %s.",
+                "forms": [
+                    "امتدادات مفصولة بفواصل. يسمح هذا الموقع بما يلي: %s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum size per file (MB)",
+                "forms": [
+                    "الحجم الأقصى لكل ملف (ميغابايت)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "At most %s MB on this site.",
+                "forms": [
+                    "%s ميغابايت على الأكثر في هذا الموقع."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum number of files",
+                "forms": [
+                    "الحد الأقصى لعدد الملفات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Query parameter",
+                "forms": [
+                    "معامل الاستعلام"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Optional. Take the value from this parameter of the page address, for example \"position\" in ?position=coordinator. Empty: always store the value below.",
+                "forms": [
+                    "اختياري. تؤخذ القيمة من هذا المعامل في عنوان الصفحة، مثل «position» في ?position=coordinator. إن تُرك فارغًا: تُخزَّن دائمًا القيمة أدناه."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Selected by default",
+                "forms": [
+                    "محدد افتراضيًا"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Value",
+                "forms": [
+                    "القيمة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Default value",
+                "forms": [
+                    "القيمة الافتراضية"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field",
+                "forms": [
+                    "الحقل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Options",
+                "forms": [
+                    "الخيارات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Hidden field “%1$s”: %2$s",
+                "forms": [
+                    "حقل مخفي «%1$s»: %2$s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "value from ?%s=",
+                "forms": [
+                    "القيمة من ?%s="
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "I agree that my details are stored to answer my request.",
+                "forms": [
+                    "أوافق على تخزين بياناتي للرد على طلبي."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field label",
+                "forms": [
+                    "تسمية الحقل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "— Select a page —",
+                "forms": [
+                    "— اختر صفحة —"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form settings",
+                "forms": [
+                    "إعدادات النموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Submit button label",
+                "forms": [
+                    "تسمية زر الإرسال"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Submit",
+                "forms": [
+                    "إرسال"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "After submitting",
+                "forms": [
+                    "بعد الإرسال"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Show a message",
+                "forms": [
+                    "عرض رسالة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Go to a page",
+                "forms": [
+                    "الانتقال إلى صفحة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Confirmation page",
+                "forms": [
+                    "صفحة التأكيد"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Confirmation message",
+                "forms": [
+                    "رسالة التأكيد"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed HTML: p, br, strong, em, a, ul, ol, li. Empty: a short default thank-you message.",
+                "forms": [
+                    "وسوم HTML المسموح بها: p وbr وstrong وem وa وul وol وli. إن تُركت فارغة: رسالة شكر افتراضية قصيرة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Store entries",
+                "forms": [
+                    "تخزين الإدخالات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Always on: forms with consent or file fields store their entries.",
+                "forms": [
+                    "مفعّل دائمًا: النماذج التي تحتوي على حقول موافقة أو ملفات تخزّن إدخالاتها."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Off: entries are only sent as notifications.",
+                "forms": [
+                    "معطّل: تُرسل الإدخالات كإشعارات فقط."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Delete entries after (days)",
+                "forms": [
+                    "حذف الإدخالات بعد (أيام)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "0 keeps entries until you delete them. Older entries and their files are deleted daily.",
+                "forms": [
+                    "القيمة 0 تحتفظ بالإدخالات حتى تحذفها. تُحذف الإدخالات الأقدم وملفاتها يوميًا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "View entries",
+                "forms": [
+                    "عرض الإدخالات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Spam protection",
+                "forms": [
+                    "الحماية من الرسائل المزعجة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Every form has a hidden honeypot field that people never see.",
+                "forms": [
+                    "يحتوي كل نموذج على حقل مصيدة مخفي لا يراه الأشخاص أبدًا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Minimum time to fill in (seconds)",
+                "forms": [
+                    "أقل وقت للتعبئة (بالثواني)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Faster submissions are refused, because people need a few seconds. 0 turns this off.",
+                "forms": [
+                    "تُرفض عمليات الإرسال الأسرع، لأن الأشخاص يحتاجون إلى بضع ثوانٍ. القيمة 0 تعطّل ذلك."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Submissions per hour from one network",
+                "forms": [
+                    "عمليات الإرسال في الساعة من شبكة واحدة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "0 turns the limit off.",
+                "forms": [
+                    "القيمة 0 تعطّل الحد."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "equals",
+                "forms": [
+                    "يساوي"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "— Select —",
+                "forms": [
+                    "— اختر —"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Rule %d",
+                "forms": [
+                    "القاعدة %d"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "If field",
+                "forms": [
+                    "إذا كان الحقل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "send to",
+                "forms": [
+                    "أرسل إلى"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "One or more addresses, separated by commas.",
+                "forms": [
+                    "عنوان واحد أو أكثر، مفصولة بفواصل."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Remove rule",
+                "forms": [
+                    "إزالة القاعدة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Notifications",
+                "forms": [
+                    "الإشعارات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No email is sent for new entries.",
+                "forms": [
+                    "لا يُرسل بريد إلكتروني عند الإدخالات الجديدة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Notification %d",
+                "forms": [
+                    "الإشعار %d"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Send this notification",
+                "forms": [
+                    "إرسال هذا الإشعار"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Send to",
+                "forms": [
+                    "أرسل إلى"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Addresses separated by commas. Routing rules below add more. If nobody matches, the fallback recipient from Cradle → Forms → Settings receives it.",
+                "forms": [
+                    "عناوين مفصولة بفواصل. تضيف قواعد التوجيه أدناه عناوين أخرى. إن لم يطابق أحد، يستلمه المستلم الاحتياطي من Cradle ← النماذج ← الإعدادات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add routing rule",
+                "forms": [
+                    "إضافة قاعدة توجيه"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Subject",
+                "forms": [
+                    "الموضوع"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Placeholders: {form}, {site}, {source} (title of the page the form was sent from) and {field_name} for a field value. Empty: “New entry: form title”.",
+                "forms": [
+                    "العناصر النائبة: {form} و{site} و{source} (عنوان الصفحة التي أُرسل منها النموذج) و{field_name} لقيمة حقل. إن تُرك فارغًا: «إدخال جديد: عنوان النموذج»."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Reply-to address from",
+                "forms": [
+                    "عنوان الرد من"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Include the submitted values",
+                "forms": [
+                    "تضمين القيم المرسلة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Files are never attached; the email links to the entry instead.",
+                "forms": [
+                    "لا تُرفق الملفات أبدًا؛ بل يحتوي البريد على رابط إلى الإدخال."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Send a copy to the submitter",
+                "forms": [
+                    "إرسال نسخة إلى المرسِل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Uses the email field marked as the submitter’s own address. Anyone can type any address, so keep it off unless you need it.",
+                "forms": [
+                    "يستخدم حقل البريد الإلكتروني المحدد كعنوان المرسِل الخاص. يمكن لأي شخص كتابة أي عنوان، لذا أبقِه معطّلًا ما لم تحتج إليه."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Remove notification",
+                "forms": [
+                    "إزالة الإشعار"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Add notification",
+                "forms": [
+                    "إضافة إشعار"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The form was saved, but visitors still see the previous version of its fields until these problems are fixed:",
+                "forms": [
+                    "حُفظ النموذج، لكن الزوار سيرون النسخة السابقة من حقوله حتى تُصلح هذه المشكلات:"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The form was saved, but visitors cannot use it until these problems are fixed:",
+                "forms": [
+                    "حُفظ النموذج، لكن لا يمكن للزوار استخدامه حتى تُصلح هذه المشكلات:"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "File uploads are refused: the private storage of this site is not protected from direct web access. Define CRADLE_PRIVATE_DIR outside the web root or add server deny rules.",
+                "forms": [
+                    "رفع الملفات مرفوض: التخزين الخاص لهذا الموقع غير محمي من الوصول المباشر عبر الويب. عرّف CRADLE_PRIVATE_DIR خارج الجذر العام للموقع أو أضف قواعد منع على الخادم."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "— Select a form —",
+                "forms": [
+                    "— اختر نموذجًا —"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Edit this form",
+                "forms": [
+                    "تحرير هذا النموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Manage forms and entries",
+                "forms": [
+                    "إدارة النماذج والإدخالات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Show the form title",
+                "forms": [
+                    "عرض عنوان النموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Choose the form to show here.",
+                "forms": [
+                    "اختر النموذج الذي سيُعرض هنا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "There is no published form yet.",
+                "forms": [
+                    "لا يوجد نموذج منشور بعد."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Create a form",
+                "forms": [
+                    "إنشاء نموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Cradle Forms needs the Cradle core plugin. Forms are paused (embedded forms show nothing and submissions are not accepted); no entries or files were changed.",
+                "forms": [
+                    "تحتاج Cradle Forms إلى إضافة Cradle الأساسية. النماذج متوقفة مؤقتًا (لا تعرض النماذج المضمّنة شيئًا ولا تُقبل عمليات الإرسال)؛ ولم تتغير أي إدخالات أو ملفات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form fields",
+                "forms": [
+                    "حقول النموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your submission could not be saved. Please try again later.",
+                "forms": [
+                    "تعذّر حفظ ما أرسلته. يُرجى المحاولة مرة أخرى لاحقًا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s”: the name must start with a letter and use only lowercase letters, digits and underscores (at most 41 characters).",
+                "forms": [
+                    "الحقل «%s»: يجب أن يبدأ الاسم بحرف وألا يحتوي إلا على أحرف لاتينية صغيرة وأرقام وشرطات سفلية (41 حرفًا على الأكثر)."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s” needs a label.",
+                "forms": [
+                    "الحقل «%s» يحتاج إلى تسمية."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s”: the minimum is greater than the maximum.",
+                "forms": [
+                    "الحقل «%s»: الحد الأدنى أكبر من الحد الأقصى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%1$s” has the choice value “%2$s” twice.",
+                "forms": [
+                    "الحقل «%1$s» يحتوي على قيمة الخيار «%2$s» مرتين."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s” needs at least one choice.",
+                "forms": [
+                    "الحقل «%s» يحتاج إلى خيار واحد على الأقل."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%1$s”: these file types are not allowed on this site: %2$s.",
+                "forms": [
+                    "الحقل «%1$s»: أنواع الملفات هذه غير مسموح بها في هذا الموقع: %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Field “%s” has no allowed file types. Check Cradle → Forms → Settings.",
+                "forms": [
+                    "الحقل «%s» ليس له أنواع ملفات مسموح بها. راجع Cradle ← النماذج ← الإعدادات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This field is required.",
+                "forms": [
+                    "هذا الحقل مطلوب."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This value is not valid.",
+                "forms": [
+                    "هذه القيمة غير صالحة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please choose from the available options.",
+                "forms": [
+                    "يُرجى الاختيار من الخيارات المتاحة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please select at least %d option.",
+                "msgidPlural": "Please select at least %d options.",
+                "forms": [
+                    "يُرجى اختيار %d خيار على الأقل.",
+                    "يُرجى اختيار خيار واحد على الأقل.",
+                    "يُرجى اختيار خيارين على الأقل.",
+                    "يُرجى اختيار %d خيارات على الأقل.",
+                    "يُرجى اختيار %d خيارًا على الأقل.",
+                    "يُرجى اختيار %d خيار على الأقل."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please select no more than %d option.",
+                "msgidPlural": "Please select no more than %d options.",
+                "forms": [
+                    "يُرجى عدم اختيار أكثر من %d خيار.",
+                    "يُرجى عدم اختيار أكثر من خيار واحد.",
+                    "يُرجى عدم اختيار أكثر من خيارين.",
+                    "يُرجى عدم اختيار أكثر من %d خيارات.",
+                    "يُرجى عدم اختيار أكثر من %d خيارًا.",
+                    "يُرجى عدم اختيار أكثر من %d خيار."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter at most %d character.",
+                "msgidPlural": "Please enter at most %d characters.",
+                "forms": [
+                    "يُرجى إدخال %d حرف على الأكثر.",
+                    "يُرجى إدخال حرف واحد على الأكثر.",
+                    "يُرجى إدخال حرفين على الأكثر.",
+                    "يُرجى إدخال %d أحرف على الأكثر.",
+                    "يُرجى إدخال %d حرفًا على الأكثر.",
+                    "يُرجى إدخال %d حرف على الأكثر."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid email address.",
+                "forms": [
+                    "يُرجى إدخال عنوان بريد إلكتروني صالح."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid phone number.",
+                "forms": [
+                    "يُرجى إدخال رقم هاتف صالح."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid web address starting with https://.",
+                "forms": [
+                    "يُرجى إدخال عنوان ويب صالح يبدأ بـ https://."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid number.",
+                "forms": [
+                    "يُرجى إدخال رقم صالح."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a value of at least %s.",
+                "forms": [
+                    "يُرجى إدخال قيمة لا تقل عن %s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a value no greater than %s.",
+                "forms": [
+                    "يُرجى إدخال قيمة لا تزيد على %s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a value in steps of %s.",
+                "forms": [
+                    "يُرجى إدخال قيمة بخطوات مقدارها %s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a valid date (YYYY-MM-DD).",
+                "forms": [
+                    "يُرجى إدخال تاريخ صالح (YYYY-MM-DD)."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a date on or after %s.",
+                "forms": [
+                    "يُرجى إدخال تاريخ في %s أو بعده."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please enter a date on or before %s.",
+                "forms": [
+                    "يُرجى إدخال تاريخ في %s أو قبله."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Yes",
+                "forms": [
+                    "نعم"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No",
+                "forms": [
+                    "لا"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "(required)",
+                "forms": [
+                    "(مطلوب)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed: %1$s. Up to %2$s per file, at most %3$d files.",
+                "forms": [
+                    "المسموح: %1$s. حتى %2$s لكل ملف، وبحد أقصى %3$d ملفات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Allowed: %1$s. Up to %2$s.",
+                "forms": [
+                    "المسموح: %1$s. حتى %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The name “%s” is used by more than one field. Each field needs its own name.",
+                "forms": [
+                    "الاسم «%s» مستخدم في أكثر من حقل. يحتاج كل حقل إلى اسم خاص به."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Only one email field can be marked as the submitter’s own email address.",
+                "forms": [
+                    "يمكن تحديد حقل بريد إلكتروني واحد فقط كعنوان البريد الإلكتروني الخاص بالمرسِل."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A form can have at most %d fields.",
+                "forms": [
+                    "يمكن أن يحتوي النموذج على %d حقل على الأكثر."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Unknown field block %s.",
+                "forms": [
+                    "كتلة حقل غير معروفة %s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A form cannot contain another form block.",
+                "forms": [
+                    "لا يمكن أن يحتوي النموذج على كتلة نموذج أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form must be submitted with POST.",
+                "forms": [
+                    "يجب إرسال هذا النموذج باستخدام POST."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your files were too large to upload, so nothing was sent. Please choose smaller files and submit the form again.",
+                "forms": [
+                    "كانت ملفاتك أكبر من أن تُرفع، لذا لم يُرسل شيء. يُرجى اختيار ملفات أصغر وإرسال النموذج مرة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form can only be submitted from this website.",
+                "forms": [
+                    "لا يمكن إرسال هذا النموذج إلا من هذا الموقع."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your session changed since the page was loaded. Please check your entries and submit the form again.",
+                "forms": [
+                    "تغيّرت جلستك منذ تحميل الصفحة. يُرجى مراجعة ما أدخلته وإرسال النموذج مرة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Cradle Forms does not support network activation yet. Activate it on individual sites.",
+                "forms": [
+                    "لا تدعم Cradle Forms التفعيل على مستوى الشبكة بعد. فعّلها على كل موقع على حدة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Network activation is not supported",
+                "forms": [
+                    "التفعيل على مستوى الشبكة غير مدعوم"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "New entry: %s",
+                "forms": [
+                    "إدخال جديد: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sent from: %1$s (%2$s)",
+                "forms": [
+                    "أُرسل من: %1$s (%2$s)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sent from: %s",
+                "forms": [
+                    "أُرسل من: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%d file was uploaded. Download it from the entry in the admin area.",
+                "msgidPlural": "%d files were uploaded. Download them from the entry in the admin area.",
+                "forms": [
+                    "لم يُرفع أي ملف.",
+                    "رُفع ملف واحد. نزّله من الإدخال في منطقة الإدارة.",
+                    "رُفع ملفان. نزّلهما من الإدخال في منطقة الإدارة.",
+                    "رُفعت %d ملفات. نزّلها من الإدخال في منطقة الإدارة.",
+                    "رُفع %d ملفًا. نزّلها من الإدخال في منطقة الإدارة.",
+                    "رُفع %d ملف. نزّلها من الإدخال في منطقة الإدارة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "View the entry: %s",
+                "forms": [
+                    "عرض الإدخال: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A new entry was submitted with the form “%1$s” on %2$s.",
+                "forms": [
+                    "أُرسل إدخال جديد عبر النموذج «%1$s» على %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Thank you. This is a copy of what you sent us.",
+                "forms": [
+                    "شكرًا لك. هذه نسخة مما أرسلته إلينا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Copy of your submission: %s",
+                "forms": [
+                    "نسخة مما أرسلته: %s"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Edit form",
+                "forms": [
+                    "تحرير النموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "New form",
+                "forms": [
+                    "نموذج جديد"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Search forms",
+                "forms": [
+                    "البحث في النماذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No forms found.",
+                "forms": [
+                    "لم يُعثر على نماذج."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No forms found in Trash.",
+                "forms": [
+                    "لم يُعثر على نماذج في سلة المهملات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form published.",
+                "forms": [
+                    "نُشر النموذج."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form updated.",
+                "forms": [
+                    "حُدّث النموذج."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Email",
+                "forms": [
+                    "البريد الإلكتروني"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Message",
+                "forms": [
+                    "الرسالة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form entries",
+                "forms": [
+                    "إدخالات النماذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "When you submit a form, the values you enter, any files you upload, the date, the page language and, for consent checkboxes, the exact consent text you agreed to are stored. Your IP address is not stored; a keyed hash of your network is kept to limit abuse.",
+                "forms": [
+                    "عند إرسال نموذج، تُخزَّن القيم التي تدخلها وأي ملفات ترفعها والتاريخ ولغة الصفحة، وفي خانات الموافقة يُخزَّن نص الموافقة الدقيق الذي وافقت عليه. لا يُخزَّن عنوان IP الخاص بك؛ بل تُحفظ قيمة تجزئة مشفرة بمفتاح لشبكتك للحد من إساءة الاستخدام."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Consent",
+                "forms": [
+                    "الموافقة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "%1$s (given %2$s)",
+                "forms": [
+                    "%1$s (مُنحت في %2$s)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Choose a form in the block settings.",
+                "forms": [
+                    "اختر نموذجًا من إعدادات الكتلة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form is not published, so visitors do not see it.",
+                "forms": [
+                    "هذا النموذج غير منشور، لذا لا يراه الزوار."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form has no valid fields yet, so visitors do not see it.",
+                "forms": [
+                    "لا يحتوي هذا النموذج على حقول صالحة بعد، لذا لا يراه الزوار."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "For your security, files are not kept when a form has errors. Please choose your files again.",
+                "forms": [
+                    "حفاظًا على أمانك، لا تُحفظ الملفات عند وجود أخطاء في النموذج. يُرجى اختيار ملفاتك مرة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "There is a problem",
+                "forms": [
+                    "توجد مشكلة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sending…",
+                "forms": [
+                    "جارٍ الإرسال…"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your submission could not be sent. Please check your connection and try again.",
+                "forms": [
+                    "تعذّر إرسال ما أدخلته. يُرجى التحقق من اتصالك والمحاولة مرة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Leave this field empty",
+                "forms": [
+                    "اترك هذا الحقل فارغًا"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Sorry, you are not allowed to view forms.",
+                "forms": [
+                    "عذرًا، غير مسموح لك بعرض النماذج."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Limits for every form on this site. A file field can narrow these limits but never widen them.",
+                "forms": [
+                    "حدود لكل النماذج في هذا الموقع. يمكن لحقل الملفات تضييق هذه الحدود لكن لا يمكنه توسيعها أبدًا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Use file extensions separated by commas, for example pdf,docx,jpg.",
+                "forms": [
+                    "استخدم امتدادات ملفات مفصولة بفواصل، مثل pdf,docx,jpg."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Comma-separated file extensions that file fields may accept, for example pdf,docx,jpg. Scripts, programs, HTML and SVG are always refused.",
+                "forms": [
+                    "امتدادات ملفات مفصولة بفواصل يمكن لحقول الملفات قبولها، مثل pdf,docx,jpg. تُرفض دائمًا البرامج النصية والبرامج وملفات HTML وSVG."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Maximum file size (MB)",
+                "forms": [
+                    "الحجم الأقصى للملف (ميغابايت)"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Largest file a visitor can upload. This server accepts at most %d MB per request, which always applies as well.",
+                "forms": [
+                    "أكبر ملف يمكن للزائر رفعه. يقبل هذا الخادم %d ميغابايت على الأكثر لكل طلب، وهذا الحد يسري دائمًا أيضًا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Fallback recipient",
+                "forms": [
+                    "المستلم الاحتياطي"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Receives notifications whose recipients and routing rules give no address. Empty: the site administration email address.",
+                "forms": [
+                    "يستلم الإشعارات التي لا ينتج عن مستلميها وقواعد توجيهها أي عنوان. إن تُرك فارغًا: عنوان البريد الإلكتروني لإدارة الموقع."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "These file types can never be accepted: %s.",
+                "forms": [
+                    "لا يمكن قبول أنواع الملفات هذه أبدًا: %s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your submission could not be accepted. Please wait a few seconds and try again.",
+                "forms": [
+                    "تعذّر قبول ما أرسلته. يُرجى الانتظار بضع ثوانٍ ثم المحاولة مرة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This form is not available.",
+                "forms": [
+                    "هذا النموذج غير متاح."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Too many submissions came from your network. Please try again later.",
+                "forms": [
+                    "وصلت عمليات إرسال كثيرة جدًا من شبكتك. يُرجى المحاولة مرة أخرى لاحقًا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Please correct the errors below.",
+                "forms": [
+                    "يُرجى تصحيح الأخطاء أدناه."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Thank you. Your submission has been received.",
+                "forms": [
+                    "شكرًا لك. تم استلام ما أرسلته."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "You can upload at most %d file.",
+                "msgidPlural": "You can upload at most %d files.",
+                "forms": [
+                    "يمكنك رفع %d ملف على الأكثر.",
+                    "يمكنك رفع ملف واحد على الأكثر.",
+                    "يمكنك رفع ملفين على الأكثر.",
+                    "يمكنك رفع %d ملفات على الأكثر.",
+                    "يمكنك رفع %d ملفًا على الأكثر.",
+                    "يمكنك رفع %d ملف على الأكثر."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "File uploads are not available on this site right now. Please try again later or contact us another way.",
+                "forms": [
+                    "رفع الملفات غير متاح في هذا الموقع حاليًا. يُرجى المحاولة لاحقًا أو التواصل معنا بطريقة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "This text changed after the page was loaded. Please read it again and confirm.",
+                "forms": [
+                    "تغيّر هذا النص بعد تحميل الصفحة. يُرجى قراءته مرة أخرى والتأكيد."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "“%1$s” is larger than %2$s.",
+                "forms": [
+                    "«%1$s» أكبر من %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "“%s” could not be uploaded. Please try again.",
+                "forms": [
+                    "تعذّر رفع «%s». يُرجى المحاولة مرة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "The file upload was not valid. Please try again.",
+                "forms": [
+                    "كان رفع الملف غير صالح. يُرجى المحاولة مرة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "“%s” is empty.",
+                "forms": [
+                    "«%s» فارغ."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "“%1$s” is not an allowed file type. Allowed: %2$s.",
+                "forms": [
+                    "«%1$s» ليس من أنواع الملفات المسموح بها. المسموح: %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Your file could not be stored. Please try again later.",
+                "forms": [
+                    "تعذّر تخزين ملفك. يُرجى المحاولة مرة أخرى لاحقًا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Cradle Forms",
+                "context": "module name",
+                "forms": [
+                    "نماذج Cradle"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Forms built from blocks with server-side validation, stored entries, private file uploads, consent records, notifications and spam protection.",
+                "context": "module description",
+                "forms": [
+                    "نماذج مبنية من الكتل مع تحقق من جهة الخادم وإدخالات مخزنة ورفع ملفات خاص وسجلات موافقة وإشعارات وحماية من الرسائل المزعجة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Manage forms",
+                "context": "capability label",
+                "forms": [
+                    "إدارة النماذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "View form entries",
+                "context": "capability label",
+                "forms": [
+                    "عرض إدخالات النماذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Export form entries",
+                "context": "capability label",
+                "forms": [
+                    "تصدير إدخالات النماذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Delete form entries",
+                "context": "capability label",
+                "forms": [
+                    "حذف إدخالات النماذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "No published form has the address name “%s”, so visitors see nothing here.",
+                "forms": [
+                    "لا يوجد نموذج منشور بالاسم المستخدم في العنوان «%s»، لذلك لا يرى الزوار شيئًا هنا."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Selected by its address name “%s” (for example in a theme template). Choosing a form here selects it by ID instead.",
+                "forms": [
+                    "مُختار بالاسم المستخدم في عنوانه «%s» (مثلًا في قالب من قوالب السمة). اختيار نموذج هنا يحدده بمعرّفه بدلًا من ذلك."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Checkboxes field",
+                "context": "block title",
+                "forms": [
+                    "حقل مربعات اختيار"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Consent checkbox",
+                "context": "block title",
+                "forms": [
+                    "مربع اختيار الموافقة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Date field",
+                "context": "block title",
+                "forms": [
+                    "حقل التاريخ"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Email field",
+                "context": "block title",
+                "forms": [
+                    "حقل البريد الإلكتروني"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "File upload field",
+                "context": "block title",
+                "forms": [
+                    "حقل رفع الملفات"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Hidden field",
+                "context": "block title",
+                "forms": [
+                    "حقل مخفي"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Number field",
+                "context": "block title",
+                "forms": [
+                    "حقل الرقم"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Radio buttons field",
+                "context": "block title",
+                "forms": [
+                    "حقل أزرار الاختيار"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Dropdown field",
+                "context": "block title",
+                "forms": [
+                    "حقل القائمة المنسدلة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Phone field",
+                "context": "block title",
+                "forms": [
+                    "حقل الهاتف"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Text field",
+                "context": "block title",
+                "forms": [
+                    "حقل نصي"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Paragraph field",
+                "context": "block title",
+                "forms": [
+                    "حقل فقرة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Website field",
+                "context": "block title",
+                "forms": [
+                    "حقل الموقع الإلكتروني"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Form",
+                "context": "block title",
+                "forms": [
+                    "نموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Any number of choices from a list.",
+                "context": "block description",
+                "forms": [
+                    "أي عدد من الخيارات من قائمة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A checkbox the visitor ticks to agree. The exact text, a hash of it, the language and the time are stored with the entry.",
+                "context": "block description",
+                "forms": [
+                    "مربع اختيار يحدده الزائر للموافقة. يُخزَّن مع الإدخال النص الدقيق وبصمة منه واللغة والوقت."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A calendar date.",
+                "context": "block description",
+                "forms": [
+                    "تاريخ من التقويم."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "An email address, validated on the server.",
+                "context": "block description",
+                "forms": [
+                    "عنوان بريد إلكتروني يُتحقق منه على الخادم."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Files stored privately and downloadable only by entry viewers.",
+                "context": "block description",
+                "forms": [
+                    "ملفات تُخزَّن بشكل خاص ولا يمكن تنزيلها إلا لمن يحق لهم عرض الإدخالات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A fixed value stored with every entry, or a value taken from a query parameter.",
+                "context": "block description",
+                "forms": [
+                    "قيمة ثابتة تُخزَّن مع كل إدخال، أو قيمة مأخوذة من معامل في عنوان الصفحة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A number with optional minimum, maximum and step.",
+                "context": "block description",
+                "forms": [
+                    "رقم مع حد أدنى وحد أقصى وخطوة اختيارية."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "One choice from a visible list.",
+                "context": "block description",
+                "forms": [
+                    "خيار واحد من قائمة ظاهرة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "One choice from a dropdown list.",
+                "context": "block description",
+                "forms": [
+                    "خيار واحد من قائمة منسدلة."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A phone number.",
+                "context": "block description",
+                "forms": [
+                    "رقم هاتف."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A single line of text.",
+                "context": "block description",
+                "forms": [
+                    "سطر واحد من النص."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Several lines of text.",
+                "context": "block description",
+                "forms": [
+                    "عدة أسطر من النص."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "A web address starting with http:// or https://.",
+                "context": "block description",
+                "forms": [
+                    "عنوان ويب يبدأ بـ http:// أو https://."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "Show a form built under Cradle → Forms. Submissions are validated on the server, stored as entries and sent as notifications.",
+                "context": "block description",
+                "forms": [
+                    "يعرض نموذجًا أُنشئ في Cradle ← النماذج. يُتحقق من الإرسالات على الخادم وتُخزَّن كإدخالات وتُرسل كإشعارات."
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "form",
+                "context": "block keyword",
+                "forms": [
+                    "نموذج"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "field",
+                "context": "block keyword",
+                "forms": [
+                    "حقل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "checkboxes",
+                "context": "block keyword",
+                "forms": [
+                    "مربعات اختيار"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "consent",
+                "context": "block keyword",
+                "forms": [
+                    "موافقة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "date",
+                "context": "block keyword",
+                "forms": [
+                    "تاريخ"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "email",
+                "context": "block keyword",
+                "forms": [
+                    "بريد إلكتروني"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "file",
+                "context": "block keyword",
+                "forms": [
+                    "ملف"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "hidden",
+                "context": "block keyword",
+                "forms": [
+                    "مخفي"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "number",
+                "context": "block keyword",
+                "forms": [
+                    "رقم"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "radio",
+                "context": "block keyword",
+                "forms": [
+                    "زر اختيار"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "select",
+                "context": "block keyword",
+                "forms": [
+                    "قائمة منسدلة"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "tel",
+                "context": "block keyword",
+                "forms": [
+                    "هاتف"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "text",
+                "context": "block keyword",
+                "forms": [
+                    "نص"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "textarea",
+                "context": "block keyword",
+                "forms": [
+                    "منطقة نص"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "url",
+                "context": "block keyword",
+                "forms": [
+                    "رابط"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "contact",
+                "context": "block keyword",
+                "forms": [
+                    "تواصل"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "newsletter",
+                "context": "block keyword",
+                "forms": [
+                    "نشرة بريدية"
+                ]
+            },
+            {
+                "domain": "cradle-forms",
+                "msgid": "application",
+                "context": "block keyword",
+                "forms": [
+                    "طلب توظيف"
+                ]
+            }
+        ]
+    }
+}

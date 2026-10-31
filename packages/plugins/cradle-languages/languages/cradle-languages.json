@@ -1,0 +1,2854 @@
+{
+    "de_DE": {
+        "format": "cradle-translations-examples",
+        "locale": "de_DE",
+        "language": "Deutsch",
+        "note": "Cradle Languages translations (source of the shipped files in languages/). After editing, run php bin/build-languages.php in the plugin folder.",
+        "entries": [
+            {
+                "domain": "cradle-languages",
+                "msgid": "Languages",
+                "forms": [
+                    "Sprachen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to manage languages.",
+                "forms": [
+                    "Sie dürfen Sprachen nicht verwalten."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Settings",
+                "forms": [
+                    "Einstellungen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The Polylang data changed since the dry run. Review the new dry run before importing.",
+                "forms": [
+                    "Die Polylang-Daten haben sich seit dem Probelauf geändert. Prüfen Sie den neuen Probelauf vor dem Import."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The import cannot start while the dry run lists problems.",
+                "forms": [
+                    "Der Import kann nicht starten, solange der Probelauf Probleme meldet."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Run the dry run first and review its report.",
+                "forms": [
+                    "Führen Sie zuerst den Probelauf aus und prüfen Sie seinen Bericht."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The job could not be started.",
+                "forms": [
+                    "Der Auftrag konnte nicht gestartet werden."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Dry run finished. Nothing was changed; review the report below.",
+                "forms": [
+                    "Probelauf abgeschlossen. Es wurde nichts geändert; prüfen Sie den Bericht unten."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Importing from Polylang…",
+                "forms": [
+                    "Import aus Polylang …"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Assigning the default language…",
+                "forms": [
+                    "Standardsprache wird zugewiesen …"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Configured languages",
+                "forms": [
+                    "Eingerichtete Sprachen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Plain permalinks are in use: language addresses use /index.php/<prefix>/. Choose a pretty permalink structure under Settings → Permalinks for /<prefix>/ addresses.",
+                "forms": [
+                    "Es werden einfache Permalinks verwendet: Sprachadressen lauten /index.php/<prefix>/. Wählen Sie unter Einstellungen → Permalinks eine sprechende Permalink-Struktur für Adressen wie /<prefix>/."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language",
+                "forms": [
+                    "Sprache"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Locale",
+                "forms": [
+                    "Gebietsschema"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Home page",
+                "forms": [
+                    "Startseite"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Direction",
+                "forms": [
+                    "Schreibrichtung"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "WordPress language pack",
+                "forms": [
+                    "WordPress-Sprachpaket"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Translations catalog",
+                "forms": [
+                    "Cradle-Translations-Katalog"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Default",
+                "forms": [
+                    "Standard"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Right to left",
+                "forms": [
+                    "Von rechts nach links"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Left to right",
+                "forms": [
+                    "Von links nach rechts"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Installed",
+                "forms": [
+                    "Installiert"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Not installed",
+                "forms": [
+                    "Nicht installiert"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Source language",
+                "forms": [
+                    "Ausgangssprache"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Translations is not active",
+                "forms": [
+                    "Cradle Translations ist nicht aktiv"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Catalog exists",
+                "forms": [
+                    "Katalog vorhanden"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Edit in Translations",
+                "forms": [
+                    "In Translations bearbeiten"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "No catalog",
+                "forms": [
+                    "Kein Katalog"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add it in Translations",
+                "forms": [
+                    "In Translations hinzufügen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Interface texts of each language come from its locale: WordPress language packs and Cradle Translations catalogs. Page content is translated per entry with “Add translation” in the editor’s Language panel.",
+                "forms": [
+                    "Die Oberflächentexte jeder Sprache stammen aus ihrem Gebietsschema: aus WordPress-Sprachpaketen und Cradle-Translations-Katalogen. Seiteninhalte werden pro Eintrag mit „Übersetzung hinzufügen“ im Sprachbereich des Editors übersetzt."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Entries without a language",
+                "forms": [
+                    "Einträge ohne Sprache"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%1$d entry of a translatable type has no language yet; it counts as %2$s.",
+                "msgidPlural": "%1$d entries of translatable types have no language yet; they count as %2$s.",
+                "forms": [
+                    "%1$d Eintrag eines übersetzbaren Typs hat noch keine Sprache; er zählt als %2$s.",
+                    "%1$d Einträge übersetzbarer Typen haben noch keine Sprache; sie zählen als %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Assign the default language",
+                "forms": [
+                    "Standardsprache zuweisen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Import from Polylang",
+                "forms": [
+                    "Aus Polylang importieren"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "No Polylang data was found in this site’s database.",
+                "forms": [
+                    "In der Datenbank dieser Website wurden keine Polylang-Daten gefunden."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Reads the languages, language of each entry and term, translation links, translated types and menu locations that Polylang stored (Polylang may be inactive). The dry run changes nothing; the import never changes or deletes Polylang data and can be repeated.",
+                "forms": [
+                    "Liest die Sprachen, die Sprache jedes Eintrags und Begriffs, die Übersetzungsverknüpfungen, die übersetzten Typen und die Menüpositionen, die Polylang gespeichert hat (Polylang darf inaktiv sein). Der Probelauf ändert nichts; der Import ändert oder löscht nie Polylang-Daten und kann wiederholt werden."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Run dry run",
+                "forms": [
+                    "Probelauf starten"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Import the Polylang languages and translations into Cradle Languages now? The language settings are replaced by Polylang’s.",
+                "forms": [
+                    "Die Polylang-Sprachen und -Übersetzungen jetzt in Cradle Languages importieren? Die Spracheinstellungen werden durch die von Polylang ersetzt."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Import",
+                "forms": [
+                    "Importieren"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Dry run report",
+                "forms": [
+                    "Bericht des Probelaufs"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Entries",
+                "forms": [
+                    "Einträge"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Terms",
+                "forms": [
+                    "Begriffe"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "right to left",
+                "forms": [
+                    "von rechts nach links"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Linked entry translations: %d groups",
+                "forms": [
+                    "Verknüpfte Übersetzungen von Einträgen: %d Gruppen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Linked term translations: %d groups",
+                "forms": [
+                    "Verknüpfte Übersetzungen von Begriffen: %d Gruppen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Menu locations per language: %d",
+                "forms": [
+                    "Menüpositionen pro Sprache: %d"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable content types: %s",
+                "forms": [
+                    "Übersetzbare Inhaltstypen: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The default language keeps addresses without a prefix.",
+                "forms": [
+                    "Die Standardsprache behält Adressen ohne Präfix."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The default language gets its prefix too.",
+                "forms": [
+                    "Auch die Standardsprache erhält ihr Präfix."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language not configured",
+                "forms": [
+                    "Sprache nicht eingerichtet"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%1$s translation: %2$s",
+                "forms": [
+                    "Übersetzung (%1$s): %2$s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Filter by language",
+                "forms": [
+                    "Nach Sprache filtern"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "All languages",
+                "forms": [
+                    "Alle Sprachen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s translation",
+                "forms": [
+                    "Übersetzung (%s)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "— None —",
+                "forms": [
+                    "— Keine —"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "published",
+                "forms": [
+                    "veröffentlicht"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "draft",
+                "forms": [
+                    "Entwurf"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "pending review",
+                "forms": [
+                    "ausstehender Review"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "private",
+                "forms": [
+                    "privat"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "scheduled",
+                "forms": [
+                    "geplant"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The languages of this entry could not be loaded.",
+                "forms": [
+                    "Die Sprachen dieses Eintrags konnten nicht geladen werden."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language changed.",
+                "forms": [
+                    "Sprache geändert."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The language could not be changed.",
+                "forms": [
+                    "Die Sprache konnte nicht geändert werden."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Draft translation created. Opening it…",
+                "forms": [
+                    "Übersetzungsentwurf erstellt. Er wird geöffnet …"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The translation could not be created.",
+                "forms": [
+                    "Die Übersetzung konnte nicht erstellt werden."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language of this entry",
+                "forms": [
+                    "Sprache dieses Eintrags"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "This entry has translations, so its language is fixed.",
+                "forms": [
+                    "Dieser Eintrag hat Übersetzungen, daher ist seine Sprache festgelegt."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%1$s (%2$s)",
+                "forms": [
+                    "%1$s (%2$s)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "(no title)",
+                "forms": [
+                    "(kein Titel)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add %s translation",
+                "forms": [
+                    "Übersetzung (%s) hinzufügen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "No translation",
+                "forms": [
+                    "Keine Übersetzung"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language: %s",
+                "forms": [
+                    "Sprache: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translations",
+                "forms": [
+                    "Übersetzungen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Save the entry first: a translation starts as a copy of the saved version.",
+                "forms": [
+                    "Speichern Sie den Eintrag zuerst: Eine Übersetzung beginnt als Kopie der gespeicherten Fassung."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shown in: %s",
+                "forms": [
+                    "Angezeigt in: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shown in every language (choose languages in the block settings)",
+                "forms": [
+                    "In jeder Sprache angezeigt (wählen Sie Sprachen in den Block-Einstellungen)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add a second language under Cradle → Languages to show the switcher.",
+                "forms": [
+                    "Fügen Sie unter Cradle → Sprachen eine zweite Sprache hinzu, um den Sprachumschalter anzuzeigen."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language switcher",
+                "forms": [
+                    "Sprachumschalter"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Layout",
+                "forms": [
+                    "Layout"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "List of links",
+                "forms": [
+                    "Liste von Links"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Dropdown (opens on click, works without JavaScript)",
+                "forms": [
+                    "Aufklappliste (öffnet per Klick, funktioniert ohne JavaScript)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Show",
+                "forms": [
+                    "Anzeigen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Native names (Deutsch, العربية)",
+                "forms": [
+                    "Eigene Namen (Deutsch, العربية)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Names (German, Arabic)",
+                "forms": [
+                    "Namen (Deutsch, Arabisch)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Codes (DE, AR)",
+                "forms": [
+                    "Kürzel (DE, AR)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Native names and codes",
+                "forms": [
+                    "Eigene Namen und Kürzel"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Hide languages without a translation",
+                "forms": [
+                    "Sprachen ohne Übersetzung ausblenden"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Off: such languages link to their home page.",
+                "forms": [
+                    "Aus: Solche Sprachen verlinken auf ihre Startseite."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Hide the current language",
+                "forms": [
+                    "Aktuelle Sprache ausblenden"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Accessible name",
+                "forms": [
+                    "Barrierefreier Name"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Read by screen readers. Empty uses “Languages”.",
+                "forms": [
+                    "Wird von Screenreadern vorgelesen. Leer verwendet „Sprachen“."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Languages needs the Cradle core plugin. Language routing is paused: every page is served at its plain address in the site language; no content or settings were changed.",
+                "forms": [
+                    "Cradle Languages benötigt das Cradle-Kern-Plugin. Das Sprach-Routing ist pausiert: Jede Seite wird unter ihrer einfachen Adresse in der Website-Sprache ausgeliefert; Inhalte und Einstellungen wurden nicht verändert."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Each additional language is served under its own address prefix (for example /ar/). Entries of translatable content types belong to one language and are linked to their translations; shared types appear in every language. Interface texts (buttons, labels) are translated with Cradle Translations for each language’s locale.",
+                "forms": [
+                    "Jede weitere Sprache wird unter einem eigenen Adresspräfix ausgeliefert (zum Beispiel /ar/). Einträge übersetzbarer Inhaltstypen gehören zu einer Sprache und sind mit ihren Übersetzungen verknüpft; gemeinsame Typen erscheinen in jeder Sprache. Oberflächentexte (Schaltflächen, Beschriftungen) werden mit Cradle Translations für das Gebietsschema jeder Sprache übersetzt."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Up to 10 languages. Locale: a WordPress locale such as en_US, de_DE or ar. Address prefix: 2–3 lowercase letters, optionally followed by a hyphen and 2 letters (pt-br). Fill an empty row to add a language; tick Remove to remove one (its entries are kept but hidden on the site until it is added again).",
+                "forms": [
+                    "Bis zu 10 Sprachen. Gebietsschema: ein WordPress-Gebietsschema wie en_US, de_DE oder ar. Adresspräfix: 2–3 Kleinbuchstaben, optional gefolgt von einem Bindestrich und 2 Buchstaben (pt-br). Füllen Sie eine leere Zeile aus, um eine Sprache hinzuzufügen; aktivieren Sie „Entfernen“, um eine zu entfernen (ihre Einträge bleiben erhalten, sind aber auf der Website ausgeblendet, bis sie wieder hinzugefügt wird)."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Default language address",
+                "forms": [
+                    "Adresse der Standardsprache"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Serve the default language without an address prefix",
+                "forms": [
+                    "Standardsprache ohne Adresspräfix ausliefern"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "On (recommended): existing addresses stay the same. Off: the default language also gets its prefix and unprefixed addresses redirect to it.",
+                "forms": [
+                    "An (empfohlen): Bestehende Adressen bleiben gleich. Aus: Auch die Standardsprache erhält ihr Präfix, und Adressen ohne Präfix leiten dorthin weiter."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Content types",
+                "forms": [
+                    "Inhaltstypen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable: each entry belongs to one language and lists only in that language. Shared: one entry for all languages. Changing a mode never deletes content; entries without a language count as the default language.",
+                "forms": [
+                    "Übersetzbar: Jeder Eintrag gehört zu einer Sprache und erscheint nur in dieser Sprache in Listen. Gemeinsam: ein Eintrag für alle Sprachen. Ein Wechsel des Modus löscht nie Inhalte; Einträge ohne Sprache zählen als Standardsprache."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Taxonomies",
+                "forms": [
+                    "Taxonomien"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable terms belong to one language and can be linked to their translations; shared terms are used by every language.",
+                "forms": [
+                    "Übersetzbare Begriffe gehören zu einer Sprache und können mit ihren Übersetzungen verknüpft werden; gemeinsame Begriffe werden von jeder Sprache verwendet."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Menus per language",
+                "forms": [
+                    "Menüs pro Sprache"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Classic menu locations of the active theme. The default language uses the menus assigned under Appearance → Menus; choose another menu for a language here, or leave “Same as default language”.",
+                "forms": [
+                    "Klassische Menüpositionen des aktiven Themes. Die Standardsprache verwendet die unter Design → Menüs zugewiesenen Menüs; wählen Sie hier ein anderes Menü für eine Sprache oder lassen Sie „Wie Standardsprache“."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Alternate language links",
+                "forms": [
+                    "Alternative Sprachlinks"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add hreflang links for published translations to the page head",
+                "forms": [
+                    "hreflang-Links für veröffentlichte Übersetzungen in den Seitenkopf einfügen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Must be a list of languages.",
+                "forms": [
+                    "Muss eine Liste von Sprachen sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Locale and address prefix must be text.",
+                "forms": [
+                    "Gebietsschema und Adresspräfix müssen Text sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Row %d",
+                "forms": [
+                    "Zeile %d"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: the address prefix must be 2–3 lowercase letters, optionally with a hyphen and 2 letters (en, ar, pt-br).",
+                "forms": [
+                    "%s: Das Adresspräfix muss aus 2–3 Kleinbuchstaben bestehen, optional mit Bindestrich und 2 Buchstaben (en, ar, pt-br)."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: enter a WordPress locale such as en_US, de_DE or ar.",
+                "forms": [
+                    "%s: Geben Sie ein WordPress-Gebietsschema wie en_US, de_DE oder ar ein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: each locale and each address prefix can be used by one language only.",
+                "forms": [
+                    "%s: Jedes Gebietsschema und jedes Adresspräfix kann nur von einer Sprache verwendet werden."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: names must be text of at most 60 characters.",
+                "forms": [
+                    "%s: Namen müssen Text mit höchstens 60 Zeichen sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: the direction must be left to right or right to left.",
+                "forms": [
+                    "%s: Die Schreibrichtung muss von links nach rechts oder von rechts nach links sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: the order must be a whole number from 0 to 999.",
+                "forms": [
+                    "%s: Die Reihenfolge muss eine ganze Zahl von 0 bis 999 sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Choose exactly one default language.",
+                "forms": [
+                    "Wählen Sie genau eine Standardsprache."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The default language cannot be removed. Choose another default language first.",
+                "forms": [
+                    "Die Standardsprache kann nicht entfernt werden. Wählen Sie zuerst eine andere Standardsprache."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Configure at least one language.",
+                "forms": [
+                    "Richten Sie mindestens eine Sprache ein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "At most %d languages can be configured.",
+                "forms": [
+                    "Es können höchstens %d Sprachen eingerichtet werden."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "“%s” is already used by WordPress (a route, feed or query variable).",
+                "forms": [
+                    "„%s“ wird bereits von WordPress verwendet (eine Route, ein Feed oder eine Abfragevariable)."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "“%1$s” is the address of an existing entry (“%2$s”, #%3$d). Change that entry’s slug first.",
+                "forms": [
+                    "„%1$s“ ist die Adresse eines bestehenden Eintrags („%2$s“, #%3$d). Ändern Sie zuerst die Titelform dieses Eintrags."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "A file or folder named “%s” exists in the site folder; the web server would serve it instead of WordPress.",
+                "forms": [
+                    "Im Website-Ordner gibt es eine Datei oder einen Ordner namens „%s“; der Webserver würde diese anstelle von WordPress ausliefern."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Must be a list of modes.",
+                "forms": [
+                    "Muss eine Liste von Modi sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Each type must be translatable or shared.",
+                "forms": [
+                    "Jeder Typ muss übersetzbar oder gemeinsam sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Must be a list of menu assignments.",
+                "forms": [
+                    "Muss eine Liste von Menüzuweisungen sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "A selected menu does not exist.",
+                "forms": [
+                    "Ein ausgewähltes Menü existiert nicht."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Address prefix",
+                "forms": [
+                    "Adresspräfix"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Name",
+                "forms": [
+                    "Name"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Native name",
+                "forms": [
+                    "Eigener Name"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Order",
+                "forms": [
+                    "Reihenfolge"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Remove",
+                "forms": [
+                    "Entfernen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "New language %d",
+                "forms": [
+                    "Neue Sprache %d"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Default language: %s",
+                "forms": [
+                    "Standardsprache: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Locale of %s",
+                "forms": [
+                    "Gebietsschema von %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Address prefix of %s",
+                "forms": [
+                    "Adresspräfix von %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Name of %s",
+                "forms": [
+                    "Name von %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Native name of %s",
+                "forms": [
+                    "Eigener Name von %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Text direction of %s",
+                "forms": [
+                    "Schreibrichtung von %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "From the locale",
+                "forms": [
+                    "Aus dem Gebietsschema"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Order of %s",
+                "forms": [
+                    "Reihenfolge von %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Remove %s",
+                "forms": [
+                    "%s entfernen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Content type",
+                "forms": [
+                    "Inhaltstyp"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Taxonomy",
+                "forms": [
+                    "Taxonomie"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable",
+                "forms": [
+                    "Übersetzbar"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shared",
+                "forms": [
+                    "Gemeinsam"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The active theme has no classic menu locations. With a block theme, make Navigation menus translatable above and add a translation of each menu, or place a Language section block around language-specific content.",
+                "forms": [
+                    "Das aktive Theme hat keine klassischen Menüpositionen. Machen Sie bei einem Block-Theme oben Navigationsmenüs übersetzbar und fügen Sie jedem Menü eine Übersetzung hinzu, oder setzen Sie einen Sprachabschnitt-Block um sprachspezifische Inhalte."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add a second language to assign menus per language.",
+                "forms": [
+                    "Fügen Sie eine zweite Sprache hinzu, um Menüs pro Sprache zuzuweisen."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Same as default language",
+                "forms": [
+                    "Wie Standardsprache"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The entry does not exist.",
+                "forms": [
+                    "Der Eintrag existiert nicht."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Entries of this type are shared by all languages.",
+                "forms": [
+                    "Einträge dieses Typs werden von allen Sprachen gemeinsam verwendet."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "This language is not configured.",
+                "forms": [
+                    "Diese Sprache ist nicht eingerichtet."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Another entry of this translation group already has this language.",
+                "forms": [
+                    "Ein anderer Eintrag dieser Übersetzungsgruppe hat bereits diese Sprache."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "An entry can have only one language.",
+                "forms": [
+                    "Ein Eintrag kann nur eine Sprache haben."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Every translation must be an existing entry in a configured language.",
+                "forms": [
+                    "Jede Übersetzung muss ein bestehender Eintrag in einer eingerichteten Sprache sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translations must be entries of the same content type.",
+                "forms": [
+                    "Übersetzungen müssen Einträge desselben Inhaltstyps sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Nothing to link.",
+                "forms": [
+                    "Nichts zu verknüpfen."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Terms of this taxonomy are shared by all languages.",
+                "forms": [
+                    "Begriffe dieser Taxonomie werden von allen Sprachen gemeinsam verwendet."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Another term of this translation group already has this language.",
+                "forms": [
+                    "Ein anderer Begriff dieser Übersetzungsgruppe hat bereits diese Sprache."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Every translation must be a different term.",
+                "forms": [
+                    "Jede Übersetzung muss ein anderer Begriff sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translations must be terms of the same translatable taxonomy in configured languages.",
+                "forms": [
+                    "Übersetzungen müssen Begriffe derselben übersetzbaren Taxonomie in eingerichteten Sprachen sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Languages does not support network activation. Activate it on individual sites.",
+                "forms": [
+                    "Cradle Languages unterstützt keine netzwerkweite Aktivierung. Aktivieren Sie es auf einzelnen Websites."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Network activation is not supported",
+                "forms": [
+                    "Netzwerkweite Aktivierung wird nicht unterstützt"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "No Polylang languages were found in the database.",
+                "forms": [
+                    "In der Datenbank wurden keine Polylang-Sprachen gefunden."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang has more than %d languages; Cradle Languages supports at most that many.",
+                "forms": [
+                    "Polylang hat mehr als %d Sprachen; Cradle Languages unterstützt höchstens so viele."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The Polylang language code “%s” cannot be used as an address prefix (2–3 lowercase letters, optionally -xx).",
+                "forms": [
+                    "Der Polylang-Sprachcode „%s“ kann nicht als Adresspräfix verwendet werden (2–3 Kleinbuchstaben, optional -xx)."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The Polylang language “%s” has no valid locale.",
+                "forms": [
+                    "Die Polylang-Sprache „%s“ hat kein gültiges Gebietsschema."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang did not use directory prefixes (it used the content, subdomains or domains). Cradle Languages serves languages under /<prefix>/; addresses of other languages change.",
+                "forms": [
+                    "Polylang hat keine Verzeichnispräfixe verwendet (sondern den Inhalt, Subdomains oder Domains). Cradle Languages liefert Sprachen unter /<prefix>/ aus; die Adressen der anderen Sprachen ändern sich."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang added /language/ before the prefix; Cradle Languages serves /<prefix>/ directly.",
+                "forms": [
+                    "Polylang hat /language/ vor das Präfix gesetzt; Cradle Languages liefert /<prefix>/ direkt aus."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%d language assignment points to an entry that no longer exists; it is skipped.",
+                "msgidPlural": "%d language assignments point to entries that no longer exist; they are skipped.",
+                "forms": [
+                    "%d Sprachzuweisung verweist auf einen Eintrag, der nicht mehr existiert; sie wird übersprungen.",
+                    "%d Sprachzuweisungen verweisen auf Einträge, die nicht mehr existieren; sie werden übersprungen."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%d translation group refers to missing entries or entries in another language; those links are skipped.",
+                "msgidPlural": "%d translation groups refer to missing entries or entries in another language; those links are skipped.",
+                "forms": [
+                    "%d Übersetzungsgruppe verweist auf fehlende Einträge oder Einträge in einer anderen Sprache; diese Verknüpfungen werden übersprungen.",
+                    "%d Übersetzungsgruppen verweisen auf fehlende Einträge oder Einträge in einer anderen Sprache; diese Verknüpfungen werden übersprungen."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The Polylang data changed since the dry run. Run the dry run again and review it before importing.",
+                "forms": [
+                    "Die Polylang-Daten haben sich seit dem Probelauf geändert. Führen Sie den Probelauf erneut aus und prüfen Sie ihn vor dem Import."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You must be signed in.",
+                "forms": [
+                    "Sie müssen angemeldet sein."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to change this entry.",
+                "forms": [
+                    "Sie dürfen diesen Eintrag nicht ändern."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to create entries of this type.",
+                "forms": [
+                    "Sie dürfen keine Einträge dieses Typs erstellen."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to change one of these entries.",
+                "forms": [
+                    "Sie dürfen einen dieser Einträge nicht ändern."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The entry itself must keep its language.",
+                "forms": [
+                    "Der Eintrag selbst muss seine Sprache behalten."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "(home page, this page is not translated)",
+                "forms": [
+                    "(Startseite, diese Seite ist nicht übersetzt)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Save the entry before adding a translation.",
+                "forms": [
+                    "Speichern Sie den Eintrag, bevor Sie eine Übersetzung hinzufügen."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to translate this entry.",
+                "forms": [
+                    "Sie dürfen diesen Eintrag nicht übersetzen."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The entry is already in this language.",
+                "forms": [
+                    "Der Eintrag ist bereits in dieser Sprache."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "A translation of this entry is being created. Wait a moment and reload.",
+                "forms": [
+                    "Eine Übersetzung dieses Eintrags wird gerade erstellt. Warten Sie einen Moment und laden Sie die Seite neu."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "A translation in this language already exists.",
+                "forms": [
+                    "Eine Übersetzung in dieser Sprache existiert bereits."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Languages",
+                "context": "module name",
+                "forms": [
+                    "Cradle Languages"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Multilingual content and routing: languages with URL prefixes, linked translations, language switcher, hreflang and menus per language.",
+                "context": "module description",
+                "forms": [
+                    "Mehrsprachige Inhalte und Routing: Sprachen mit URL-Präfixen, verknüpfte Übersetzungen, Sprachumschalter, hreflang und Menüs pro Sprache."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Manage languages",
+                "context": "capability label",
+                "forms": [
+                    "Sprachen verwalten"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "none",
+                "context": "empty list",
+                "forms": [
+                    "keine"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shared content types (one entry for every language): %s",
+                "forms": [
+                    "Gemeinsame Inhaltstypen (ein Eintrag für alle Sprachen): %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable taxonomies: %s",
+                "forms": [
+                    "Übersetzbare Taxonomien: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shared taxonomies (one term for every language): %s",
+                "forms": [
+                    "Gemeinsame Taxonomien (ein Begriff für alle Sprachen): %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang translates the content type “%s”, which Cradle Languages cannot configure here (it is not registered, or it is neither public nor shown in the admin). Its entries get no language; if it is registered by a plugin or theme that is not active, activate it and run the import again.",
+                "forms": [
+                    "Polylang übersetzt den Inhaltstyp „%s“, den Cradle Languages hier nicht einstellen kann (er ist nicht registriert oder weder öffentlich noch im Admin-Bereich sichtbar). Seine Einträge erhalten keine Sprache; wenn ein inaktives Plugin oder Theme ihn registriert, aktivieren Sie es und führen Sie den Import erneut aus."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang translates the taxonomy “%s”, which Cradle Languages cannot configure here (it is not registered or not public). Its terms get no language; if it is registered by a plugin or theme that is not active, activate it and run the import again.",
+                "forms": [
+                    "Polylang übersetzt die Taxonomie „%s“, die Cradle Languages hier nicht einstellen kann (sie ist nicht registriert oder nicht öffentlich). Ihre Begriffe erhalten keine Sprache; wenn ein inaktives Plugin oder Theme sie registriert, aktivieren Sie es und führen Sie den Import erneut aus."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language section",
+                "context": "block title",
+                "forms": [
+                    "Sprachabschnitt"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language switcher",
+                "context": "block title",
+                "forms": [
+                    "Sprachumschalter"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shows the blocks inside it only in the languages you select.",
+                "context": "block description",
+                "forms": [
+                    "Zeigt die enthaltenen Blöcke nur in den ausgewählten Sprachen."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Links to this page in the other languages, or to their home pages when a translation is missing.",
+                "context": "block description",
+                "forms": [
+                    "Links zu dieser Seite in den anderen Sprachen oder zu deren Startseiten, wenn eine Übersetzung fehlt."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "language",
+                "context": "block keyword",
+                "forms": [
+                    "sprache"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "languages",
+                "context": "block keyword",
+                "forms": [
+                    "sprachen"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "translation",
+                "context": "block keyword",
+                "forms": [
+                    "übersetzung"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "multilingual",
+                "context": "block keyword",
+                "forms": [
+                    "mehrsprachig"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "conditional",
+                "context": "block keyword",
+                "forms": [
+                    "bedingt"
+                ]
+            }
+        ]
+    },
+    "ar": {
+        "format": "cradle-translations-examples",
+        "locale": "ar",
+        "language": "العربية",
+        "note": "Cradle Languages translations (source of the shipped files in languages/). After editing, run php bin/build-languages.php in the plugin folder.",
+        "entries": [
+            {
+                "domain": "cradle-languages",
+                "msgid": "Languages",
+                "forms": [
+                    "اللغات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to manage languages.",
+                "forms": [
+                    "لا يُسمح لك بإدارة اللغات."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Settings",
+                "forms": [
+                    "الإعدادات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The Polylang data changed since the dry run. Review the new dry run before importing.",
+                "forms": [
+                    "تغيّرت بيانات Polylang منذ التشغيل التجريبي. راجع التشغيل التجريبي الجديد قبل الاستيراد."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The import cannot start while the dry run lists problems.",
+                "forms": [
+                    "لا يمكن بدء الاستيراد ما دام التشغيل التجريبي يذكر مشكلات."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Run the dry run first and review its report.",
+                "forms": [
+                    "شغّل التشغيل التجريبي أولًا وراجع تقريره."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The job could not be started.",
+                "forms": [
+                    "تعذّر بدء المهمة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Dry run finished. Nothing was changed; review the report below.",
+                "forms": [
+                    "انتهى التشغيل التجريبي. لم يتغيّر شيء؛ راجع التقرير أدناه."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Importing from Polylang…",
+                "forms": [
+                    "جارٍ الاستيراد من Polylang…"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Assigning the default language…",
+                "forms": [
+                    "جارٍ تعيين اللغة الافتراضية…"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Configured languages",
+                "forms": [
+                    "اللغات المُعدّة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Plain permalinks are in use: language addresses use /index.php/<prefix>/. Choose a pretty permalink structure under Settings → Permalinks for /<prefix>/ addresses.",
+                "forms": [
+                    "الروابط الدائمة البسيطة مستخدمة: عناوين اللغات تكون ‎/index.php/<prefix>/‎. اختر بنية روابط دائمة مقروءة من الإعدادات ← الروابط الدائمة للحصول على عناوين ‎/<prefix>/‎."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language",
+                "forms": [
+                    "اللغة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Locale",
+                "forms": [
+                    "المحلية"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Home page",
+                "forms": [
+                    "الصفحة الرئيسية"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Direction",
+                "forms": [
+                    "اتجاه الكتابة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "WordPress language pack",
+                "forms": [
+                    "حزمة لغة ووردبريس"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Translations catalog",
+                "forms": [
+                    "كتالوج Cradle Translations"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Default",
+                "forms": [
+                    "افتراضية"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Right to left",
+                "forms": [
+                    "من اليمين إلى اليسار"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Left to right",
+                "forms": [
+                    "من اليسار إلى اليمين"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Installed",
+                "forms": [
+                    "مثبّتة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Not installed",
+                "forms": [
+                    "غير مثبّتة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Source language",
+                "forms": [
+                    "لغة المصدر"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Translations is not active",
+                "forms": [
+                    "Cradle Translations غير مفعّل"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Catalog exists",
+                "forms": [
+                    "الكتالوج موجود"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Edit in Translations",
+                "forms": [
+                    "تحرير في Translations"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "No catalog",
+                "forms": [
+                    "لا يوجد كتالوج"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add it in Translations",
+                "forms": [
+                    "إضافته في Translations"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Interface texts of each language come from its locale: WordPress language packs and Cradle Translations catalogs. Page content is translated per entry with “Add translation” in the editor’s Language panel.",
+                "forms": [
+                    "تأتي نصوص الواجهة لكل لغة من محليتها: حزم لغة ووردبريس وكتالوجات Cradle Translations. أما محتوى الصفحات فيُترجم لكل مدخل عبر «إضافة ترجمة» في لوحة اللغة في المحرر."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Entries without a language",
+                "forms": [
+                    "مدخلات بلا لغة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%1$d entry of a translatable type has no language yet; it counts as %2$s.",
+                "msgidPlural": "%1$d entries of translatable types have no language yet; they count as %2$s.",
+                "forms": [
+                    "لا توجد مدخلات بلا لغة (%1$d)؛ تُحسب كلها %2$s.",
+                    "مدخل واحد (%1$d) من نوع قابل للترجمة بلا لغة بعد؛ يُحسب %2$s.",
+                    "مدخلان (%1$d) من أنواع قابلة للترجمة بلا لغة بعد؛ يُحسبان %2$s.",
+                    "%1$d مدخلات من أنواع قابلة للترجمة بلا لغة بعد؛ تُحسب %2$s.",
+                    "%1$d مدخلًا من أنواع قابلة للترجمة بلا لغة بعد؛ تُحسب %2$s.",
+                    "%1$d مدخل من أنواع قابلة للترجمة بلا لغة بعد؛ تُحسب %2$s."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Assign the default language",
+                "forms": [
+                    "تعيين اللغة الافتراضية"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Import from Polylang",
+                "forms": [
+                    "الاستيراد من Polylang"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "No Polylang data was found in this site’s database.",
+                "forms": [
+                    "لم يُعثر على بيانات Polylang في قاعدة بيانات هذا الموقع."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Reads the languages, language of each entry and term, translation links, translated types and menu locations that Polylang stored (Polylang may be inactive). The dry run changes nothing; the import never changes or deletes Polylang data and can be repeated.",
+                "forms": [
+                    "يقرأ اللغات ولغة كل مدخل ومصطلح وروابط الترجمات والأنواع المترجمة ومواقع القوائم التي خزّنها Polylang (يمكن أن يكون Polylang غير مفعّل). لا يغيّر التشغيل التجريبي شيئًا، ولا يغيّر الاستيراد بيانات Polylang أو يحذفها أبدًا، ويمكن تكراره."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Run dry run",
+                "forms": [
+                    "تشغيل تجريبي"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Import the Polylang languages and translations into Cradle Languages now? The language settings are replaced by Polylang’s.",
+                "forms": [
+                    "هل تريد استيراد لغات Polylang وترجماته إلى Cradle Languages الآن؟ ستُستبدل إعدادات اللغات بإعدادات Polylang."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Import",
+                "forms": [
+                    "استيراد"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Dry run report",
+                "forms": [
+                    "تقرير التشغيل التجريبي"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Entries",
+                "forms": [
+                    "المدخلات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Terms",
+                "forms": [
+                    "المصطلحات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "right to left",
+                "forms": [
+                    "من اليمين إلى اليسار"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Linked entry translations: %d groups",
+                "forms": [
+                    "ترجمات مدخلات مرتبطة: %d مجموعة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Linked term translations: %d groups",
+                "forms": [
+                    "ترجمات مصطلحات مرتبطة: %d مجموعة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Menu locations per language: %d",
+                "forms": [
+                    "مواقع القوائم لكل لغة: %d"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable content types: %s",
+                "forms": [
+                    "أنواع المحتوى القابلة للترجمة: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The default language keeps addresses without a prefix.",
+                "forms": [
+                    "تحتفظ اللغة الافتراضية بعناوين بلا بادئة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The default language gets its prefix too.",
+                "forms": [
+                    "تحصل اللغة الافتراضية أيضًا على بادئتها."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language not configured",
+                "forms": [
+                    "اللغة غير مُعدّة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%1$s translation: %2$s",
+                "forms": [
+                    "الترجمة (%1$s): %2$s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Filter by language",
+                "forms": [
+                    "التصفية حسب اللغة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "All languages",
+                "forms": [
+                    "كل اللغات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s translation",
+                "forms": [
+                    "الترجمة (%s)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "— None —",
+                "forms": [
+                    "— لا شيء —"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "published",
+                "forms": [
+                    "منشورة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "draft",
+                "forms": [
+                    "مسودة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "pending review",
+                "forms": [
+                    "بانتظار المراجعة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "private",
+                "forms": [
+                    "خاصة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "scheduled",
+                "forms": [
+                    "مجدولة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The languages of this entry could not be loaded.",
+                "forms": [
+                    "تعذّر تحميل لغات هذا المدخل."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language changed.",
+                "forms": [
+                    "تغيّرت اللغة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The language could not be changed.",
+                "forms": [
+                    "تعذّر تغيير اللغة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Draft translation created. Opening it…",
+                "forms": [
+                    "أُنشئت مسودة الترجمة. جارٍ فتحها…"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The translation could not be created.",
+                "forms": [
+                    "تعذّر إنشاء الترجمة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language of this entry",
+                "forms": [
+                    "لغة هذا المدخل"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "This entry has translations, so its language is fixed.",
+                "forms": [
+                    "لهذا المدخل ترجمات، لذا لغته ثابتة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%1$s (%2$s)",
+                "forms": [
+                    "%1$s (%2$s)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "(no title)",
+                "forms": [
+                    "(بلا عنوان)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add %s translation",
+                "forms": [
+                    "إضافة ترجمة (%s)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "No translation",
+                "forms": [
+                    "لا توجد ترجمة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language: %s",
+                "forms": [
+                    "اللغة: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translations",
+                "forms": [
+                    "الترجمات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Save the entry first: a translation starts as a copy of the saved version.",
+                "forms": [
+                    "احفظ المدخل أولًا: تبدأ الترجمة نسخةً من النسخة المحفوظة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shown in: %s",
+                "forms": [
+                    "يظهر في: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shown in every language (choose languages in the block settings)",
+                "forms": [
+                    "يظهر في كل اللغات (اختر اللغات في إعدادات المكوّن)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add a second language under Cradle → Languages to show the switcher.",
+                "forms": [
+                    "أضف لغة ثانية من Cradle ← اللغات لإظهار مبدّل اللغة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language switcher",
+                "forms": [
+                    "مبدّل اللغة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Layout",
+                "forms": [
+                    "التخطيط"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "List of links",
+                "forms": [
+                    "قائمة روابط"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Dropdown (opens on click, works without JavaScript)",
+                "forms": [
+                    "قائمة منسدلة (تُفتح بالنقر وتعمل دون JavaScript)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Show",
+                "forms": [
+                    "عرض"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Native names (Deutsch, العربية)",
+                "forms": [
+                    "الأسماء الأصلية (Deutsch، العربية)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Names (German, Arabic)",
+                "forms": [
+                    "الأسماء (الألمانية، العربية)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Codes (DE, AR)",
+                "forms": [
+                    "الرموز (DE، AR)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Native names and codes",
+                "forms": [
+                    "الأسماء الأصلية والرموز"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Hide languages without a translation",
+                "forms": [
+                    "إخفاء اللغات التي لا ترجمة لها"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Off: such languages link to their home page.",
+                "forms": [
+                    "عند الإيقاف: ترتبط هذه اللغات بصفحتها الرئيسية."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Hide the current language",
+                "forms": [
+                    "إخفاء اللغة الحالية"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Accessible name",
+                "forms": [
+                    "الاسم الميسّر"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Read by screen readers. Empty uses “Languages”.",
+                "forms": [
+                    "تقرؤه قارئات الشاشة. إذا تُرك فارغًا يُستخدم «اللغات»."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Languages needs the Cradle core plugin. Language routing is paused: every page is served at its plain address in the site language; no content or settings were changed.",
+                "forms": [
+                    "يحتاج Cradle Languages إلى إضافة Cradle الأساسية. توجيه اللغات متوقف مؤقتًا: تُعرض كل صفحة بعنوانها العادي بلغة الموقع؛ لم يتغيّر أي محتوى أو إعداد."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Each additional language is served under its own address prefix (for example /ar/). Entries of translatable content types belong to one language and are linked to their translations; shared types appear in every language. Interface texts (buttons, labels) are translated with Cradle Translations for each language’s locale.",
+                "forms": [
+                    "تُعرض كل لغة إضافية تحت بادئة عنوان خاصة بها (مثل ‎/ar/‎). تنتمي مدخلات أنواع المحتوى القابلة للترجمة إلى لغة واحدة وترتبط بترجماتها؛ أما الأنواع المشتركة فتظهر في كل اللغات. تُترجم نصوص الواجهة (الأزرار والتسميات) عبر Cradle Translations لمحلية كل لغة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Up to 10 languages. Locale: a WordPress locale such as en_US, de_DE or ar. Address prefix: 2–3 lowercase letters, optionally followed by a hyphen and 2 letters (pt-br). Fill an empty row to add a language; tick Remove to remove one (its entries are kept but hidden on the site until it is added again).",
+                "forms": [
+                    "حتى 10 لغات. المحلية: محلية ووردبريس مثل en_US أو de_DE أو ar. بادئة العنوان: حرفان أو ثلاثة أحرف لاتينية صغيرة، يليها اختياريًا شَرطة وحرفان (pt-br). املأ صفًا فارغًا لإضافة لغة؛ وحدّد «إزالة» لإزالة لغة (تبقى مدخلاتها محفوظة لكنها مخفية في الموقع حتى تُضاف من جديد)."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Default language address",
+                "forms": [
+                    "عنوان اللغة الافتراضية"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Serve the default language without an address prefix",
+                "forms": [
+                    "عرض اللغة الافتراضية دون بادئة عنوان"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "On (recommended): existing addresses stay the same. Off: the default language also gets its prefix and unprefixed addresses redirect to it.",
+                "forms": [
+                    "عند التفعيل (مستحسن): تبقى العناوين الحالية كما هي. عند الإيقاف: تحصل اللغة الافتراضية أيضًا على بادئتها وتُعاد توجيه العناوين بلا بادئة إليها."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Content types",
+                "forms": [
+                    "أنواع المحتوى"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable: each entry belongs to one language and lists only in that language. Shared: one entry for all languages. Changing a mode never deletes content; entries without a language count as the default language.",
+                "forms": [
+                    "قابل للترجمة: ينتمي كل مدخل إلى لغة واحدة ولا يظهر في القوائم إلا بها. مشترك: مدخل واحد لكل اللغات. تغيير الوضع لا يحذف أي محتوى أبدًا؛ والمدخلات بلا لغة تُحسب باللغة الافتراضية."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Taxonomies",
+                "forms": [
+                    "التصنيفات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable terms belong to one language and can be linked to their translations; shared terms are used by every language.",
+                "forms": [
+                    "تنتمي المصطلحات القابلة للترجمة إلى لغة واحدة ويمكن ربطها بترجماتها؛ أما المصطلحات المشتركة فتستخدمها كل اللغات."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Menus per language",
+                "forms": [
+                    "القوائم لكل لغة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Classic menu locations of the active theme. The default language uses the menus assigned under Appearance → Menus; choose another menu for a language here, or leave “Same as default language”.",
+                "forms": [
+                    "مواقع القوائم الكلاسيكية في القالب النشط. تستخدم اللغة الافتراضية القوائم المعيّنة في المظهر ← القوائم؛ اختر هنا قائمة أخرى للغة ما، أو اترك «مثل اللغة الافتراضية»."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Alternate language links",
+                "forms": [
+                    "روابط اللغات البديلة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add hreflang links for published translations to the page head",
+                "forms": [
+                    "إضافة روابط hreflang للترجمات المنشورة إلى ترويسة الصفحة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Must be a list of languages.",
+                "forms": [
+                    "يجب أن تكون قائمة لغات."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Locale and address prefix must be text.",
+                "forms": [
+                    "يجب أن تكون المحلية وبادئة العنوان نصًا."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Row %d",
+                "forms": [
+                    "الصف %d"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: the address prefix must be 2–3 lowercase letters, optionally with a hyphen and 2 letters (en, ar, pt-br).",
+                "forms": [
+                    "%s: يجب أن تكون بادئة العنوان حرفين أو ثلاثة أحرف لاتينية صغيرة، اختياريًا مع شَرطة وحرفين (en، ar، pt-br)."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: enter a WordPress locale such as en_US, de_DE or ar.",
+                "forms": [
+                    "%s: أدخل محلية ووردبريس مثل en_US أو de_DE أو ar."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: each locale and each address prefix can be used by one language only.",
+                "forms": [
+                    "%s: لا يمكن أن تستخدم كل محلية وكل بادئة عنوان إلا لغة واحدة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: names must be text of at most 60 characters.",
+                "forms": [
+                    "%s: يجب أن تكون الأسماء نصًا لا يتجاوز 60 حرفًا."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: the direction must be left to right or right to left.",
+                "forms": [
+                    "%s: يجب أن يكون الاتجاه من اليسار إلى اليمين أو من اليمين إلى اليسار."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%s: the order must be a whole number from 0 to 999.",
+                "forms": [
+                    "%s: يجب أن يكون الترتيب عددًا صحيحًا من 0 إلى 999."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Choose exactly one default language.",
+                "forms": [
+                    "اختر لغة افتراضية واحدة بالضبط."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The default language cannot be removed. Choose another default language first.",
+                "forms": [
+                    "لا يمكن إزالة اللغة الافتراضية. اختر لغة افتراضية أخرى أولًا."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Configure at least one language.",
+                "forms": [
+                    "أعدّ لغة واحدة على الأقل."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "At most %d languages can be configured.",
+                "forms": [
+                    "يمكن إعداد %d لغات على الأكثر."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "“%s” is already used by WordPress (a route, feed or query variable).",
+                "forms": [
+                    "«%s» مستخدمة بالفعل في ووردبريس (مسار أو خلاصة أو متغير استعلام)."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "“%1$s” is the address of an existing entry (“%2$s”, #%3$d). Change that entry’s slug first.",
+                "forms": [
+                    "«%1$s» هو عنوان مدخل موجود («%2$s»، #%3$d). غيّر الاسم اللطيف لذلك المدخل أولًا."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "A file or folder named “%s” exists in the site folder; the web server would serve it instead of WordPress.",
+                "forms": [
+                    "يوجد ملف أو مجلد باسم «%s» في مجلد الموقع؛ سيعرضه خادم الويب بدلًا من ووردبريس."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Must be a list of modes.",
+                "forms": [
+                    "يجب أن تكون قائمة أوضاع."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Each type must be translatable or shared.",
+                "forms": [
+                    "يجب أن يكون كل نوع قابلًا للترجمة أو مشتركًا."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Must be a list of menu assignments.",
+                "forms": [
+                    "يجب أن تكون قائمة تعيينات قوائم."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "A selected menu does not exist.",
+                "forms": [
+                    "إحدى القوائم المختارة غير موجودة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Address prefix",
+                "forms": [
+                    "بادئة العنوان"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Name",
+                "forms": [
+                    "الاسم"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Native name",
+                "forms": [
+                    "الاسم الأصلي"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Order",
+                "forms": [
+                    "الترتيب"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Remove",
+                "forms": [
+                    "إزالة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "New language %d",
+                "forms": [
+                    "لغة جديدة %d"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Default language: %s",
+                "forms": [
+                    "اللغة الافتراضية: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Locale of %s",
+                "forms": [
+                    "محلية %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Address prefix of %s",
+                "forms": [
+                    "بادئة عنوان %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Name of %s",
+                "forms": [
+                    "اسم %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Native name of %s",
+                "forms": [
+                    "الاسم الأصلي لـ %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Text direction of %s",
+                "forms": [
+                    "اتجاه كتابة %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "From the locale",
+                "forms": [
+                    "من المحلية"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Order of %s",
+                "forms": [
+                    "ترتيب %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Remove %s",
+                "forms": [
+                    "إزالة %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Content type",
+                "forms": [
+                    "نوع المحتوى"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Taxonomy",
+                "forms": [
+                    "التصنيف"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable",
+                "forms": [
+                    "قابل للترجمة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shared",
+                "forms": [
+                    "مشترك"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The active theme has no classic menu locations. With a block theme, make Navigation menus translatable above and add a translation of each menu, or place a Language section block around language-specific content.",
+                "forms": [
+                    "لا يحتوي القالب النشط على مواقع قوائم كلاسيكية. في قالب المكوّنات، اجعل قوائم التنقل قابلة للترجمة أعلاه وأضف ترجمة لكل قائمة، أو ضع مكوّن قسم اللغة حول المحتوى الخاص بكل لغة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Add a second language to assign menus per language.",
+                "forms": [
+                    "أضف لغة ثانية لتعيين القوائم لكل لغة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Same as default language",
+                "forms": [
+                    "مثل اللغة الافتراضية"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The entry does not exist.",
+                "forms": [
+                    "المدخل غير موجود."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Entries of this type are shared by all languages.",
+                "forms": [
+                    "مدخلات هذا النوع مشتركة بين كل اللغات."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "This language is not configured.",
+                "forms": [
+                    "هذه اللغة غير مُعدّة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Another entry of this translation group already has this language.",
+                "forms": [
+                    "مدخل آخر في مجموعة الترجمة هذه له هذه اللغة بالفعل."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "An entry can have only one language.",
+                "forms": [
+                    "لا يمكن أن يكون للمدخل إلا لغة واحدة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Every translation must be an existing entry in a configured language.",
+                "forms": [
+                    "يجب أن تكون كل ترجمة مدخلًا موجودًا بلغة مُعدّة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translations must be entries of the same content type.",
+                "forms": [
+                    "يجب أن تكون الترجمات مدخلات من نوع المحتوى نفسه."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Nothing to link.",
+                "forms": [
+                    "لا شيء للربط."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Terms of this taxonomy are shared by all languages.",
+                "forms": [
+                    "مصطلحات هذا التصنيف مشتركة بين كل اللغات."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Another term of this translation group already has this language.",
+                "forms": [
+                    "مصطلح آخر في مجموعة الترجمة هذه له هذه اللغة بالفعل."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Every translation must be a different term.",
+                "forms": [
+                    "يجب أن تكون كل ترجمة مصطلحًا مختلفًا."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translations must be terms of the same translatable taxonomy in configured languages.",
+                "forms": [
+                    "يجب أن تكون الترجمات مصطلحات من التصنيف القابل للترجمة نفسه بلغات مُعدّة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Languages does not support network activation. Activate it on individual sites.",
+                "forms": [
+                    "لا يدعم Cradle Languages التفعيل على مستوى الشبكة. فعّله على كل موقع على حدة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Network activation is not supported",
+                "forms": [
+                    "التفعيل على مستوى الشبكة غير مدعوم"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "No Polylang languages were found in the database.",
+                "forms": [
+                    "لم يُعثر على لغات Polylang في قاعدة البيانات."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang has more than %d languages; Cradle Languages supports at most that many.",
+                "forms": [
+                    "لدى Polylang أكثر من %d لغات؛ ولا يدعم Cradle Languages أكثر من هذا العدد."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The Polylang language code “%s” cannot be used as an address prefix (2–3 lowercase letters, optionally -xx).",
+                "forms": [
+                    "لا يمكن استخدام رمز لغة Polylang «%s» بادئةً للعنوان (حرفان أو ثلاثة أحرف لاتينية صغيرة، واختياريًا ‎-xx)."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The Polylang language “%s” has no valid locale.",
+                "forms": [
+                    "ليس للغة Polylang «%s» محلية صالحة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang did not use directory prefixes (it used the content, subdomains or domains). Cradle Languages serves languages under /<prefix>/; addresses of other languages change.",
+                "forms": [
+                    "لم يستخدم Polylang بادئات المجلدات (بل المحتوى أو النطاقات الفرعية أو النطاقات). يعرض Cradle Languages اللغات تحت ‎/<prefix>/‎؛ وتتغيّر عناوين اللغات الأخرى."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang added /language/ before the prefix; Cradle Languages serves /<prefix>/ directly.",
+                "forms": [
+                    "أضاف Polylang ‎/language/‎ قبل البادئة؛ يعرض Cradle Languages ‎/<prefix>/‎ مباشرة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%d language assignment points to an entry that no longer exists; it is skipped.",
+                "msgidPlural": "%d language assignments point to entries that no longer exist; they are skipped.",
+                "forms": [
+                    "لا توجد تعيينات لغة تشير إلى مدخلات محذوفة (%d).",
+                    "تعيين لغة واحد (%d) يشير إلى مدخل لم يعد موجودًا؛ سيُتخطّى.",
+                    "تعيينا لغة (%d) يشيران إلى مدخلات لم تعد موجودة؛ سيُتخطّيان.",
+                    "%d تعيينات لغة تشير إلى مدخلات لم تعد موجودة؛ ستُتخطّى.",
+                    "%d تعيينًا للغة يشير إلى مدخلات لم تعد موجودة؛ ستُتخطّى.",
+                    "%d تعيين لغة يشير إلى مدخلات لم تعد موجودة؛ ستُتخطّى."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "%d translation group refers to missing entries or entries in another language; those links are skipped.",
+                "msgidPlural": "%d translation groups refer to missing entries or entries in another language; those links are skipped.",
+                "forms": [
+                    "لا توجد مجموعات ترجمة تشير إلى مدخلات مفقودة (%d).",
+                    "مجموعة ترجمة واحدة (%d) تشير إلى مدخلات مفقودة أو بلغة أخرى؛ ستُتخطّى تلك الروابط.",
+                    "مجموعتا ترجمة (%d) تشيران إلى مدخلات مفقودة أو بلغة أخرى؛ ستُتخطّى تلك الروابط.",
+                    "%d مجموعات ترجمة تشير إلى مدخلات مفقودة أو بلغة أخرى؛ ستُتخطّى تلك الروابط.",
+                    "%d مجموعةً للترجمة تشير إلى مدخلات مفقودة أو بلغة أخرى؛ ستُتخطّى تلك الروابط.",
+                    "%d مجموعة ترجمة تشير إلى مدخلات مفقودة أو بلغة أخرى؛ ستُتخطّى تلك الروابط."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The Polylang data changed since the dry run. Run the dry run again and review it before importing.",
+                "forms": [
+                    "تغيّرت بيانات Polylang منذ التشغيل التجريبي. أعد التشغيل التجريبي وراجعه قبل الاستيراد."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You must be signed in.",
+                "forms": [
+                    "يجب أن تكون مسجّل الدخول."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to change this entry.",
+                "forms": [
+                    "لا يُسمح لك بتغيير هذا المدخل."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to create entries of this type.",
+                "forms": [
+                    "لا يُسمح لك بإنشاء مدخلات من هذا النوع."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to change one of these entries.",
+                "forms": [
+                    "لا يُسمح لك بتغيير أحد هذه المدخلات."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The entry itself must keep its language.",
+                "forms": [
+                    "يجب أن يحتفظ المدخل نفسه بلغته."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "(home page, this page is not translated)",
+                "forms": [
+                    "(الصفحة الرئيسية، هذه الصفحة غير مترجمة)"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Save the entry before adding a translation.",
+                "forms": [
+                    "احفظ المدخل قبل إضافة ترجمة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "You are not allowed to translate this entry.",
+                "forms": [
+                    "لا يُسمح لك بترجمة هذا المدخل."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "The entry is already in this language.",
+                "forms": [
+                    "المدخل بهذه اللغة بالفعل."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "A translation of this entry is being created. Wait a moment and reload.",
+                "forms": [
+                    "تُنشأ ترجمة لهذا المدخل الآن. انتظر لحظة ثم أعد تحميل الصفحة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "A translation in this language already exists.",
+                "forms": [
+                    "توجد ترجمة بهذه اللغة بالفعل."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Cradle Languages",
+                "context": "module name",
+                "forms": [
+                    "لغات Cradle"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Multilingual content and routing: languages with URL prefixes, linked translations, language switcher, hreflang and menus per language.",
+                "context": "module description",
+                "forms": [
+                    "محتوى وتوجيه متعدد اللغات: لغات ببادئات عناوين، وترجمات مرتبطة، ومبدّل لغة، وhreflang، وقوائم لكل لغة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Manage languages",
+                "context": "capability label",
+                "forms": [
+                    "إدارة اللغات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "none",
+                "context": "empty list",
+                "forms": [
+                    "لا شيء"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shared content types (one entry for every language): %s",
+                "forms": [
+                    "أنواع محتوى مشتركة (إدخال واحد لكل اللغات): %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Translatable taxonomies: %s",
+                "forms": [
+                    "تصنيفات قابلة للترجمة: %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shared taxonomies (one term for every language): %s",
+                "forms": [
+                    "تصنيفات مشتركة (عنصر واحد لكل اللغات): %s"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang translates the content type “%s”, which Cradle Languages cannot configure here (it is not registered, or it is neither public nor shown in the admin). Its entries get no language; if it is registered by a plugin or theme that is not active, activate it and run the import again.",
+                "forms": [
+                    "يترجم Polylang نوع المحتوى «%s»، ولا يستطيع Cradle Languages ضبطه هنا (فهو غير مسجّل، أو ليس عامًا ولا يظهر في لوحة الإدارة). لن تحصل إدخالاته على لغة؛ إن كانت إضافة أو سمة غير مفعّلة تسجّله، ففعّلها ثم شغّل الاستيراد مرة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Polylang translates the taxonomy “%s”, which Cradle Languages cannot configure here (it is not registered or not public). Its terms get no language; if it is registered by a plugin or theme that is not active, activate it and run the import again.",
+                "forms": [
+                    "يترجم Polylang التصنيف «%s»، ولا يستطيع Cradle Languages ضبطه هنا (فهو غير مسجّل أو ليس عامًا). لن تحصل عناصره على لغة؛ إن كانت إضافة أو سمة غير مفعّلة تسجّله، ففعّلها ثم شغّل الاستيراد مرة أخرى."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language section",
+                "context": "block title",
+                "forms": [
+                    "قسم اللغة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Language switcher",
+                "context": "block title",
+                "forms": [
+                    "مبدّل اللغة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Shows the blocks inside it only in the languages you select.",
+                "context": "block description",
+                "forms": [
+                    "يعرض الكتل الموجودة بداخله في اللغات التي تختارها فقط."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "Links to this page in the other languages, or to their home pages when a translation is missing.",
+                "context": "block description",
+                "forms": [
+                    "روابط إلى هذه الصفحة باللغات الأخرى، أو إلى صفحاتها الرئيسية عند عدم وجود ترجمة."
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "language",
+                "context": "block keyword",
+                "forms": [
+                    "لغة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "languages",
+                "context": "block keyword",
+                "forms": [
+                    "لغات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "translation",
+                "context": "block keyword",
+                "forms": [
+                    "ترجمة"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "multilingual",
+                "context": "block keyword",
+                "forms": [
+                    "متعدد اللغات"
+                ]
+            },
+            {
+                "domain": "cradle-languages",
+                "msgid": "conditional",
+                "context": "block keyword",
+                "forms": [
+                    "شرطي"
+                ]
+            }
+        ]
+    }
+}

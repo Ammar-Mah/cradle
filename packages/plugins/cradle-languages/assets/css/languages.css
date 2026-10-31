@@ -1,0 +1,89 @@
+/* Cradle Languages: language switcher (frontend + editor preview) and language section label (editor). Logical properties only (RTL). */
+
+.cradle-language-switcher__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25em 1em;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cradle-language-switcher__link {
+	display: inline-block;
+	padding-block: 0.25em;
+	text-decoration: none;
+}
+
+.cradle-language-switcher__link:hover,
+.cradle-language-switcher__link:focus-visible {
+	text-decoration: underline;
+}
+
+.cradle-language-switcher__link:focus-visible,
+.cradle-language-switcher__summary:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.cradle-language-switcher__item.is-current .cradle-language-switcher__link {
+	font-weight: 700;
+}
+
+.cradle-language-switcher__sr {
+	position: absolute;
+	inline-size: 1px;
+	block-size: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.cradle-language-switcher--dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.cradle-language-switcher__summary {
+	cursor: pointer;
+	padding-block: 0.25em;
+}
+
+.cradle-language-switcher--dropdown .cradle-language-switcher__list {
+	position: absolute;
+	inset-inline-start: 0;
+	inset-block-start: 100%;
+	z-index: 100;
+	flex-direction: column;
+	min-inline-size: 100%;
+	padding: 0.5em 0.75em;
+	background: var(--wp--preset--color--base, #fff);
+	color: var(--wp--preset--color--contrast, #111);
+	border: 1px solid currentColor;
+	border-radius: 4px;
+}
+
+.cradle-language-switcher--dropdown .cradle-language-switcher__link {
+	white-space: nowrap;
+}
+
+.cradle-language-section-editor {
+	padding-inline-start: 0.75em;
+	border-inline-start: 3px solid #3858e9;
+}
+
+.cradle-language-section-editor__label {
+	margin-block: 0 0.5em;
+	font-size: 12px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	color: #3858e9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cradle-language-switcher * {
+		transition: none !important;
+	}
+}

@@ -1,0 +1,73 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle-forms/field-select",
+	"version": "1.0.0",
+	"title": "Dropdown field",
+	"category": "cradle-forms",
+	"icon": "menu-alt",
+	"description": "One choice from a dropdown list.",
+	"keywords": [
+		"form",
+		"field",
+		"select"
+	],
+	"textdomain": "cradle-forms",
+	"attributes": {
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"help": {
+			"type": "string",
+			"default": ""
+		},
+		"placeholder": {
+			"type": "string",
+			"default": ""
+		},
+		"required": {
+			"type": "boolean",
+			"default": false
+		},
+		"width": {
+			"type": "string",
+			"enum": [
+				"full",
+				"half"
+			],
+			"default": "full"
+		},
+		"choices": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"label": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"defaultValue": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"className": false,
+		"customClassName": false
+	},
+	"editorScript": "cradle-forms-fields",
+	"editorStyle": "cradle-forms-editor"
+}

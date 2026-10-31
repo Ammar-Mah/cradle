@@ -1,0 +1,227 @@
+/* Cradle Forms — front end. Logical properties only (works left-to-right and right-to-left).
+ * Colours inherit from the theme; custom properties allow child themes to adjust without overrides. */
+
+.cradle-form {
+	--cradle-form-gap: 1.25rem;
+	--cradle-form-border: color-mix(in srgb, currentColor 35%, transparent);
+	--cradle-form-error: #b3261e;
+	--cradle-form-focus: #1d4ed8;
+	--cradle-form-radius: 4px;
+	max-inline-size: 100%;
+}
+
+.cradle-form__title {
+	margin-block: 0 var(--cradle-form-gap);
+}
+
+.cradle-form__fields {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cradle-form-gap);
+	align-items: flex-start;
+}
+
+.cradle-form__fields > * {
+	flex: 1 1 100%;
+	margin-block: 0;
+	min-inline-size: 0;
+}
+
+.cradle-form__fields > .cradle-form__field--half {
+	flex: 1 1 calc(50% - var(--cradle-form-gap));
+}
+
+@media (max-width: 600px) {
+	.cradle-form__fields > .cradle-form__field--half {
+		flex-basis: 100%;
+	}
+}
+
+.cradle-form__field {
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.cradle-form__label {
+	display: block;
+	font-weight: 600;
+	margin-block-end: 0.35rem;
+	padding: 0;
+}
+
+.cradle-form__required {
+	color: var(--cradle-form-error);
+}
+
+.cradle-form__help,
+.cradle-form__hint {
+	font-size: 0.9em;
+	margin-block: 0 0.4rem;
+	opacity: 0.85;
+}
+
+.cradle-form__hint {
+	margin-block: 0.35rem 0;
+}
+
+.cradle-form__input {
+	box-sizing: border-box;
+	display: block;
+	inline-size: 100%;
+	padding-block: 0.6rem;
+	padding-inline: 0.75rem;
+	border: 1px solid var(--cradle-form-border);
+	border-radius: var(--cradle-form-radius);
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	line-height: 1.4;
+}
+
+textarea.cradle-form__input {
+	resize: vertical;
+	min-block-size: 6rem;
+}
+
+input[type="file"].cradle-form__input {
+	padding-block: 0.45rem;
+}
+
+.cradle-form__choices {
+	display: grid;
+	gap: 0.4rem;
+}
+
+.cradle-form__choice {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+}
+
+.cradle-form__choice input {
+	flex: none;
+	inline-size: 1.15rem;
+	block-size: 1.15rem;
+	margin: 0.15rem 0 0;
+	accent-color: currentColor;
+}
+
+.cradle-form__consent-label a {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.cradle-form__input:focus-visible,
+.cradle-form__choice input:focus-visible,
+.cradle-form__submit:focus-visible,
+.cradle-form__summary:focus,
+.cradle-form__summary a:focus-visible,
+.cradle-form__confirmation:focus {
+	outline: 3px solid var(--cradle-form-focus);
+	outline-offset: 2px;
+}
+
+.cradle-form__field.has-error .cradle-form__input,
+.cradle-form__field .cradle-form__input[aria-invalid="true"] {
+	border-color: var(--cradle-form-error);
+	border-width: 2px;
+}
+
+.cradle-form__error {
+	color: var(--cradle-form-error);
+	font-weight: 600;
+	margin-block: 0.35rem 0;
+}
+
+.cradle-form__error[hidden] {
+	display: none;
+}
+
+.cradle-form__summary {
+	border: 3px solid var(--cradle-form-error);
+	border-radius: var(--cradle-form-radius);
+	padding-block: 1rem;
+	padding-inline: 1.25rem;
+	margin-block-end: var(--cradle-form-gap);
+}
+
+.cradle-form__summary[hidden] {
+	display: none;
+}
+
+.cradle-form__summary-title {
+	font-size: 1.15em;
+	margin-block: 0 0.5rem;
+}
+
+.cradle-form__summary-list {
+	margin: 0;
+	padding-inline-start: 1.25rem;
+}
+
+.cradle-form__summary-list a {
+	color: var(--cradle-form-error);
+	font-weight: 600;
+}
+
+.cradle-form__actions {
+	margin-block-start: var(--cradle-form-gap);
+}
+
+.cradle-form__submit[disabled] {
+	opacity: 0.6;
+	cursor: progress;
+}
+
+.cradle-form__status:empty {
+	display: none;
+}
+
+.cradle-form__confirmation {
+	border-inline-start: 4px solid currentColor;
+	padding-block: 0.75rem;
+	padding-inline: 1rem;
+}
+
+.cradle-form__confirmation > :first-child {
+	margin-block-start: 0;
+}
+
+.cradle-form__confirmation > :last-child {
+	margin-block-end: 0;
+}
+
+/* Visually hidden but announced. */
+.cradle-form__sr {
+	position: absolute !important;
+	inline-size: 1px;
+	block-size: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* Honeypot: off-screen for people and assistive technology, visible to naive bots. */
+.cradle-form__hp {
+	position: absolute !important;
+	inset-inline-start: -10000px;
+	inline-size: 1px;
+	block-size: 1px;
+	overflow: hidden;
+}
+
+.cradle-form-notice {
+	border: 1px dashed currentColor;
+	padding: 0.75rem 1rem;
+	font-size: 0.95em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.cradle-form__input {
+		transition: border-color 0.15s ease;
+	}
+}

@@ -1,0 +1,50 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle-forms/field-consent",
+	"version": "1.0.0",
+	"title": "Consent checkbox",
+	"category": "cradle-forms",
+	"icon": "shield",
+	"description": "A checkbox the visitor ticks to agree. The exact text, a hash of it, the language and the time are stored with the entry.",
+	"keywords": [
+		"form",
+		"field",
+		"consent"
+	],
+	"textdomain": "cradle-forms",
+	"attributes": {
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"help": {
+			"type": "string",
+			"default": ""
+		},
+		"required": {
+			"type": "boolean",
+			"default": true
+		},
+		"width": {
+			"type": "string",
+			"enum": [
+				"full",
+				"half"
+			],
+			"default": "full"
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"className": false,
+		"customClassName": false
+	},
+	"editorScript": "cradle-forms-fields",
+	"editorStyle": "cradle-forms-editor"
+}

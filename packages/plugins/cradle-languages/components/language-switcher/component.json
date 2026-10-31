@@ -1,0 +1,29 @@
+{
+	"schemaVersion": 1,
+	"id": "cradle/language-switcher",
+	"version": "1.0.0",
+	"owner": "cradle-languages",
+	"title": "Language switcher",
+	"description": "Links to the current page in each configured language (its published translation, or that language's home page when there is none).",
+	"category": "navigation",
+	"properties": {
+		"layout": { "type": "string", "enum": [ "list", "dropdown" ], "default": "list" },
+		"display": { "type": "string", "enum": [ "native", "name", "slug", "native_slug" ], "default": "native" },
+		"hideMissing": { "type": "boolean", "default": false },
+		"hideCurrent": { "type": "boolean", "default": false },
+		"label": { "type": "string", "default": "", "maxLength": 80 }
+	},
+	"slots": [],
+	"adapters": {
+		"gutenberg": { "blockName": "cradle/language-switcher" },
+		"shortcode": true
+	},
+	"assets": {
+		"styleHandles": [ "cradle-languages" ],
+		"viewScriptHandles": []
+	},
+	"renderContract": "language-switcher-v1",
+	"themeOverride": "cradle/components/language-switcher/render.php",
+	"fallbackPolicy": "none",
+	"cache": "none"
+}

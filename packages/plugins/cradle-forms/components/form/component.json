@@ -1,0 +1,26 @@
+{
+	"schemaVersion": 1,
+	"id": "cradle/form",
+	"version": "1.1.0",
+	"owner": "cradle-forms",
+	"title": "Form",
+	"description": "Embeds a published Cradle form. Server-rendered <form method=\"post\"> that works without JavaScript; the view script cradle-forms-view submits it in place with fetch() to the REST route. Select the form by formId, or by formSlug (its address name, ^[a-z0-9-]{1,200}$, for theme templates where IDs differ per site; formId wins). With Cradle Languages active, the form's translation in the current language is rendered when it exists (a slug resolves to the default-language form first).",
+	"category": "forms",
+	"properties": {
+		"formId": { "type": "integer", "format": "post", "minimum": 0, "default": 0 },
+		"formSlug": { "type": "string", "maxLength": 200, "default": "" },
+		"showTitle": { "type": "boolean", "default": false }
+	},
+	"slots": [],
+	"adapters": {
+		"gutenberg": { "blockName": "cradle/form" },
+		"shortcode": true
+	},
+	"assets": {
+		"styleHandles": [ "cradle-forms" ],
+		"viewScriptHandles": [ "cradle-forms-view" ]
+	},
+	"renderContract": "form-v1",
+	"fallbackPolicy": "none",
+	"cache": "none"
+}

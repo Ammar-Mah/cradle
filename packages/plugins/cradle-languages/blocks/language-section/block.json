@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle/language-section",
+	"version": "1.0.0",
+	"title": "Language section",
+	"category": "cradle",
+	"icon": "translation",
+	"description": "Shows the blocks inside it only in the languages you select.",
+	"keywords": [ "language", "languages", "translation", "multilingual", "conditional" ],
+	"textdomain": "cradle-languages",
+	"attributes": {
+		"languages": { "type": "array", "items": { "type": "string" }, "default": [] }
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"editorScript": "file:./editor.js",
+	"editorStyle": "cradle-languages"
+}

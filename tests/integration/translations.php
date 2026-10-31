@@ -1159,9 +1159,18 @@ cradle_test(
 		$framework = array( 'cradle', 'cradle-admin', 'cradle-blocks', 'cradle-content', 'cradle-dummy-content', 'cradle-duplicate', 'cradle-login', 'cradle-migration', 'cradle-social', 'cradle-translations' );
 		$manifest  = Extractor::build_manifest();
 		$sources   = array();
+		$owners    = array(); // Registered label origin (registry/module/<id>, registry/capability/<cap>) => plugin folder.
+		foreach ( cradle()->modules()->all() as $id => $descriptor ) {
+			$owners[ 'registry/module/' . $id ] = dirname( plugin_basename( (string) $descriptor['pluginFile'] ) );
+			foreach ( array_keys( (array) $descriptor['capabilities'] ) as $cap ) {
+				$owners[ 'registry/capability/' . $cap ] = $owners[ 'registry/module/' . $id ];
+			}
+		}
+		// Add-ons outside the built-in example set ship their own translations.
+		$add_on_label = static fn( array $e ): bool => 'registered' === ( $e['source'] ?? '' ) && isset( $owners[ $e['references'][0] ?? '' ] ) && ! in_array( $owners[ $e['references'][0] ], $framework, true );
 		foreach ( $manifest['entries'] as $e ) {
 			// Labels of a site's own Cradle Content definitions are site data, not framework strings.
-			if ( in_array( $e['domain'], $framework, true ) && ! ( 'registered' === ( $e['source'] ?? '' ) && 'cradle-content' === $e['domain'] ) ) {
+			if ( in_array( $e['domain'], $framework, true ) && ! ( 'registered' === ( $e['source'] ?? '' ) && 'cradle-content' === $e['domain'] ) && ! $add_on_label( $e ) ) {
 				$sources[ Catalog::identity( $e['domain'], $e['msgid'], '' === (string) $e['context'] ? null : $e['context'], '' === (string) $e['msgidPlural'] ? null : $e['msgidPlural'] ) ] = $e;
 			}
 		}
@@ -1186,7 +1195,7 @@ cradle_test(
 			$untranslated = array();
 			foreach ( $framework as $domain ) {
 				foreach ( $catalog['domains'][ $domain ] ?? array() as $entry ) {
-					if ( empty( $entry['obsolete'] ) && ! $entry['translations'] && null === $entry['draft'] && ! ( 'registered' === $entry['source'] && 'cradle-content' === $domain ) ) {
+					if ( empty( $entry['obsolete'] ) && ! $entry['translations'] && null === $entry['draft'] && ! ( 'registered' === $entry['source'] && 'cradle-content' === $domain ) && ! $add_on_label( $entry ) ) {
 						$untranslated[] = $domain . ': ' . $entry['msgid'];
 					}
 				}

@@ -1,0 +1,99 @@
+/* Cradle Forms — editor previews of field blocks and the document panels. Logical properties only. */
+
+.cradle-forms-field-preview {
+	border: 1px dashed rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+	padding-block: 0.75rem;
+	padding-inline: 1rem;
+	margin-block: 0.75rem;
+}
+
+.cradle-forms-field-preview.is-half {
+	max-inline-size: calc(50% - 0.5rem);
+}
+
+.cradle-forms-field-preview.has-problem {
+	border-color: #b3261e;
+	border-style: solid;
+}
+
+.cradle-forms-field-preview__label-row {
+	font-weight: 600;
+	margin-block-end: 0.35rem;
+}
+
+.cradle-forms-field-preview__required {
+	color: #b3261e;
+}
+
+.cradle-forms-field-preview__help,
+.cradle-forms-field-preview__hint {
+	font-size: 0.9em;
+	opacity: 0.8;
+	margin-block: 0 0.35rem;
+}
+
+.cradle-forms-field-preview__control {
+	box-sizing: border-box;
+	inline-size: 100%;
+	pointer-events: none;
+}
+
+.cradle-forms-field-preview__choices {
+	display: grid;
+	gap: 0.25rem;
+}
+
+.cradle-forms-field-preview__consent {
+	display: flex;
+	gap: 0.5rem;
+	align-items: flex-start;
+}
+
+.cradle-forms-field-preview__consent .cradle-forms-field-preview__label {
+	flex: 1;
+}
+
+.cradle-forms-field-preview__hidden {
+	margin: 0;
+	font-family: monospace;
+	font-size: 0.9em;
+}
+
+.cradle-forms-choices__row,
+.cradle-forms-route,
+.cradle-forms-notification {
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	padding: 0.5rem 0.75rem 0.75rem;
+	margin-block: 0 0.75rem;
+}
+
+.cradle-forms-choices__row > legend,
+.cradle-forms-route > legend,
+.cradle-forms-notification > legend {
+	font-weight: 600;
+	padding-inline: 0.25rem;
+}
+
+.cradle-forms-choices__row .components-base-control,
+.cradle-forms-route .components-base-control,
+.cradle-forms-notification .components-base-control,
+.cradle-forms-panel .components-base-control {
+	margin-block-end: 0.75rem;
+}
+
+.cradle-forms-choices__tools {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+}
+
+.cradle-forms-panel__note {
+	font-size: 12px;
+	opacity: 0.85;
+}
+
+.cradle-form-block .components-disabled {
+	pointer-events: none;
+}

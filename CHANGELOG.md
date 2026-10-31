@@ -2,6 +2,40 @@
 
 All Cradle packages share this changelog; each package keeps its own version header.
 
+## Unreleased — 2026-10-31
+
+- `cradle-languages` 0.1.0 (new): **multilingual content and routing.** Up to 10 languages with `/xx/` URL
+  prefixes (the default language unprefixed), linked translations of posts, pages, Cradle Content entries and
+  terms ("Add translation" in the editor's Language panel creates a linked draft copy), content types and
+  taxonomies translatable or shared, front page and posts page per language, language-filtered lists, Query
+  Loop, post cards and search, a **Language switcher** block, a **Language section** block for per-language
+  template text, `hreflang` alternates, language-aware sitemaps and classic menu locations per language. The
+  request language sets the WordPress locale, so language packs and Cradle Translations catalogs apply on
+  each language's pages, with text direction from the language settings. No rewrite rules: the prefix is
+  stripped while WordPress parses the request; deactivating restores every original URL. Includes a Polylang
+  import (dry run first, repeatable, Polylang data left untouched; admin screen and CLI script) that maps
+  every content type and taxonomy explicitly (translated by Polylang → translatable, otherwise shared) and
+  warns about types it cannot configure. Custom types with an admin screen (`show_ui`) can be set
+  translatable; plugins can also opt a type in with the post type support `cradle-languages`. Public API
+  includes `cradle_get_translation()`, `cradle_get_term_translation()` and `cradle_language_switcher_items()`.
+- `cradle-forms` 0.1.0 (new): **forms built in the block editor, entries stored on the site.** Thirteen field
+  blocks (text, email, phone, URL, number, textarea, select, radio, checkboxes, date, consent, file, hidden), a
+  **Form** block and `[cradle_form id=""]`; works without JavaScript (Post/Redirect/Get) and with it (REST).
+  Notifications with routing rules, honeypot, minimum fill time, rate limit and same-origin checks; consent
+  stored with the exact text, a text version hash, the language and the time; file uploads checked by
+  extension, content and signature, stored in Cradle's private storage under random names and downloadable
+  only by authorized users; entries list, detail, CSV export (formula cells neutralised), retention and the
+  WordPress privacy exporter and eraser for the submitter's own email field. Each entry records the page it
+  was sent from ("Sent from"). With Cradle Languages, forms are translatable: "Add translation" copies a form
+  with its settings, and the Form block shows the version in the page's language. Theme files embed a form by
+  slug (`<!-- wp:cradle/form {"formSlug":"contact"} /-->`, `[cradle_form slug=""]`). Based on code from the
+  Complaint Management System by WND (GPL-2.0-or-later), with its review findings fixed.
+- Both new add-ons are self-contained: installing them changes no other Cradle package. Each ships its own
+  German and Arabic translations in `languages/` (PHP translation files and script translations, generated
+  by `bin/build-languages.php` from `languages/<text-domain>.json`) and translates its own module labels
+  through `cradle/translate_label`, with or without Cradle Translations. They appear after the other Cradle
+  screens in the Cradle menu.
+
 ## Unreleased — 2026-09-29
 
 - `cradle-migration` 0.3.0: **the site language and right-to-left layout survive a move.** Exports now carry

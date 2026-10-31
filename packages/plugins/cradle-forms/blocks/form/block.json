@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle/form",
+	"version": "1.1.0",
+	"title": "Form",
+	"category": "cradle",
+	"icon": "feedback",
+	"description": "Show a form built under Cradle → Forms. Submissions are validated on the server, stored as entries and sent as notifications.",
+	"keywords": [ "form", "contact", "newsletter", "application" ],
+	"textdomain": "cradle-forms",
+	"attributes": {
+		"formId": { "type": "integer", "default": 0 },
+		"formSlug": { "type": "string", "default": "" },
+		"showTitle": { "type": "boolean", "default": false }
+	},
+	"supports": {
+		"html": false,
+		"anchor": false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": [ "top", "bottom" ], "padding": true }
+	},
+	"editorScript": "file:./editor.js",
+	"style": "cradle-forms"
+}

@@ -1,0 +1,62 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle-forms/field-email",
+	"version": "1.0.0",
+	"title": "Email field",
+	"category": "cradle-forms",
+	"icon": "email",
+	"description": "An email address, validated on the server.",
+	"keywords": [
+		"form",
+		"field",
+		"email"
+	],
+	"textdomain": "cradle-forms",
+	"attributes": {
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"help": {
+			"type": "string",
+			"default": ""
+		},
+		"placeholder": {
+			"type": "string",
+			"default": ""
+		},
+		"required": {
+			"type": "boolean",
+			"default": false
+		},
+		"width": {
+			"type": "string",
+			"enum": [
+				"full",
+				"half"
+			],
+			"default": "full"
+		},
+		"submitterEmail": {
+			"type": "boolean",
+			"default": false
+		},
+		"defaultValue": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"className": false,
+		"customClassName": false
+	},
+	"editorScript": "cradle-forms-fields",
+	"editorStyle": "cradle-forms-editor"
+}

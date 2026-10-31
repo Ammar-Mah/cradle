@@ -162,6 +162,33 @@ WooCommerce, such as buttons, labels and messages. It does not translate your pa
 3. Your changes are saved as drafts. Publish them to make them live.
 4. Under **Import & export**, you can move translations as JSON or `.po`/`.pot` files.
 
+### Cradle Languages
+
+Publish your content in more than one language, for example English at `/about/` and Arabic at
+`/ar/about/`. Each page or post has its own linked translation, and visitors can switch languages.
+Interface text (buttons, labels, messages) still comes from Cradle Translations.
+**How to use:** go to **Cradle → Languages**.
+
+1. Add your languages (for example English as the default and Arabic, right to left) and choose which
+   content types are translated per language and which are shared by all languages.
+2. In the editor, open the **Language** panel of a page and click **Add … translation**. A linked draft
+   copy opens; translate it and publish.
+3. Add the **Language switcher** block to your header. Use the **Language section** block for template
+   text that differs per language, such as a footer address.
+4. Moving from Polylang? Use **Import from Polylang**: check first, then import, then deactivate Polylang.
+
+### Cradle Forms
+
+Contact forms, newsletter sign-ups and applications with file uploads. Entries are stored on your own
+site, and no data is sent to outside services.
+**How to use:** go to **Cradle → Forms**.
+
+1. Click **Add form** and build it from field blocks (text, email, choices, consent, file…). Set the
+   confirmation message, the email notifications and who receives them in the right-hand sidebar.
+2. Publish the form, then add the **Form** block to a page and pick the form.
+3. Read and export entries under **Cradle → Forms**. Uploaded files are private and can be downloaded
+   only by administrators.
+
 ### Cradle Migration
 
 Back up a whole site in one file, or move it to another domain, folder or server.

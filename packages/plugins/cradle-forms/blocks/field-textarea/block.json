@@ -1,0 +1,66 @@
+{
+	"$schema": "https://schemas.wp.org/wp/7.1/block.json",
+	"apiVersion": 3,
+	"name": "cradle-forms/field-textarea",
+	"version": "1.0.0",
+	"title": "Paragraph field",
+	"category": "cradle-forms",
+	"icon": "editor-paragraph",
+	"description": "Several lines of text.",
+	"keywords": [
+		"form",
+		"field",
+		"textarea"
+	],
+	"textdomain": "cradle-forms",
+	"attributes": {
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"help": {
+			"type": "string",
+			"default": ""
+		},
+		"placeholder": {
+			"type": "string",
+			"default": ""
+		},
+		"required": {
+			"type": "boolean",
+			"default": false
+		},
+		"width": {
+			"type": "string",
+			"enum": [
+				"full",
+				"half"
+			],
+			"default": "full"
+		},
+		"maxLength": {
+			"type": "integer",
+			"default": 5000
+		},
+		"rows": {
+			"type": "integer",
+			"default": 5
+		},
+		"defaultValue": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"className": false,
+		"customClassName": false
+	},
+	"editorScript": "cradle-forms-fields",
+	"editorStyle": "cradle-forms-editor"
+}

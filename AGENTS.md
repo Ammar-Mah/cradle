@@ -48,6 +48,8 @@ types are Cradle Content definitions), whose own `northstar.md` defines that web
 - Keep credentials, salts, cookies, customer data and private archives out of source, notes and logs.
 - New or changed interface strings in framework packages need German and Arabic entries in
   `packages/plugins/cradle-translations/examples/{de_DE,ar}.json` (built-in example languages; the translations suite fails otherwise).
+  Exception: add-ons that ship their own translations in `languages/` (Cradle Languages, Cradle Forms) add the entries to
+  `languages/<text-domain>.json` and regenerate with `php packages/plugins/<package>/bin/build-languages.php`.
 
 ## Work cycle
 
